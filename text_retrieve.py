@@ -92,7 +92,8 @@ class FullTextDownloader:
 if __name__ == '__main__':
     
     pub_prefix = {"RSC": "10.1039", "ACS": "10.1021", "Nature":"10.1038", "Science":"10.1126", "Frontiers":"10.3389", "MDPI":"10.3390", "Wiley": "10.1002", "Springer":"10.1007", "TandF":"10.1080", "Elsevier":"10.1016"}
-    save_dir = r"C:\Users\Piotr\MRes_project\full_texts_test"
+    save_dir_laptop = r"C:\Users\Piotr\MRes_project\full_texts_test"
+    save_dir = r("OneDrive\ -\ Imperial\ College\ London") 
     my_api_key  = "4c35b0bb7a3b3dd148b4561345bdf7d9"
     downloader = FullTextDownloader(pub_prefix,my_api_key)
     with open(r"C:\Users\Piotr\MRes_project\DOIs_test\doi_2.txt",'r') as file:
