@@ -41,7 +41,9 @@ class FullTextDownloader:
         ).text
         if doi:
             with open(
-                save_dir + "\\" + doi.replace("/", "-")+'.txt', "w+", encoding="utf-8"
+                # save_dir + "\\" + doi.replace("/", "-")+'.txt', "w+", encoding="utf-8"  #save method for windows laptop
+                save_dir + doi.replace("/", "-")+'.txt', "w+", encoding="utf-8"  #save method for mac
+
             ) as save_file:
                 save_file.write(article)
         else:
@@ -75,14 +77,16 @@ class FullTextDownloader:
             print('URLs from Science get 403 error')
     
     def web_scrape(self,doi,link,save_dir):
-        options = Options()
-        options.binary_location = r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
-        driver = webdriver.Firefox(executable_path=r"C:\Users\Piotr\geckodriver.exe", options=options)
+        # options = Options()
+        # options.binary_location = r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe"      #stuff for webdriver to work on windows laptop
+        # driver = webdriver.Firefox(executable_path=r"C:\Users\Piotr\geckodriver.exe", options=options)
+        driver = webdriver.Firefox()
         driver.get(link)
         page = driver.page_source.encode('utf-8')
         # driver.close()
         with open(
-            save_dir +'\\'+ doi.replace('/','-') +'.txt', 'wb'
+            # save_dir +'\\'+ doi.replace('/','-') +'.txt', 'wb'   #save method for windows laptop
+            save_dir + doi.replace("/", "-") + ".txt", "wb"   #save method for mac
             ) as save_file:
             save_file.write(page)
             save_file.close()
@@ -92,11 +96,11 @@ class FullTextDownloader:
 if __name__ == '__main__':
     
     pub_prefix = {"RSC": "10.1039", "ACS": "10.1021", "Nature":"10.1038", "Science":"10.1126", "Frontiers":"10.3389", "MDPI":"10.3390", "Wiley": "10.1002", "Springer":"10.1007", "TandF":"10.1080", "Elsevier":"10.1016"}
-    save_dir_laptop = r"C:\Users\Piotr\MRes_project\full_texts_test"
-    save_dir = r("OneDrive\ -\ Imperial\ College\ London") 
+    # save_dir_laptop = r"C:\Users\Piotr\MRes_project\full_texts_test"
+    save_dir = "/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/full_text_tests/"
     my_api_key  = "4c35b0bb7a3b3dd148b4561345bdf7d9"
     downloader = FullTextDownloader(pub_prefix,my_api_key)
-    with open(r"C:\Users\Piotr\MRes_project\DOIs_test\doi_2.txt",'r') as file:
+    with open("/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/doi_test.txt",'r') as file:
         for line in file:
             if not line:
                 break
@@ -112,5 +116,3 @@ if __name__ == '__main__':
     # links = downloader.crossref_link(doi)
     # link = downloader.link_selector(doi, links)
     # downloader.web_scrape(doi, link, save_dir)
-
-
