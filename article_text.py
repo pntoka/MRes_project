@@ -106,6 +106,19 @@ def ACS_to_json(soup, doi, save_dir):
         json.dump(data, f, sort_keys = True, indent=4, ensure_ascii=False)
 
 
+def Wiley_to_json(soup, doi, save_dir):
+    '''
+    Function to extract paragraphs from Wiley xml journals and save as json file
+    '''
+    list_remove = [{'name': ['link', 'tabular']}] #removes links and tables
+    paragraph_tags = {'name': 'p'} #all relevant paragraphs are in body
+    title = soup.header.find('articleTitle').text
+    clean_body = remove_tags_soup_list(soup.body, list_remove)
+    paragraphs_clean = find_paragraphs(clean_body, paragraph_tags)
+    data = create_json_data(doi, paragraphs_clean, title)
+    with open(save_dir+doi, 'w', encoding='utf-8') as f:
+        json.dump(data, f, sort_keys = True, indent=4, ensure_ascii=False)
+
 
 
 import LimeSoup
