@@ -72,6 +72,17 @@ def create_json_data(doi,paragraphs,title):
         data['Sections']['content'].append(paragraph.text)
     return data
 
+def create_json_data_2(doi,sections,title,save_dir):
+    data = {}
+    data['DOI'] = doi.replace(doi[7],'/',1).replace('.txt','')
+    data['Journal']= ""
+    data['Keywords'] = []
+    data['Title'] = title
+    data['Sections']= sections
+    doi = doi.replace('.txt','.json')
+    with open(save_dir+doi, 'w', encoding='utf-8') as f:
+        json.dump(data, f, sort_keys = True, indent=4, ensure_ascii=False)
+
 def remove_tags_soup_list(soup_list, rules):
     '''
     Function to remove tags from a list of soup objects
@@ -111,23 +122,59 @@ def ACS_to_json(soup, doi, save_dir):
     paragraphs = find_paragraphs(soup, paragraph_tags)
     paragraphs_clean = remove_tags_soup_list(paragraphs, list_remove)
     data = create_json_data(doi, paragraphs_clean, title)
+    doi = doi.replace('.txt','.json')
     with open(save_dir+doi, 'w', encoding='utf-8') as f:
         json.dump(data, f, sort_keys = True, indent=4, ensure_ascii=False)
 
+def sections_wiley(soup, list_remove):
+    '''
+    Function to get sections from Wiley xml journals
+    '''
+    clean_body = remove_tags_soup(soup.body, list_remove)
+    section_1 = clean_body.section                              
+    sections_clean = section_1.find_next_siblings('section')    #gets all sections that are siblings of the first section (main sections)
+    sections_clean.insert(0,section_1)
+    data_dict = []
+    for section in sections_clean:
+        data = {}
+        data['name'] = section.name
+        data['type'] = section.find('title').text
+        data['content'] = []
+        if section.find('section') is not None:
+            if section.find_all(['section','p'])[0].name == 'p':  #deals with paragraphs before subheadings
+                data_sub = {}
+                data_sub['name'] = section.find('title').text
+                data_sub['type'] = section.name
+                data_sub['content'] = [section.find('p').text]
+                for paragraph in section.p.find_next_siblings('p'):
+                    data_sub['content'].append(paragraph.text)
+                data['content'].append(data_sub)
+            sub_sections = section.find_all('section')
+            for elements in sub_sections:
+                data_sub = {}
+                data_sub['content'] = []                           #deals with subheadings and their paragraphs
+                data_sub['name'] = elements.find('title').text
+                data_sub['type'] = elements.name
+                paragraphs = find_paragraphs(elements, {'name':'p'})
+                for paragraph in paragraphs:
+                    data_sub['content'].append(paragraph.text)
+                data['content'].append(data_sub)
+        else:
+            paragraphs = find_paragraphs(section, {'name':'p'})
+            for paragraph in paragraphs:
+                data['content'].append(paragraph.text)
+        data_dict.append(data)
+    return data_dict
 
 def Wiley_to_json(soup, doi, save_dir):
     '''
     Function to extract paragraphs from Wiley xml journals and save as json file
     doi is the txt file name
     '''
-    list_remove = [{'name': ['link', 'tabular']}] #removes links and tables
-    paragraph_tags = {'name': 'p'} #all relevant paragraphs are in body
+    list_remove = [{'name': ['link', 'tabular', 'figure']}] #removes links and tables
     title = soup.header.find('articleTitle').text
-    clean_body = remove_tags_soup_list(soup.body, list_remove)
-    paragraphs_clean = find_paragraphs(clean_body, paragraph_tags)
-    data = create_json_data(doi, paragraphs_clean, title)
-    with open(save_dir+doi, 'w', encoding='utf-8') as f:
-        json.dump(data, f, sort_keys = True, indent=4, ensure_ascii=False)
+    sections = sections_wiley(soup, list_remove)
+    create_json_data_2(doi, sections, title, save_dir)
 
 def list_to_content(list, list_remove):
     '''
@@ -137,7 +184,7 @@ def list_to_content(list, list_remove):
     for element in list:
         if element.name == 'p':
             element_clean = remove_tags_soup(element, list_remove)
-            data.append(element_clean.get_text(strip=True))
+            data.append(element_clean.text)
         elif element.name == 'h3':
             return data
     return data
@@ -168,7 +215,7 @@ def sections_springer(soup, list_remove):
             section_clean = remove_tags_soup(section, list_remove)
             for paragraph in section_clean.find_all('p'):
                 paragraph_clean = remove_tags_soup(paragraph, list_remove)
-                data['content'].append(paragraph_clean.get_text(strip=True))
+                data['content'].append(paragraph_clean.text)
         data_dict.append(data)
     return data_dict
 
@@ -179,16 +226,9 @@ def Springer_to_json(soup, doi, save_dir):
     '''
     list_remove = [{'name':'figure'}] #removes figures
     sections = sections_springer(soup, list_remove)
-    title = soup.find('h1', class_ = 'c-article-title').get_text(strip=True)
-    data = {}
-    data['DOI'] = doi.replace(doi[7],'/',1).replace('.txt','')
-    data['Journal']= ""
-    data['Keywords'] = []
-    data['Title'] = title
-    data['Sections']= sections
-    with open(save_dir+doi, 'w', encoding='utf-8') as f:
-        json.dump(data, f, sort_keys = True, indent=4, ensure_ascii=False)
-
+    title = soup.find('h1', class_ = 'c-article-title').text
+    create_json_data_2(doi, sections, title, save_dir)
+   
 
 
 import LimeSoup
