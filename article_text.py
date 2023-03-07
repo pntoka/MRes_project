@@ -204,7 +204,7 @@ def Wiley_to_json(soup, doi, save_dir):
 
 def list_to_content(list, list_remove):
     '''
-    Function to extract paragraphs embedded between h3 headings (specific to Springer)
+    Function to extract paragraphs embedded between h3 headings (specific to Springer/Nature)
     '''
     data = []
     for element in list:
@@ -215,9 +215,9 @@ def list_to_content(list, list_remove):
             return data
     return data
 
-def sections_springer(soup, list_remove):
+def sections_springer_nature(soup, list_remove):
     '''
-    Function to get sections from Springer html journals
+    Function to get sections from Springer and Nature html journals
     '''
     main_content = soup.body.find_all('div', 'main-content')
     sections = main_content[0].find_all('section')
@@ -231,8 +231,8 @@ def sections_springer(soup, list_remove):
             section_clean = remove_tags_soup(section, list_remove)
             elements = section_clean.find_all(['h3','p'])
             for i in range(len(elements)):
-                data_sub = {}
                 if elements[i].name == 'h3':
+                    data_sub = {}
                     data_sub['name'] = elements[i].text
                     data_sub['type'] = 'h3'
                     data_sub['content'] = list_to_content(elements[i+1:], list_remove)
@@ -246,12 +246,12 @@ def sections_springer(soup, list_remove):
     return data_dict
 
 
-def Springer_to_json(soup, doi, save_dir):
+def Springer_Nature_to_json(soup, doi, save_dir):
     '''
-    Function to extract paragraphs from Springer html journals and save as json file
+    Function to extract paragraphs from Springer or Nature html journals and save as json file
     '''
     list_remove = [{'name':'figure'}] #removes figures
-    sections = sections_springer(soup, list_remove)
+    sections = sections_springer_nature(soup, list_remove)
     title = soup.find('h1', class_ = 'c-article-title').text
     create_json_data_2(doi, sections, title, save_dir)
    
