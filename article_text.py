@@ -109,6 +109,37 @@ def find_paragraphs(soup, tags_list):
     paragraphs = soup.find_all(**tags_list)
     return paragraphs
 
+def sections_acs(soup, list_remove):
+    paragraph_tags = {'name':'div', 'class':['NLM_p last','NLM_p']}
+    main_content = soup.find('div', class_= 'article_content')
+    sections = main_content.find_all('div', class_='NLM_sec NLM_sec_level_1')
+    data_dict = []
+    for section in sections:
+        data = {}
+        data['name'] = section.find('h2').text
+        data['type'] = 'h2'
+        data['content'] = []
+        if section.find('div', class_ = 'NLM_sec NLM_sec_level_2') is not None:
+            elements = section.find_all('div', class_ = 'NLM_sec NLM_sec_level_2')
+            for element in elements:
+                data_sub = {}    
+                data_sub['name'] = element.find('h3').text
+                data_sub['type'] = 'h3'
+                data_sub['content'] = []
+                paragraphs = find_paragraphs(element, paragraph_tags)
+                paragraphs = remove_tags_soup_list(paragraphs, list_remove)
+                for paragraph in paragraphs:
+                    data_sub['content'].append(paragraph.text)
+                data['content'].append(data_sub)
+        else:
+            paragraphs = find_paragraphs(section, paragraph_tags)
+            paragraphs = remove_tags_soup_list(paragraphs, list_remove)
+            for paragraph in paragraphs:
+                data['content'].append(paragraph.text)
+        data_dict.append(data)
+    return data_dict
+
+
 def ACS_to_json(soup, doi, save_dir):
     '''
     Function specific to ACS html journals to extract paragraphs and save as json file
@@ -117,14 +148,9 @@ def ACS_to_json(soup, doi, save_dir):
         {'name':'a'}, #remove links
         {'name':'span'}, #remove inline equations
     ]
-    paragraph_tags = {'name':'div', 'class':['NLM_p last','NLM_p']}
     title = soup.find('h1', class_='article-title').text
-    paragraphs = find_paragraphs(soup, paragraph_tags)
-    paragraphs_clean = remove_tags_soup_list(paragraphs, list_remove)
-    data = create_json_data(doi, paragraphs_clean, title)
-    doi = doi.replace('.txt','.json')
-    with open(save_dir+doi, 'w', encoding='utf-8') as f:
-        json.dump(data, f, sort_keys = True, indent=4, ensure_ascii=False)
+    sections = sections_acs(soup, list_remove)
+    create_json_data_2(doi,sections,title,save_dir)
 
 def sections_wiley(soup, list_remove):
     '''
