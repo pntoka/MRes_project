@@ -58,7 +58,7 @@ def RSC_content(data):
                         content.append(item2)
     return content
 
-def create_json_data_2(doi,sections,title,save_dir):
+def create_json_data(doi,sections,title,save_dir):
     data = {}
     data['DOI'] = doi.replace(doi[7],'/',1).replace('.txt','')
     data['Journal']= ""
@@ -136,7 +136,7 @@ def ACS_to_json(soup, doi, save_dir):
     ]
     title = soup.find('h1', class_='article-title').text
     sections = sections_acs(soup, list_remove)
-    create_json_data_2(doi,sections,title,save_dir)
+    create_json_data(doi,sections,title,save_dir)
 
 def sections_wiley(soup, list_remove):
     '''
@@ -162,12 +162,12 @@ def sections_wiley(soup, list_remove):
                     data_sub['content'].append(paragraph.text)
                 data['content'].append(data_sub)
             sub_sections = section.find_all('section')
-            for elements in sub_sections:
+            for element in sub_sections:
                 data_sub = {}
                 data_sub['content'] = []                           #deals with subheadings and their paragraphs
-                data_sub['name'] = elements.find('title').text
-                data_sub['type'] = elements.name
-                paragraphs = find_paragraphs(elements, {'name':'p'})
+                data_sub['name'] = element.find('title').text
+                data_sub['type'] = element.name
+                paragraphs = find_paragraphs(element, {'name':'p'})
                 for paragraph in paragraphs:
                     data_sub['content'].append(paragraph.text)
                 data['content'].append(data_sub)
@@ -186,7 +186,7 @@ def Wiley_to_json(soup, doi, save_dir):
     list_remove = [{'name': ['link', 'tabular', 'figure']}] #removes links and tables
     title = soup.header.find('articleTitle').text
     sections = sections_wiley(soup, list_remove)
-    create_json_data_2(doi, sections, title, save_dir)
+    create_json_data(doi, sections, title, save_dir)
 
 def list_to_content(list, list_remove):
     '''
@@ -239,7 +239,7 @@ def Springer_Nature_to_json(soup, doi, save_dir):
     list_remove = [{'name':'figure'}] #removes figures
     sections = sections_springer_nature(soup, list_remove)
     title = soup.find('h1', class_ = 'c-article-title').text
-    create_json_data_2(doi, sections, title, save_dir)
+    create_json_data(doi, sections, title, save_dir)
 
 def list_to_content_frontiers(list):
     '''
@@ -299,7 +299,7 @@ def Frontiers_to_json(soup, doi, save_dir):
     list_remove = [{'name':'a'}, {'name':'div'}] #removes links and figures
     title = soup.find('h1').text
     sections = sections_frontiers(soup, list_remove)
-    create_json_data_2(doi, sections, title, save_dir)
+    create_json_data(doi, sections, title, save_dir)
 
 def sections_tandf(soup, list_remove):
     '''
@@ -344,8 +344,65 @@ def TandF_to_json(soup, doi, save_dir):
                ]
     sections = sections_tandf(soup, list_remove)
     title = soup.find('span', class_ = 'NLM_article-title hlFld-title').text
-    create_json_data_2(doi, sections, title, save_dir)
+    create_json_data(doi, sections, title, save_dir)
 
+def sections_mdpi(soup, list_remove):
+    '''
+    Function to extract sections from MDPI html journals
+    '''
+    main_content = soup.find('div', class_= 'html-body')
+    section_1 = main_content.find('section')                #get main sections based on first section
+    sections = section_1.find_next_siblings('section')
+    sections.insert(0,section_1)
+    data_dict = []
+    for section in sections:
+        data = {}
+        data['name'] = section.find('h2').text
+        data['type'] = 'h2'
+        data['content'] = []
+        if section.find('section') is not None:
+            sub_sections_1 = section.find('section')
+            sub_sections = sub_sections_1.find_next_siblings('section')
+            sub_sections.insert(0,sub_sections_1)
+            for sub_section in sub_sections:
+                data_sub = {}
+                data_sub['name'] = sub_section.find('h4').text
+                data_sub['type'] = 'h4'
+                data_sub['content'] = []
+                if sub_section.find('section') is not None:
+                    sub_sub_sections = sub_section.find_all('section')
+                    for sub_sub_section in sub_sub_sections:                #deal with sub-sub-sections
+                        data_sub_sub = {}
+                        data_sub_sub['name'] = sub_sub_section.find('h4').text
+                        data_sub_sub['type'] = 'h4'
+                        data_sub_sub['content'] = []
+                        paragraphs = find_paragraphs(sub_sub_section,{'name':'div', 'class':'html-p'})
+                        paragraphs_clean = remove_tags_soup_list(paragraphs, list_remove)
+                        for paragraph in paragraphs_clean:
+                            data_sub_sub['content'].append(paragraph.text)
+                        data_sub['content'].append(data_sub_sub)
+                else:                                       
+                    paragraphs = find_paragraphs(sub_section,{'name':'div', 'class':'html-p'})  #deals with subsections without sub-sub-sections
+                    paragraphs_clean = remove_tags_soup_list(paragraphs, list_remove)
+                    for paragraph in paragraphs_clean:
+                        data_sub['content'].append(paragraph.text)
+                data['content'].append(data_sub)
+        else:
+            paragraphs = find_paragraphs(section,{'name':'div', 'class':'html-p'})
+            paragraphs_clean = remove_tags_soup_list(paragraphs, list_remove)
+            for paragraph in paragraphs_clean:
+                data['content'].append(paragraph.text)
+        data_dict.append(data)
+    return data_dict
+
+def MDPI_to_json(soup, doi, save_dir):
+    '''
+    Function to extract paragraphs from MDPI html journals and save as json file
+    '''
+    list_remove = [{'name': 'div'}]
+    sections = sections_mdpi(soup, list_remove)
+    title = soup.find('h1').text
+    create_json_data(doi, sections, title, save_dir)
 
 
 import LimeSoup
