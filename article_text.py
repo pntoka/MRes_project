@@ -58,20 +58,6 @@ def RSC_content(data):
                         content.append(item2)
     return content
 
-def create_json_data(doi,paragraphs,title):
-    '''
-    Function to create a json file with the extracted paragraphs
-    '''
-    data = {}
-    data['DOI'] = doi.replace(doi[7],'/').replace('.txt','')
-    data['Journal']= ""
-    data['Keywords'] = []
-    data['Title'] = title
-    data['Sections'] = {'content':[]}
-    for paragraph in paragraphs:
-        data['Sections']['content'].append(paragraph.text)
-    return data
-
 def create_json_data_2(doi,sections,title,save_dir):
     data = {}
     data['DOI'] = doi.replace(doi[7],'/',1).replace('.txt','')
@@ -313,6 +299,51 @@ def Frontiers_to_json(soup, doi, save_dir):
     list_remove = [{'name':'a'}, {'name':'div'}] #removes links and figures
     title = soup.find('h1').text
     sections = sections_frontiers(soup, list_remove)
+    create_json_data_2(doi, sections, title, save_dir)
+
+def sections_tandf(soup, list_remove):
+    '''
+    Function to extract sections from Taylor and Francis html journals
+    '''
+    main_content = soup.find('div', class_ = 'hlFld-Fulltext')
+    sections = main_content.find_all('div', class_ = ['NLM_sec NLM_sec_level_1', 'NLM_sec NLM_sec-type_intro NLM_sec_level_1'])
+    sections_clean = remove_tags_soup_list(sections, list_remove)
+    data_dict = []
+    for section in sections_clean:
+        data = {}
+        data['name'] = section.find('h2').text
+        data['type'] = 'h2'
+        data['content'] = []
+        if section.find('div', class_ = 'NLM_sec NLM_sec_level_2') is not None:
+            elements = section.find_all('div', class_ = 'NLM_sec NLM_sec_level_2') 
+            for element in elements:
+                data_sub = {}
+                data_sub['name'] = element.find('h3').text
+                data_sub['type'] = 'h3'
+                data_sub['content'] = []
+                paragraphs = find_paragraphs(element, {'name':'p'})
+                # paragraphs = remove_tags_soup_list(paragraphs, {'name':'button'})
+                for paragraph in paragraphs:
+                    data_sub['content'].append(paragraph.text)
+                data['content'].append(data_sub)
+        else:
+            paragraphs = find_paragraphs(section, {'name':'p'})
+            for paragraph in paragraphs:
+                data['content'].append(paragraph.text)
+        data_dict.append(data)
+    return data_dict
+
+def TandF_to_json(soup, doi, save_dir):
+    '''
+    Function to extract paragraphs from Taylor and Francis html journals and save as json file
+    '''
+    list_remove = [{'name': 'div', 'class':'figure figureViewer'},
+                {'name': 'div', 'class':'tableView'},
+                {'name': 'div', 'class':'hidden rs_skip'},
+               {'name':'span'}
+               ]
+    sections = sections_tandf(soup, list_remove)
+    title = soup.find('h1', class_ = 'citation__title').text
     create_json_data_2(doi, sections, title, save_dir)
 
 
