@@ -254,7 +254,67 @@ def Springer_Nature_to_json(soup, doi, save_dir):
     sections = sections_springer_nature(soup, list_remove)
     title = soup.find('h1', class_ = 'c-article-title').text
     create_json_data_2(doi, sections, title, save_dir)
-   
+
+def list_to_content_frontiers(list):
+    '''
+    Function to extract paragraphs in between h3 and h2 headings (specific to Frontiers)
+    '''
+    data = []
+    for element in list:
+        if element.name == 'p':
+            data.append(element.text)
+        elif element.name == 'h3' or element.name == 'h2':
+            return data
+    return data
+
+def subheadings_content_frontiers(list):
+    '''
+    Function to extract h3 subheadings and paragraphs in between h2 hesadings (specific to Frontiers)
+    '''
+    data = []
+    for i in range(len(list)):
+        if list[i].name == 'h3':
+            data_sub = {}
+            data_sub['name'] = list[i].text
+            data_sub['type'] = 'h3'
+            data_sub['content'] = list_to_content_frontiers(list[i+1:])
+            data.append(data_sub)
+        elif list[i].name == 'h2':
+            return data
+    return data
+
+def sections_frontiers(soup, list_remove):
+    '''
+    Function to extract sections from Frontiers html journals
+    '''
+    main_content = soup.find('div', class_='JournalFullText')
+    main_content = remove_tags_soup(main_content, list_remove)
+    elements = main_content.find_all(['p','h2','h3'])
+    data_dict = []
+    for i in range(len(elements)):
+        if elements[i].name == 'h2':
+            data = {}
+            data['name'] = elements[i].text
+            data['type'] = 'h2'
+            data['content'] = []
+            if elements[i].next_sibling is not None:
+                if elements[i].next_sibling.name == 'p':
+                    data['content'] = list_to_content_frontiers(elements[i+1:])
+            if elements[i].next_sibling is not None:
+                if elements[i].next_sibling.name == 'h3':
+                    data['content']=(subheadings_content_frontiers(elements[i+1:]))
+            data_dict.append(data)
+    return data_dict
+
+def Frontiers_to_json(soup, doi, save_dir):
+    '''
+    Function to extract paragraphs from Frontiers html journals and save as json file
+    '''
+    list_remove = [{'name':'a'}, {'name':'div'}] #removes links and figures
+    title = soup.find('h1').text
+    sections = sections_frontiers(soup, list_remove)
+    create_json_data_2(doi, sections, title, save_dir)
+
 
 
 import LimeSoup
