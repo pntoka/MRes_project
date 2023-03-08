@@ -343,7 +343,7 @@ def TandF_to_json(soup, doi, save_dir):
                {'name':'span'}
                ]
     sections = sections_tandf(soup, list_remove)
-    title = soup.find('h1', class_ = 'citation__title').text
+    title = soup.find('span', class_ = 'NLM_article-title hlFld-title').text
     create_json_data_2(doi, sections, title, save_dir)
 
 
