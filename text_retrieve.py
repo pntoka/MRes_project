@@ -96,16 +96,9 @@ class FullTextDownloader:
             save_file.write(page)
             save_file.close()
         driver.close()
-
-
-if __name__ == '__main__':
-    
+def text_downloader(file_path, save_dir, my_api_key):
     pub_prefix = {"RSC": "10.1039", "ACS": "10.1021", "Nature":"10.1038", "Science":"10.1126", "Frontiers":"10.3389", "MDPI":"10.3390", "Wiley": "10.1002", "Springer":"10.1007", "TandF":"10.1080", "Elsevier":"10.1016"}
-    # save_dir_laptop = r"C:\Users\Piotr\MRes_project\full_texts_test"
-    save_dir = "/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/full_text_tests/"
-    my_api_key  = "" #insert your own API key
     downloader = FullTextDownloader(pub_prefix,my_api_key)
-    file_path = "/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/doi_tests/doi_test_copy.txt"
     with open(file_path,'r') as file:
         for line in file:
             if line[:2] != '10':
@@ -117,6 +110,16 @@ if __name__ == '__main__':
                 links = downloader.crossref_link(doi)
                 link = downloader.link_selector(doi, links)
                 downloader.web_scrape(doi,link,save_dir)
+
+if __name__ == '__main__':
+    
+    # save_dir_laptop = r"C:\Users\Piotr\MRes_project\full_texts_test"
+    save_dir = "/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/full_text_tests/"
+    my_api_key  = "" #insert your own API key
+    file_path = "/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/doi_tests/doi_test_copy.txt"
+    text_downloader(file_path, save_dir, my_api_key)
+
+    
     # doi = "10.1002/chir.23509"
     # doi = "10.1080/10667857.2018.1492683"
     # links = downloader.crossref_link(doi)
