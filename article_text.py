@@ -345,7 +345,7 @@ class ArticleExtractor:
         '''
         Function to extract paragraphs from Frontiers html journals and save as json file
         '''
-        list_remove = [{'name':'a'}, {'name':'div'}] #removes links and figures
+        list_remove = [{'name':'div'}] #removes figures
         title = soup.find('h1').text
         sections = self.section_extractor.sections_frontiers(soup, list_remove)
         self.tools.create_json_data(doi, sections, title, save_dir)
@@ -451,7 +451,7 @@ def article_extractor(doi, path, save_dir):
 if __name__ == '__main__':
     save_dir = '/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/full_text_tests_json/'
     path = '/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/full_text_tests/'
-    dois_file = '/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/doi_test.txt'
+    dois_file = '/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/doi_tests/doi_test2.txt'
     dois = DOItools().doi_list(dois_file)
     filenames = DOItools().doi_to_filename(dois)
     for filename in filenames:
