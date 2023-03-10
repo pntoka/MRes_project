@@ -105,9 +105,10 @@ if __name__ == '__main__':
     save_dir = "/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/full_text_tests/"
     my_api_key  = "" #insert your own API key
     downloader = FullTextDownloader(pub_prefix,my_api_key)
-    with open("/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/doi_test.txt",'r') as file:
+    file_path = "/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/doi_tests/doi_test_copy.txt"
+    with open(file_path,'r') as file:
         for line in file:
-            if not line:
+            if line[:2] != '10':
                 break
             doi  = line.strip()
             if doi[:7] == pub_prefix["Elsevier"]:
