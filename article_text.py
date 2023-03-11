@@ -5,59 +5,14 @@ import os
 import sys
 # import pandas as pd
 import json
+import extractor_tools as tools
 
 from bs4 import BeautifulSoup
 from LimeSoup import (ElsevierSoup, RSCSoup)
 
 
-class ExtractorTools:
-    def __init__(self):
-        pass
-
-    def remove_tags_soup_list(self, soup_list, rules):
-        '''
-        Function to remove tags from a list of soup objects
-        '''
-        for element in soup_list:
-            for rule in rules:
-                for tag in element.find_all(**rule):
-                    tag.extract()
-        return soup_list
-
-    def remove_tags_soup(slef, soup, rules):
-        '''
-        Function to remove tags from a soup object
-        '''
-        for rule in rules:
-            for tag in soup.find_all(**rule):
-                tag.extract()
-        return soup
-    
-    def find_paragraphs(self, soup, tags_list):
-        '''
-        Function to find paragraphs in a soup object based on specific tags
-        '''
-        paragraphs = soup.find_all(**tags_list)
-        return paragraphs
-    
-    def create_json_data(self, doi, sections, title, save_dir):
-        '''
-        Function to create json file of html/xml article
-        '''
-        data = {}
-        data['DOI'] = doi.replace(doi[7],'/',1).replace('.txt','')
-        data['Journal']= ""
-        data['Keywords'] = []
-        data['Title'] = title
-        data['Sections']= sections
-        doi = doi.replace('.txt','.json')
-        with open(save_dir+doi, 'w', encoding='utf-8') as f:
-            json.dump(data, f, sort_keys = True, indent=4, ensure_ascii=False)
-
 
 class SectionExtractor:
-    def __init__(self):
-        self.tools = ExtractorTools()
 
     def list_to_content(self, list, list_remove):
         '''
@@ -66,7 +21,7 @@ class SectionExtractor:
         data = []
         for element in list:
             if element.name == 'p':
-                element_clean = self.tools.remove_tags_soup(element, list_remove)
+                element_clean = tools.remove_tags_soup(element, list_remove)
                 data.append(element_clean.text)
             elif element.name == 'h3':
                 return data
@@ -117,14 +72,14 @@ class SectionExtractor:
                     data_sub['name'] = element.find('h3').text
                     data_sub['type'] = 'h3'
                     data_sub['content'] = []
-                    paragraphs = self.tools.find_paragraphs(element, paragraph_tags)
-                    paragraphs = self.tools.remove_tags_soup_list(paragraphs, list_remove)
+                    paragraphs = tools.find_paragraphs(element, paragraph_tags)
+                    paragraphs = tools.remove_tags_soup_list(paragraphs, list_remove)
                     for paragraph in paragraphs:
                         data_sub['content'].append(paragraph.text)
                     data['content'].append(data_sub)
             else:
-                paragraphs = self.tools.find_paragraphs(section, paragraph_tags)
-                paragraphs = self.tools.remove_tags_soup_list(paragraphs, list_remove)
+                paragraphs = tools.find_paragraphs(section, paragraph_tags)
+                paragraphs = tools.remove_tags_soup_list(paragraphs, list_remove)
                 for paragraph in paragraphs:
                     data['content'].append(paragraph.text)
             data_dict.append(data)
@@ -134,7 +89,7 @@ class SectionExtractor:
         '''
         Function to get sections from Wiley xml journals
         '''
-        clean_body = self.tools.remove_tags_soup(soup.body, list_remove)
+        clean_body = tools.remove_tags_soup(soup.body, list_remove)
         section_1 = clean_body.section                              
         sections_clean = section_1.find_next_siblings('section')    #gets all sections that are siblings of the first section (main sections)
         sections_clean.insert(0,section_1)
@@ -159,12 +114,12 @@ class SectionExtractor:
                     data_sub['content'] = []                           #deals with subheadings and their paragraphs
                     data_sub['name'] = element.find('title').text
                     data_sub['type'] = element.name
-                    paragraphs = self.tools.find_paragraphs(element, {'name':'p'})
+                    paragraphs = tools.find_paragraphs(element, {'name':'p'})
                     for paragraph in paragraphs:
                         data_sub['content'].append(paragraph.text)
                     data['content'].append(data_sub)
             else:
-                paragraphs = self.tools.find_paragraphs(section, {'name':'p'})
+                paragraphs = tools.find_paragraphs(section, {'name':'p'})
                 for paragraph in paragraphs:
                     data['content'].append(paragraph.text)
             data_dict.append(data)
@@ -183,7 +138,7 @@ class SectionExtractor:
             data['type'] = 'h2'
             data['content'] = []
             if section.find('h3') is not None:
-                section_clean = self.tools.remove_tags_soup(section, list_remove)
+                section_clean = tools.remove_tags_soup(section, list_remove)
                 elements = section_clean.find_all(['h3','p'])
                 for i in range(len(elements)):
                     if elements[i].name == 'h3':
@@ -193,9 +148,9 @@ class SectionExtractor:
                         data_sub['content'] = self.list_to_content(elements[i+1:], list_remove)
                         data['content'].append(data_sub)
             else:
-                section_clean = self.tools.remove_tags_soup(section, list_remove)
+                section_clean = tools.remove_tags_soup(section, list_remove)
                 for paragraph in section_clean.find_all('p'):
-                    paragraph_clean = self.tools.remove_tags_soup(paragraph, list_remove)
+                    paragraph_clean = tools.remove_tags_soup(paragraph, list_remove)
                     data['content'].append(paragraph_clean.text)
             data_dict.append(data)
         return data_dict
@@ -205,7 +160,7 @@ class SectionExtractor:
         Function to extract sections from Frontiers html journals
         '''
         main_content = soup.find('div', class_='JournalFullText')
-        main_content = self.tools.remove_tags_soup(main_content, list_remove)
+        main_content = tools.remove_tags_soup(main_content, list_remove)
         elements = main_content.find_all(['p','h2','h3'])
         data_dict = []
         for i in range(len(elements)):
@@ -229,7 +184,7 @@ class SectionExtractor:
         '''
         main_content = soup.find('div', class_ = 'hlFld-Fulltext')
         sections = main_content.find_all('div', class_ = ['NLM_sec NLM_sec_level_1', 'NLM_sec NLM_sec-type_intro NLM_sec_level_1'])
-        sections_clean = self.tools.remove_tags_soup_list(sections, list_remove)
+        sections_clean = tools.remove_tags_soup_list(sections, list_remove)
         data_dict = []
         for section in sections_clean:
             data = {}
@@ -243,13 +198,13 @@ class SectionExtractor:
                     data_sub['name'] = element.find('h3').text
                     data_sub['type'] = 'h3'
                     data_sub['content'] = []
-                    paragraphs = self.tools.find_paragraphs(element, {'name':'p'})
+                    paragraphs = tools.find_paragraphs(element, {'name':'p'})
                     # paragraphs = remove_tags_soup_list(paragraphs, {'name':'button'})
                     for paragraph in paragraphs:
                         data_sub['content'].append(paragraph.text)
                     data['content'].append(data_sub)
             else:
-                paragraphs = self.tools.find_paragraphs(section, {'name':'p'})
+                paragraphs = tools.find_paragraphs(section, {'name':'p'})
                 for paragraph in paragraphs:
                     data['content'].append(paragraph.text)
             data_dict.append(data)
@@ -285,20 +240,20 @@ class SectionExtractor:
                             data_sub_sub['name'] = sub_sub_section.find('h4').text
                             data_sub_sub['type'] = 'h4'
                             data_sub_sub['content'] = []
-                            paragraphs = self.tools.find_paragraphs(sub_sub_section,{'name':'div', 'class':'html-p'})
-                            paragraphs_clean = self.tools.remove_tags_soup_list(paragraphs, list_remove)
+                            paragraphs = tools.find_paragraphs(sub_sub_section,{'name':'div', 'class':'html-p'})
+                            paragraphs_clean = tools.remove_tags_soup_list(paragraphs, list_remove)
                             for paragraph in paragraphs_clean:
                                 data_sub_sub['content'].append(paragraph.text)
                             data_sub['content'].append(data_sub_sub)
                     else:                                       
-                        paragraphs = self.tools.find_paragraphs(sub_section,{'name':'div', 'class':'html-p'})  #deals with subsections without sub-sub-sections
-                        paragraphs_clean = self.tools.remove_tags_soup_list(paragraphs, list_remove)
+                        paragraphs = tools.find_paragraphs(sub_section,{'name':'div', 'class':'html-p'})  #deals with subsections without sub-sub-sections
+                        paragraphs_clean = tools.remove_tags_soup_list(paragraphs, list_remove)
                         for paragraph in paragraphs_clean:
                             data_sub['content'].append(paragraph.text)
                     data['content'].append(data_sub)
             else:
-                paragraphs = self.tools.find_paragraphs(section,{'name':'div', 'class':'html-p'})
-                paragraphs_clean = self.tools.remove_tags_soup_list(paragraphs, list_remove)
+                paragraphs = tools.find_paragraphs(section,{'name':'div', 'class':'html-p'})
+                paragraphs_clean = tools.remove_tags_soup_list(paragraphs, list_remove)
                 for paragraph in paragraphs_clean:
                     data['content'].append(paragraph.text)
             data_dict.append(data)
@@ -307,7 +262,6 @@ class SectionExtractor:
 
 class ArticleExtractor:
     def __init__(self):
-        self.tools = ExtractorTools()
         self.section_extractor = SectionExtractor()
 
     def ACS_to_json(self, soup, doi, save_dir):
@@ -320,7 +274,7 @@ class ArticleExtractor:
         ]
         title = soup.find('span', class_='hlFld-Title').text
         sections = self.section_extractor.sections_acs(soup, list_remove)
-        self.tools.create_json_data(doi,sections,title,save_dir)
+        tools.create_json_data(doi,sections,title,save_dir)
 
     def Wiley_to_json(self, soup, doi, save_dir):
         '''
@@ -330,7 +284,7 @@ class ArticleExtractor:
         list_remove = [{'name': ['link', 'tabular', 'figure']}] #removes links and tables
         title = soup.header.find('articleTitle').text
         sections = self.section_extractor.sections_wiley(soup, list_remove)
-        self.tools.create_json_data(doi, sections, title, save_dir)
+        tools.create_json_data(doi, sections, title, save_dir)
 
     def Springer_Nature_to_json(self, soup, doi, save_dir):
         '''
@@ -339,7 +293,7 @@ class ArticleExtractor:
         list_remove = [{'name':'figure'}] #removes figures
         sections = self.section_extractor.sections_springer_nature(soup, list_remove)
         title = soup.find('h1', class_ = 'c-article-title').text
-        self.tools.create_json_data(doi, sections, title, save_dir)
+        tools.create_json_data(doi, sections, title, save_dir)
 
     def Frontiers_to_json(self, soup, doi, save_dir):
         '''
@@ -348,7 +302,7 @@ class ArticleExtractor:
         list_remove = [{'name':'div'}] #removes figures
         title = soup.find('h1').text
         sections = self.section_extractor.sections_frontiers(soup, list_remove)
-        self.tools.create_json_data(doi, sections, title, save_dir)
+        tools.create_json_data(doi, sections, title, save_dir)
 
     def TandF_to_json(self, soup, doi, save_dir):
         '''
@@ -361,7 +315,7 @@ class ArticleExtractor:
                 ]
         sections = self.section_extractor.sections_tandf(soup, list_remove)
         title = soup.find('span', class_ = 'NLM_article-title hlFld-title').text
-        self.tools.create_json_data(doi, sections, title, save_dir)
+        tools.create_json_data(doi, sections, title, save_dir)
     
     def MDPI_to_json(self, soup, doi, save_dir):
         '''
@@ -370,7 +324,7 @@ class ArticleExtractor:
         list_remove = [{'name': 'div'}]
         sections = self.section_extractor.sections_mdpi(soup, list_remove)
         title = soup.find('h1').text
-        self.tools.create_json_data(doi, sections, title, save_dir)
+        tools.create_json_data(doi, sections, title, save_dir)
     
     def RSC_to_json(self, path, doi, save_dir):
         '''
