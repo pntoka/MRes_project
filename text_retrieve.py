@@ -12,6 +12,9 @@ import urllib.request
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
+PUB_PREFIX = {"RSC": "10.1039", "ACS": "10.1021", "Nature":"10.1038", "Science":"10.1126", "Frontiers":"10.3389", "MDPI":"10.3390", "Wiley": "10.1002", "Springer":"10.1007", "TandF":"10.1080", "Elsevier":"10.1016"}
+
+
 class FullTextDownloader:
     def __init__(self, pub_prefix,api_key):
         self.pub_prefix = pub_prefix
@@ -94,17 +97,15 @@ class FullTextDownloader:
             save_dir + doi.replace("/", "-") + ".txt", "wb"   #save method for mac
             ) as save_file:
             save_file.write(page)
-            save_file.close()
         driver.close()
 def text_downloader(file_path, save_dir, my_api_key):
-    pub_prefix = {"RSC": "10.1039", "ACS": "10.1021", "Nature":"10.1038", "Science":"10.1126", "Frontiers":"10.3389", "MDPI":"10.3390", "Wiley": "10.1002", "Springer":"10.1007", "TandF":"10.1080", "Elsevier":"10.1016"}
-    downloader = FullTextDownloader(pub_prefix,my_api_key)
+    downloader = FullTextDownloader(PUB_PREFIX,my_api_key)
     with open(file_path,'r') as file:
         for line in file:
             if line[:2] != '10':
                 break
             doi  = line.strip()
-            if doi[:7] == pub_prefix["Elsevier"]:
+            if doi[:7] == PUB_PREFIX["Elsevier"]:
                 downloader.downloadElsevier(doi, save_dir)
             else:
                 links = downloader.crossref_link(doi)
