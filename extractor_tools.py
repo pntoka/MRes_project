@@ -1,6 +1,6 @@
 import json
 
-def remove_tags_soup_list(self, soup_list, rules):
+def remove_tags_soup_list(soup_list, rules):
     '''
     Function to remove tags from a list of soup objects
     '''
@@ -10,7 +10,7 @@ def remove_tags_soup_list(self, soup_list, rules):
                 tag.extract()
     return soup_list
 
-def remove_tags_soup(slef, soup, rules):
+def remove_tags_soup(soup, rules):
     '''
     Function to remove tags from a soup object
     '''
@@ -19,14 +19,14 @@ def remove_tags_soup(slef, soup, rules):
             tag.extract()
     return soup
 
-def find_paragraphs(self, soup, tags_list):
+def find_paragraphs(soup, tags_list):
     '''
     Function to find paragraphs in a soup object based on specific tags
     '''
     paragraphs = soup.find_all(**tags_list)
     return paragraphs
     
-def create_json_data(self, doi, sections, title, save_dir):
+def create_json_data(doi, sections, title, save_dir):
     '''
     Function to create json file of html/xml article
     '''
