@@ -1,3 +1,7 @@
+'''
+Package containing helper functions for article extraction such as removing tags and creating json files
+'''
+
 import json
 
 def remove_tags_soup_list(soup_list, rules):
