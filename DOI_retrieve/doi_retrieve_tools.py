@@ -19,13 +19,14 @@ def sem_scholar(query, pub_date, offset_number):
     response = requests.get(url)
     count = 0
     while response.status_code != 200:
-        print('Error: ' + str(response.status_code))        #if the request is not successful, try again
+        print('Error: ' + str(response.status_code) +' trying request again')        #if the request is not successful, try again
         time.sleep(0.5)
         response = requests.get(url)
         count += 1
         if count == 10:
             break
     data = response.json()      #return the response as json object
+    print(f'Request successful for pub date = {pub_date} and offset = {offset_number}')
     return data
 
 
@@ -42,13 +43,14 @@ def sem_scholar_2(query, pub_date, offset_number):
     response = requests.get(url)
     count = 0
     while response.status_code != 200:
-        print('Error: ' + str(response.status_code))        #if the request is not successful, try again
+        print('Error: ' + str(response.status_code)+' trying request again')        #if the request is not successful, try again
         time.sleep(3)
         response = requests.get(url)
         count += 1
         if count == 15:
             break
     data = response.json()      #return the response as json object
+    print(f'Request successful for pub date = {pub_date} and offset = {offset_number}')
     return data
 
 
@@ -95,10 +97,12 @@ def doi_pubtype_dict(query, pub_date):
                 if 'DOI' in paper['externalIds']:
                     doi_dict[paper['externalIds']['DOI']] = paper['publicationTypes']
                     time.sleep(3)
+            print(f'Saved {len(doi_dict)} out of {total} DOIs from {pub_date}')  #print statement to show progress
     else:
         for paper in data['data']:
             if 'DOI' in paper['externalIds']:
                 doi_dict[paper['externalIds']['DOI']] = paper['publicationTypes']
+        print(f'Saved {len(doi_dict)} DOIs out of {total} result from {pub_date}')     #print statement to show progress
     return doi_dict
 
 
@@ -145,11 +149,14 @@ def doi_list_date_range_2(query, pub_dates, save_dir):
     df = pd.DataFrame(columns=['query', 'pub_date', 'number_of_results'])
     for pub_date in pub_dates:
         doi_dict = doi_pubtype_dict(query, pub_date)
+        print(f'Successfully retrieved {len(doi_dict)} DOIs from {pub_date}')   #print statement to show progress
         doi_results = doi_dict_filter(doi_dict, 'JournalArticle', 'Review')
+        print(f'Successfully filtered down DOIs to {len(doi_results)}')        #print statement to show progress
         row = {'query': query, 'pub_date': pub_date, 'number_of_results': len(doi_results)}
         new_df = pd.DataFrame([row])
         df = pd.concat([df, new_df], axis=0, ignore_index=True)
         storeDOI(doi_results, save_dir, pub_date)
+        print(f'Successfully saved {len(doi_results)} DOIs from {pub_date}')   #print statement to show progress
     df.to_csv(save_dir + 'sem_scholar_results.csv', index=False)
 
 
