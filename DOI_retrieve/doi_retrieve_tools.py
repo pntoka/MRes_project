@@ -11,10 +11,32 @@ def sem_scholar(query, pub_date, offset_number):
     '''
     query = query.replace(" ", "+")
     offset = offset_number
-    fields = 'externalIds'   #fields to return, DOIs are in externalIds
+    fields = 'externalIds'   #fields to return, DOIs are in externalIds as well as publication type for further filtering
     types = 'JournalArticle'   #type of publication, JournalArticle is the one of interest
     dates = pub_date    #publication date inclusive
-    url = f'https://api.semanticscholar.org/graph/v1/paper/search?query={query}&offset={offset}&limit=100&fields={fields}&publicationTypes={types}&year={dates}'
+    url = f'https://api.semanticscholar.org/graph/v1/paper/search?query={query}&offset={offset}&limit=100&publicationTypes={types}&fields={fields}&year={dates}'
+    response = requests.get(url)
+    count = 0
+    while response.status_code != 200:
+        print('Error: ' + str(response.status_code))        #if the request is not successful, try again
+        time.sleep(0.5)
+        response = requests.get(url)
+        count += 1
+        if count == 10:
+            break
+    data = response.json()      #return the response as json object
+    return data
+
+def sem_scholar_2(query, pub_date, offset_number):
+    '''
+    Function that takes a query, publication date and offset number and returns a json object with the results
+    Returns DOI and publication types, searches all publication types
+    '''
+    query = query.replace(" ", "+")
+    offset = offset_number
+    fields = 'externalIds,publicationTypes'   #fields to return, DOIs are in externalIds as well as publication type for further filtering
+    dates = pub_date    #publication date inclusive
+    url = f'https://api.semanticscholar.org/graph/v1/paper/search?query={query}&offset={offset}&limit=100&fields={fields}&year={dates}'
     response = requests.get(url)
     count = 0
     while response.status_code != 200:
@@ -51,6 +73,31 @@ def doi_list(query, pub_date):
             if 'DOI' in paper['externalIds']:
                 doi_list.append(paper['externalIds']['DOI'])
     return doi_list
+
+def doi_pubtype_dict(query, pub_date):
+    '''
+    Function that takes a query and publication date and returns a dictionary of DOIs and publication types
+    '''
+    offset = 0
+    data = sem_scholar_2(query, pub_date, offset)
+    total = data['total']
+    doi_dict = {}
+    if total > 100:
+        offset_list = offset_counter(total)
+        for offset in offset_list:
+            data = sem_scholar_2(query, pub_date, offset)
+            for paper in data['data']:
+                if 'DOI' in paper['externalIds']:
+                    doi_dict[paper['externalIds']['DOI']] = paper['publicationTypes']
+                    time.sleep(0.5)
+    else:
+        for paper in data['data']:
+            if 'DOI' in paper['externalIds']:
+                doi_dict[paper['externalIds']['DOI']] = paper['publicationTypes']
+    return doi_dict
+
+
+
 
 def storeDOI(dois, save_dir, pub_date):   #Function to save list of dois for specific publication date
     with open(save_dir + f"doi_{pub_date}.txt", "a", encoding="utf-8") as save_file:
