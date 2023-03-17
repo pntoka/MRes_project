@@ -55,7 +55,8 @@ def sem_scholar_2(query, pub_date, offset_number):
 
 
 def offset_counter(number):
-        return list(range(100,number+1,100))    #function to create a list of offsets to use in the API request
+        offsets = (number-1)//100
+        return list(range(100,offsets*100+1,100))    #function to create a list of offsets to use in the API request
 
 
 def doi_list(query, pub_date):
@@ -66,6 +67,9 @@ def doi_list(query, pub_date):
     data = sem_scholar(query, pub_date, offset)
     total = data['total']
     doi_list = []
+    for paper in data['data']:
+            if 'DOI' in paper['externalIds']:
+                doi_list.append(paper['externalIds']['DOI'])
     if total > 100:
         offset_list = offset_counter(total)
         for offset in offset_list:
@@ -73,11 +77,7 @@ def doi_list(query, pub_date):
             for paper in data['data']:
                 if 'DOI' in paper['externalIds']:
                     doi_list.append(paper['externalIds']['DOI'])
-                    time.sleep(3)
-    else:
-        for paper in data['data']:
-            if 'DOI' in paper['externalIds']:
-                doi_list.append(paper['externalIds']['DOI'])
+            time.sleep(3)
     return doi_list
 
 
@@ -89,6 +89,10 @@ def doi_pubtype_dict(query, pub_date):
     data = sem_scholar_2(query, pub_date, offset)
     total = data['total']
     doi_dict = {}
+    for paper in data['data']:
+        if 'DOI' in paper['externalIds']:
+            doi_dict[paper['externalIds']['DOI']] = paper['publicationTypes']
+    print(f'Saved {len(doi_dict)} DOIs out of {total} result from {pub_date}')     #print statement to show progress
     if total > 100:
         offset_list = offset_counter(total)
         for offset in offset_list:
@@ -96,13 +100,8 @@ def doi_pubtype_dict(query, pub_date):
             for paper in data['data']:
                 if 'DOI' in paper['externalIds']:
                     doi_dict[paper['externalIds']['DOI']] = paper['publicationTypes']
-                    time.sleep(3)
-            print(f'Saved {len(doi_dict)} out of {total} DOIs from {pub_date}')  #print statement to show progress
-    else:
-        for paper in data['data']:
-            if 'DOI' in paper['externalIds']:
-                doi_dict[paper['externalIds']['DOI']] = paper['publicationTypes']
-        print(f'Saved {len(doi_dict)} DOIs out of {total} result from {pub_date}')     #print statement to show progress
+            print(f'Saved {len(doi_dict)} out of {total} results from {pub_date}')  #print statement to show progress
+            time.sleep(3)
     return doi_dict
 
 
