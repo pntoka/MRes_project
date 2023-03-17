@@ -149,14 +149,14 @@ def doi_list_date_range_2(query, pub_dates, save_dir):
     df = pd.DataFrame(columns=['query', 'pub_date', 'number_of_results'])
     for pub_date in pub_dates:
         doi_dict = doi_pubtype_dict(query, pub_date)
-        print(f'Successfully retrieved {len(doi_dict)} DOIs from {pub_date}')   #print statement to show progress
+        print(f'Retrieved {len(doi_dict)} DOIs from {pub_date}')   #print statement to show progress
         doi_results = doi_dict_filter(doi_dict, 'JournalArticle', 'Review')
-        print(f'Successfully filtered down DOIs to {len(doi_results)}')        #print statement to show progress
+        print(f'Filtered DOIs to {len(doi_results)}')        #print statement to show progress
         row = {'query': query, 'pub_date': pub_date, 'number_of_results': len(doi_results)}
         new_df = pd.DataFrame([row])
         df = pd.concat([df, new_df], axis=0, ignore_index=True)
         storeDOI(doi_results, save_dir, pub_date)
-        print(f'Successfully saved {len(doi_results)} DOIs from {pub_date}')   #print statement to show progress
+        print(f'Saved {len(doi_results)} DOIs from {pub_date}')   #print statement to show progress
     df.to_csv(save_dir + 'sem_scholar_results.csv', index=False)
 
 
