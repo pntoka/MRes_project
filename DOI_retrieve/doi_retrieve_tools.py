@@ -44,7 +44,8 @@ def sem_scholar_2(query, pub_date, offset_number):
     count = 0
     while response.status_code != 200:
         print('Error: ' + str(response.status_code)+' trying request again')        #if the request is not successful, try again
-        time.sleep(3)
+        print('This is the url: ' + url)
+        time.sleep(60)
         response = requests.get(url)
         count += 1
         if count == 15:
@@ -88,6 +89,10 @@ def doi_pubtype_dict(query, pub_date):
     offset = 0
     data = sem_scholar_2(query, pub_date, offset)
     total = data['total']
+    if total == 0:
+        print('No results found')
+        return None
+    new_total = total
     doi_dict = {}
     for paper in data['data']:
         if 'DOI' in paper['externalIds']:
@@ -96,11 +101,15 @@ def doi_pubtype_dict(query, pub_date):
     if total > 100:
         offset_list = offset_counter(total)
         for offset in offset_list:
+            if offset > new_total:
+                print('Total is less than offset')
+                break
             data = sem_scholar_2(query, pub_date, offset)
             for paper in data['data']:
                 if 'DOI' in paper['externalIds']:
                     doi_dict[paper['externalIds']['DOI']] = paper['publicationTypes']
             print(f'Saved {len(doi_dict)} out of {total} results from {pub_date}')  #print statement to show progress
+            new_total = data['total']
             time.sleep(3)
     return doi_dict
 
@@ -148,14 +157,20 @@ def doi_list_date_range_2(query, pub_dates, save_dir):
     df = pd.DataFrame(columns=['query', 'pub_date', 'number_of_results'])
     for pub_date in pub_dates:
         doi_dict = doi_pubtype_dict(query, pub_date)
-        print(f'Retrieved {len(doi_dict)} DOIs from {pub_date}')   #print statement to show progress
-        doi_results = doi_dict_filter(doi_dict, 'JournalArticle', 'Review')
-        print(f'Filtered DOIs to {len(doi_results)}')        #print statement to show progress
-        row = {'query': query, 'pub_date': pub_date, 'number_of_results': len(doi_results)}
-        new_df = pd.DataFrame([row])
-        df = pd.concat([df, new_df], axis=0, ignore_index=True)
-        storeDOI(doi_results, save_dir, pub_date)
-        print(f'Saved {len(doi_results)} DOIs from {pub_date}')   #print statement to show progress
+        if doi_dict == None:
+            row = {'query': query, 'pub_date': pub_date, 'number_of_results': 0}
+            new_df = pd.DataFrame([row])
+            df = pd.concat([df, new_df], axis=0, ignore_index=True)
+            continue
+        else:
+            print(f'Retrieved {len(doi_dict)} DOIs from {pub_date}')   #print statement to show progress
+            doi_results = doi_dict_filter(doi_dict, 'JournalArticle', 'Review')
+            print(f'Filtered DOIs to {len(doi_results)}')        #print statement to show progress
+            row = {'query': query, 'pub_date': pub_date, 'number_of_results': len(doi_results)}
+            new_df = pd.DataFrame([row])
+            df = pd.concat([df, new_df], axis=0, ignore_index=True)
+            storeDOI(doi_results, save_dir, pub_date)
+            print(f'Saved {len(doi_results)} DOIs from {pub_date}')   #print statement to show progress
     df.to_csv(save_dir + 'sem_scholar_results.csv', index=False)
 
 
@@ -175,10 +190,13 @@ def doi_unique(query_list, pub_dates, save_dir):
     '''
     doi_list = []
     for query in query_list:
-        path = save_dir + query.replace(' ', '_') + '/'
+        folder = save_dir + query.replace(' ', '_') + '/'
         for year in pub_dates:
-            with open(path + f"doi_{year}.txt", "r", encoding="utf-8") as file:
-                dois = file.read().splitlines()
+            if os.path.exists(folder + f"doi_{year}.txt") == False:
+                continue
+            else:
+                with open(folder + f"doi_{year}.txt", "r", encoding="utf-8") as file:
+                    dois = file.read().splitlines()
                 doi_list.extend(dois)
     doi_list_unique = list(set(doi_list))   #removes duplicates and leaves only unique dois
     with open(save_dir + f"doi_unique.txt", "a", encoding="utf-8") as save_file:
