@@ -9,7 +9,7 @@ import urllib.request
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
-PUB_PREFIX = {"RSC": "10.1039", "ACS": "10.1021", "Nature":"10.1038", "Science":"10.1126", "Frontiers":"10.3389", "MDPI":"10.3390", "Wiley": "10.1002", "Springer":"10.1007", "TandF":"10.1080", "Elsevier":"10.1016"}
+PUB_PREFIX = {"RSC": "10.1039", "ACS": "10.1021", "Nature":"10.1038", "Science":"10.1126", "Frontiers":"10.3389", "MDPI":"10.3390", "Wiley": "10.1002", "Springer":"10.1007", "TandF":"10.1080", "Elsevier":"10.1016", 'IOP': '10.1088'}
 
 class FullTextDownloader:
     def __init__(self, pub_prefix,api_key):
@@ -79,6 +79,12 @@ class FullTextDownloader:
         elif prefix == self.pub_prefix['TandF']:
             link = re.sub('/pdf','',links[1])
             return link  #html link
+        elif prefix == self.pub_prefix['IOP']:
+            if '/pdf' in links[1]:
+                link = re.sub('/pdf','',links[1])
+                return link  #html link
+            else:
+                return links[1]  #html link
         elif prefix == self.pub_prefix['Science']:
             print('URLs from Science get 403 error')
     
