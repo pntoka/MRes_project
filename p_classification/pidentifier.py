@@ -42,7 +42,7 @@ def section_selector(section_names):
     '''
     Function to select section containing experimental methods based on keyword matching
     '''
-    keywords = ['experimental', 'experimentation', 'materials and methods', 'methodology', 'methods','procedure','synthesis', 'hydrothermal']
+    keywords = ['experimental', 'experimentation', 'materials and methods', 'methodology', 'methods','procedure','synthesis', 'hydrothermal', 'method']
     for section in section_names:
         if any(keyword.lower() in section.lower() for keyword in keywords):
             section_name = section
