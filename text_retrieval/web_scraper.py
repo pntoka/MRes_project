@@ -94,7 +94,7 @@ class FullTextDownloader:
         # driver = webdriver.Firefox(executable_path=r"C:\Users\Piotr\geckodriver.exe", options=options)
         driver = webdriver.Firefox()
         driver.get(link)
-        driver.implicitly_wait(3)
+        driver.implicitly_wait(5)
         page = driver.page_source.encode('utf-8')
         # driver.close()
         with open(
