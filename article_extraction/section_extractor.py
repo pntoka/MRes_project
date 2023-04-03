@@ -173,7 +173,9 @@ def sections_tandf(soup, list_remove):
     Function to extract sections from Taylor and Francis html journals
     '''
     main_content = soup.find('div', class_ = 'hlFld-Fulltext')
-    sections = main_content.find_all('div', class_ = ['NLM_sec NLM_sec_level_1', 'NLM_sec NLM_sec-type_intro NLM_sec_level_1'])
+    sections = main_content.find_all('div', class_ = ['NLM_sec NLM_sec_level_1', 'NLM_sec NLM_sec-type_intro NLM_sec_level_1',
+                                                      'NLM_sec NLM_sec-type_results NLM_sec_level_1', 'NLM_sec NLM_sec-type_conclusions NLM_sec_level_1',
+                                                      'NLM_sec NLM_sec-type_other NLM_sec_level_1', 'NLM_sec NLM_sec-type_results|discussion NLM_sec_level_1'])
     sections_clean = tools.remove_tags_soup_list(sections, list_remove)
     data_dict = []
     for section in sections_clean:
