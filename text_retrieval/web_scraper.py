@@ -16,6 +16,7 @@ class FullTextDownloader:
         self.pub_prefix = pub_prefix
         self.api_key = api_key
     
+
     def crossref_link(self, doi):
         opener = opener = urllib.request.build_opener()
         opener.addheaders = [('Accept', 'application/vnd.crossref.unixsd+xml')]
@@ -23,6 +24,7 @@ class FullTextDownloader:
         links = re.findall(r"(?<=\<).+?(?=\>)",r.info()['Link']) #finds links that are between < and >
         return links
     
+
     def downloadElsevier(self, doi, save_dir):
         if not os.path.exists(save_dir):
             print(
@@ -48,47 +50,92 @@ class FullTextDownloader:
         else:
             print("Empty DOI!")
 
+
+    def link_checker(self, part, links):
+        for link in links:
+            if part in link:
+                return link
+        return None
+    
     def link_selector(self, doi, links):
         '''
         Function to select correct link for full text html from crossref
         '''
         prefix = doi[:7]
+
         if prefix == self.pub_prefix['RSC']:
-            link = re.sub('articlepdf','articlehtml',links[1])
-            return link #html link
+            part = 'pubs.rsc.org/en/content'
+            link = self.link_checker(part, links)
+            if link is not None:
+                link = re.sub('articlepdf', 'articlehtml', link)
+                return link  #html link
+            
         elif prefix == self.pub_prefix['ACS']:
-            link = re.sub('pdf/','',links[1])
-            return link #html link
+            part = 'pubs.acs.org/doi/pdf'
+            link = self.link_checker(part, links)
+            if link is not None:
+                link = re.sub('pdf/', '', link)
+                return link  #html link
+            
         elif prefix == self.pub_prefix['Wiley']:
-            for link in links:
-                if 'full-xml' in link:
-                    return link #full text in xml
+            part  = 'onlinelibrary.wiley.com/doi/full-xml'
+            link = self.link_checker(part, links)
+            if link is not None:
+                return link    #full text in xml
+            part = 'onlinelibrary.wiley.com/doi/full'
+            link = self.link_checker(part, links)
+            if link is not None:
+                return link    #html link
+            part = '/fullpdf'
+            link = self.link_checker(part, links)
+            if link is not None:
+                link = re.sub('/fullpdf', '', link)
+                return link  #html link
+
         elif prefix == self.pub_prefix['Frontiers']:
             return links[1] #full text html link
+        
         elif prefix == self.pub_prefix['MDPI']:
-            link = re.sub('/pdf','',links[1])
-            return link #html link
+            part = '/pdf'
+            link = self.link_checker(part, links)
+            if link is not None:
+                link = re.sub('/pdf', '', link)
+                return link  #html link
+        
         elif prefix == self.pub_prefix['Springer']:
-            return links[2]  #full text html link but some may be just pdf
+            part = 'link.springer.com/article'
+            link = self.link_checker(part, links)
+            if link is not None:
+                return link   #html link
+            
         elif prefix == self.pub_prefix['Nature']:
-            for link in links:
-                if link[-3:] == 'pdf':
-                    link_1 = link.replace(link[-4:],'')
-                    return link_1 #html link
-            return links[2]  #html link   
+            part = '.pdf'
+            link = self.link_checker(part, links)
+            if link is not None:
+                link = re.sub('.pdf', '', link)
+                return link  #html link
+
         elif prefix == self.pub_prefix['TandF']:
-            link = re.sub('/pdf','',links[1])
-            return link  #html link
+            part = 'tandfonline.com/doi/pdf'
+            link = self.link_checker(part, links)
+            if link is not None:
+                link = re.sub('pdf/', '', link)
+                return link
+        
         elif prefix == self.pub_prefix['IOP']:
             if '/pdf' in links[1]:
                 link = re.sub('/pdf','',links[1])
                 return link  #html link
             else:
                 return links[1]  #html link
+            
         elif prefix == self.pub_prefix['Science']:
             print('URLs from Science get 403 error')
-    
+
     def web_scrape(self,doi,link,save_dir):
+        '''
+        Function to scrape full text html from link using selenium webdriver
+        '''
         # options = Options()
         # options.binary_location = r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe"      #stuff for webdriver to work on windows laptop
         # driver = webdriver.Firefox(executable_path=r"C:\Users\Piotr\geckodriver.exe", options=options)
@@ -104,6 +151,28 @@ class FullTextDownloader:
             save_file.write(page)
         driver.close()
 
+    def springer_scrape(self, doi, save_dir):
+        '''
+        Function get page source from springer link using requests
+        '''
+        base_url = 'https://link.springer.com/article/'
+        api_url = base_url + doi
+        try:
+            headers = {
+                'Accept': 'text/html',
+                'User-Agent': 'Mozilla/5.0'
+            }
+            r = requests.get(api_url, stream = True, headers=headers, timeout=30)
+            if r.status_code == 200:
+                with open(save_dir+doi.replace('/','-')+'.txt', 'wb') as f:
+                    f.write(r.content)
+                return True
+            else:
+                print('Error: ', r.status_code, f'for {doi}')
+                return False
+        except:
+            return False
+
 def text_downloader(file_path, save_dir, my_api_key):
     '''
     Function that reads in file with DOIs and downloads full text articles
@@ -116,6 +185,8 @@ def text_downloader(file_path, save_dir, my_api_key):
             doi  = line.strip()
             if doi[:7] == PUB_PREFIX["Elsevier"]:
                 downloader.downloadElsevier(doi, save_dir)
+            elif doi[:7] == PUB_PREFIX["Springer"]:
+                downloader.springer_scrape(doi, save_dir)
             else:
                 links = downloader.crossref_link(doi)
                 link = downloader.link_selector(doi, links)
