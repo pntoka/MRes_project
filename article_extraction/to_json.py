@@ -32,6 +32,19 @@ def Wiley_to_json(soup, doi, save_dir):
     sections = section_extractor.sections_wiley(soup, list_remove)
     tools.create_json_data(doi, sections, title, save_dir)
 
+def Wiley_html_to_json(soup, doi, save_dir):
+    '''
+    Function to extract paragraphs from Wiley html journals and save as json file
+    doi is the txt file name
+    '''
+    list_remove = [{'name': 'section', 'class': 'article-section__inline-figure'},
+               {'name': 'div', 'class': 'article-table-content'},
+               {'name': 'div', 'class': 'inline-equation'},
+               {'name': 'span'}, {'name': 'a'}]        #removes links, tables, figures, inline equations
+    title = soup.header.find('h1').text
+    sections = section_extractor.sections_wiley_html(soup, list_remove)
+    tools.create_json_data(doi, sections, title, save_dir)
+
 def Springer_Nature_to_json(soup, doi, save_dir):
     '''
     Function to extract paragraphs from Springer or Nature html journals and save as json file
@@ -106,8 +119,11 @@ def article_extractor(doi, path, save_dir):
     if prefix == pub_prefix['ACS']:
         ACS_to_json(soup, doi, save_dir)
     elif prefix == pub_prefix['Wiley']:
-        soup = BeautifulSoup(html_xml_str, 'xml')
-        Wiley_to_json(soup, doi, save_dir)
+        if html_xml_str.startswith('<html class'):
+            Wiley_html_to_json(soup, doi, save_dir)
+        if html_xml_str.startswith('<component xmlns'):
+            soup = BeautifulSoup(html_xml_str, 'xml')
+            Wiley_to_json(soup, doi, save_dir)
     elif prefix == pub_prefix['Springer']:
         Springer_Nature_to_json(soup, doi, save_dir)
     elif prefix == pub_prefix['Nature']:

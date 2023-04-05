@@ -25,11 +25,20 @@ def remove_tags_soup(soup, rules):
 
 def find_paragraphs(soup, tags_list):
     '''
-    Function to find paragraphs in a soup object based on specific tags
+    Function to find paragraphs in a soup object based on specific tags with the same name
     '''
     paragraphs = soup.find_all(**tags_list)
     return paragraphs
-    
+
+def find_paragraphs_list(soup, tags_list):
+    '''
+    Function to find paragraphs in a soup object based on a list of tags with different names
+    '''
+    paragraphs = []
+    for tag in tags_list:
+        paragraphs += soup.find_all(**tag)
+    return paragraphs
+
 def create_json_data(doi, sections, title, save_dir):
     '''
     Function to create json file of html/xml article

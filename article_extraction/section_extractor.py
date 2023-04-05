@@ -114,7 +114,40 @@ def sections_wiley(soup, list_remove):
                 data['content'].append(paragraph.text)
         data_dict.append(data)
     return data_dict
-    
+
+def sections_wiley_html(soup, list_remove):
+    '''
+    Function to get sections from Wiley html file
+    '''
+    paragraph_tags = [{'name': 'p'}, {'name': 'div', 'class' : 'paragraph-element'}]
+    main_content = soup.find('section', 'article-section article-section__full')
+    sections = main_content.find_all('section', 'article-section__content')
+    data_dict = []
+    for section in sections:
+        data = {}
+        data['name'] = section.find('h2').text
+        data['type'] = 'h2'
+        data['content'] = []
+        if section.find('h3') is not None:
+            section_clean = tools.remove_tags_soup(section, list_remove)
+            elements = section_clean.find_all('section', 'article-section__sub-content')
+            for element in elements:
+                data_sub = {}
+                data_sub['name'] = element.find('h3').text
+                data_sub['type'] = 'h3'
+                data_sub['content'] = []
+                paragraphs = tools.find_paragraphs_list(element, paragraph_tags)
+                for paragraph in paragraphs:
+                    data_sub['content'].append(paragraph.text)
+                data['content'].append(data_sub)
+        else:
+            section_clean = tools.remove_tags_soup(section, list_remove)
+            paragraphs = tools.find_paragraphs_list(section_clean, paragraph_tags)
+            for paragraph in paragraphs:
+                data['content'].append(paragraph.text)
+        data_dict.append(data)
+    return data_dict
+
 def sections_springer_nature(soup, list_remove):
     '''
     Function to get sections from Springer and Nature html journals
