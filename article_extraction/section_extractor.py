@@ -86,8 +86,8 @@ def sections_wiley(soup, list_remove):
     data_dict = []
     for section in sections_clean:
         data = {}
-        data['name'] = section.name
-        data['type'] = section.find('title').text
+        data['name'] = section.find('title').text
+        data['type'] = section.name
         data['content'] = []
         if section.find('section') is not None:
             if section.find_all(['section','p'])[0].name == 'p':  #deals with paragraphs before subheadings
