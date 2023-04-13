@@ -103,9 +103,13 @@ def synthesis_methods(data):
     '''
     section_names = get_section_names(data)
     section_name = section_selector(section_names)    # select section containing experimental information
+    if section_name is None:
+        return None
     if content_checker(data, section_name) == True:   # check if section contains subsections
         subsection_names = get_subsection_names(data, section_name)
         subsection_name = subsection_selector(subsection_names)   # select subsection containing synthesis methods
+        if subsection_name is None:
+            return None
         subsection_content = get_subsection_content(data, section_name, subsection_name)
         return subsection_content
     elif content_checker(data, section_name) == False:
@@ -120,6 +124,7 @@ def get_synthesis_methods(path):
     p_results = pd.DataFrame(columns=['DOI','paragraphs'])
     for file in os.listdir(path):
         if file.endswith('.json'):
+            print(file)
             data = get_data(path + '/' + file)
             paragraphs = synthesis_methods(data)
             doi = data['DOI']
