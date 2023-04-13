@@ -104,9 +104,11 @@ def Elsevier_to_json(path, doi, save_dir):
     '''
     with open(path+doi, 'r', encoding='utf-8') as f:
         xml_str = f.read()
-    data = ElsevierSoup.parse(xml_str)
-    with open(save_dir+doi.replace('.txt', '.json'), 'w', encoding='utf-8') as f:
-        json.dump(data, f, sort_keys=True, indent=4, ensure_ascii=False)
+    doc = BeautifulSoup(xml_str, 'xml')
+    if len(doc.find_all('rawtext')) == 0:
+        data = ElsevierSoup.parse(xml_str)
+        with open(save_dir+doi.replace('.txt', '.json'), 'w', encoding='utf-8') as f:
+            json.dump(data, f, sort_keys=True, indent=4, ensure_ascii=False)
 
 def article_extractor(doi, path, save_dir):
     '''
