@@ -53,7 +53,7 @@ def subsection_selector(subsection_names):
     '''
     Function to select subsection containing synthesis methods based on keyword matching
     '''
-    keywords = ['synthesis', 'hydrothermal', 'preparation', 'methods']
+    keywords = ['synthesis', 'hydrothermal', 'preparation', 'methods', 'experimental']
     for subsection in subsection_names:
         if any(keyword.lower() in subsection.lower() for keyword in keywords):
             subsection_name = subsection
@@ -117,7 +117,7 @@ def get_synthesis_methods(path):
     '''
     Function to extract synthesis methods from all json files in a folder and return them as a dataframe
     '''
-    paragraphs = pd.DataFrame(columns=['DOI','paragraphs'])
+    p_results = pd.DataFrame(columns=['DOI','paragraphs'])
     for file in os.listdir(path):
         if file.endswith('.json'):
             data = get_data(path + '/' + file)
@@ -125,5 +125,5 @@ def get_synthesis_methods(path):
             doi = data['DOI']
             row = {'DOI': doi, 'paragraphs': paragraphs}
             new_df = pd.DataFrame([row])
-            paragraphs = pd.concat([paragraphs, new_df], axis=0, ignore_index=True)
-    return paragraphs
+            p_results = pd.concat([p_results, new_df], axis=0, ignore_index=True)
+    return p_results
