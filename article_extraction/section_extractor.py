@@ -200,7 +200,7 @@ def sections_frontiers(soup, list_remove):
                     data['content']= subheadings_content_frontiers(elements[i+1:])
             data_dict.append(data)
     return data_dict
-    
+
 def sections_tandf(soup, list_remove):
     '''
     Function to extract sections from Taylor and Francis html journals
@@ -219,22 +219,46 @@ def sections_tandf(soup, list_remove):
         if section.find('div', class_ = 'NLM_sec NLM_sec_level_2') is not None:
             elements = section.find_all('div', class_ = 'NLM_sec NLM_sec_level_2') 
             for element in elements:
-                data_sub = {}
-                data_sub['name'] = element.find('h3').text
-                data_sub['type'] = 'h3'
-                data_sub['content'] = []
-                paragraphs = tools.find_paragraphs(element, {'name':'p'})
-                # paragraphs = remove_tags_soup_list(paragraphs, {'name':'button'})
-                for paragraph in paragraphs:
-                    data_sub['content'].append(paragraph.text)
-                data['content'].append(data_sub)
+                if element.find('div', class_ = 'NLM_sec NLM_sec_level_3') is not None:     #deals with h4 subheadings in subsection
+                    data_sub = {}
+                    data_sub['name'] = element.find('h3').text
+                    data_sub['type'] = 'h3'
+                    data_sub['content'] = []                                    
+                    first_paragraph = element.p
+                    paragraphs = first_paragraph.find_next_siblings('p')       #gets content before h4 subheadings
+                    paragraphs.insert(0, first_paragraph)
+                    for paragraph in paragraphs:
+                        data_sub['content'].append(paragraph.text)
+                    data['content'].append(data_sub)
+                    sub_elements = element.find_all('div', class_ = 'NLM_sec NLM_sec_level_3')
+                    for sub_element in sub_elements:
+                        data_sub = {}
+                        data_sub['name'] = sub_element.find('h4').text
+                        data_sub['type'] = 'h4'                                 #gets content of h4 subheadings
+                        data_sub['content'] = []
+                        first_paragraph = sub_element.p
+                        paragraphs = first_paragraph.find_next_siblings('p')
+                        paragraphs.insert(0, first_paragraph)
+                        for paragraph in paragraphs:
+                            data_sub['content'].append(paragraph.text)
+                        data['content'].append(data_sub)
+                else:
+                    data_sub = {}
+                    data_sub['name'] = element.find('h3').text
+                    data_sub['type'] = 'h3'
+                    data_sub['content'] = []
+                    paragraphs = tools.find_paragraphs(element, {'name':'p'})
+                    # paragraphs = remove_tags_soup_list(paragraphs, {'name':'button'})
+                    for paragraph in paragraphs:
+                        data_sub['content'].append(paragraph.text)
+                    data['content'].append(data_sub)
         else:
             paragraphs = tools.find_paragraphs(section, {'name':'p'})
             for paragraph in paragraphs:
                 data['content'].append(paragraph.text)
         data_dict.append(data)
     return data_dict
-    
+
 def sections_mdpi(soup, list_remove):
     '''
     Function to extract sections from MDPI html journals
