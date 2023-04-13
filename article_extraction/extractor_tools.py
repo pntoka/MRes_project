@@ -39,14 +39,17 @@ def find_paragraphs_list(soup, tags_list):
         paragraphs += soup.find_all(**tag)
     return paragraphs
 
-def create_json_data(doi, sections, title, save_dir):
+def create_json_data(doi, sections, title, save_dir, keywords = None):
     '''
     Function to create json file of html/xml article
     '''
     data = {}
     data['DOI'] = doi.replace(doi[7],'/',1).replace('.txt','')
     data['Journal']= ""
-    data['Keywords'] = []
+    if keywords ==  None:
+        data['Keywords'] = []
+    elif keywords != None:
+        data['Keywords'] = keywords
     data['Title'] = title
     data['Sections']= sections
     doi = doi.replace('.txt','.json')

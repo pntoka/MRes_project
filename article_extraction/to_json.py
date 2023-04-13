@@ -28,9 +28,12 @@ def Wiley_to_json(soup, doi, save_dir):
     doi is the txt file name
     '''
     list_remove = [{'name': ['link', 'tabular', 'figure']}] #removes links and tables
-    title = soup.header.find('articleTitle').text
+    titles = soup.header.find_all('titleGroup')
+    title = titles[-1].find('title').text
+    keywords = soup.header.find_all('keywordGroup')
+    keywords = [keyword.text for keyword in keywords[0].find_all('keyword')]
     sections = section_extractor.sections_wiley(soup, list_remove)
-    tools.create_json_data(doi, sections, title, save_dir)
+    tools.create_json_data(doi, sections, title, save_dir, keywords=keywords)
 
 def Wiley_html_to_json(soup, doi, save_dir):
     '''
@@ -41,7 +44,7 @@ def Wiley_html_to_json(soup, doi, save_dir):
                {'name': 'div', 'class': 'article-table-content'},
                {'name': 'div', 'class': 'inline-equation'},
                {'name': 'span'}, {'name': 'a'}]        #removes links, tables, figures, inline equations
-    title = soup.header.find('h1').text
+    title = soup.find('h1').text
     sections = section_extractor.sections_wiley_html(soup, list_remove)
     tools.create_json_data(doi, sections, title, save_dir)
 
