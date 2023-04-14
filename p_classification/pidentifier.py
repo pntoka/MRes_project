@@ -124,7 +124,7 @@ def get_synthesis_methods(path):
     p_results = pd.DataFrame(columns=['DOI','paragraphs'])
     for file in os.listdir(path):
         if file.endswith('.json'):
-            print(file)
+            # print(file)        # uncomment to see which files are being processed
             data = get_data(path + '/' + file)
             paragraphs = synthesis_methods(data)
             doi = data['DOI']
