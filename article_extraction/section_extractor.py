@@ -130,6 +130,14 @@ def sections_wiley_html(soup, list_remove):
         data['content'] = []
         if section.find('h3') is not None:
             section_clean = tools.remove_tags_soup(section, list_remove)
+            if section_clean.find_all(['p','section'])[0].name == 'p':
+                data_sub = {}                                           #deals with paragraphs before subheadings
+                data_sub['name'] = section.find('h2').text
+                data_sub['type'] = 'h2'
+                data_sub['content'] = [section_clean.find('p').text]
+                for paragraph in section_clean.p.find_next_siblings('p'):
+                    data_sub['content'].append(paragraph.text)
+                data['content'].append(data_sub)
             elements = section_clean.find_all('section', 'article-section__sub-content')
             for element in elements:
                 data_sub = {}
