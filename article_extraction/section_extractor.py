@@ -171,6 +171,17 @@ def sections_springer_nature(soup, list_remove):
         if section.find('h3') is not None:
             section_clean = tools.remove_tags_soup(section, list_remove)
             elements = section_clean.find_all(['h3','p'])
+            if elements[0].name == 'p':
+                data_sub = {}                                           #deals with paragraphs before subheadings
+                data_sub['name'] = section.find('h2').text
+                data_sub['type'] = 'h2'
+                data_sub['content'] = [elements[0].text]
+                for i in range(1,len(elements)):
+                    if elements[i].name == 'p':
+                        data_sub['content'].append(elements[i].text)
+                    else:
+                        break
+                data['content'].append(data_sub)
             for i in range(len(elements)):
                 if elements[i].name == 'h3':
                     data_sub = {}
