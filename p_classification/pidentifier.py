@@ -3,6 +3,7 @@ import os
 import json
 import pandas as pd
 import numpy as np
+import unicodedata
 
 
 def get_data(path):
@@ -13,6 +14,22 @@ def get_data(path):
         data = json.load(f)
     return data
 
+def string_cleaner(content):
+    '''
+    Function to remove non-breaking spaces and unicode characters from strings
+    '''
+    if type(content[0]) == str:
+        clean_str = []
+        for element in content:
+            clean_str.append(unicodedata.normalize('NFKD', element))
+        return clean_str
+    elif type(content[0]) == dict:
+        clean_dict = []
+        for element in content:
+            element['name'] = unicodedata.normalize('NFKD', element['name'])
+            element['content'] = string_cleaner(element['content'])
+            clean_dict.append(element)
+        return clean_dict
 
 def get_section_names(data):
     '''
@@ -111,9 +128,11 @@ def synthesis_methods(data):
         if subsection_name is None:
             return None
         subsection_content = get_subsection_content(data, section_name, subsection_name)
+        subsection_content = string_cleaner(subsection_content)
         return subsection_content
     elif content_checker(data, section_name) == False:
         section_content = get_section_content(data, section_name)
+        section_content = string_cleaner(section_content)
         return section_content
     
 
