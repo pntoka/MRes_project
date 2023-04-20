@@ -151,3 +151,30 @@ def get_synthesis_methods(path):
             new_df = pd.DataFrame([row])
             p_results = pd.concat([p_results, new_df], axis=0, ignore_index=True)
     return p_results
+
+def dict_to_str(data):
+    '''
+    Function to extract paragraphs from dictionary as list of strings
+    '''
+    paragraphs = []
+    for element in data:
+        paragraphs.extend(element['content'])
+    return paragraphs
+
+def write_paragraph_df_to_txt(df, path, filename):
+    '''
+    Function to write paragraphs from dataframe to txt file
+    '''
+    with open (path + '/' +filename, 'w', encoding='utf-8') as f:
+        for row in df.itertuples(index=False):
+            if row.paragraphs is not None:
+                if type(row.paragraphs[0]) == str and len(row.paragraphs) == 1:
+                    f.write(row.DOI +': '+ row.paragraphs[0] +'\n')
+                elif type(row.paragraphs[0]) == str and len(row.paragraphs) != 1:
+                    for paragraph in row.paragraphs:
+                        f.write(row.DOI +': '+ paragraph +'\n')
+                elif type(row.paragraphs[0]) == dict:
+                    paragraphs = dict_to_str(row.paragraphs)
+                    for paragraph in paragraphs:
+                        f.write(row.DOI +': '+ paragraph +'\n')
+
