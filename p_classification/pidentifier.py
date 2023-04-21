@@ -71,11 +71,19 @@ def subsection_selector(subsection_names):
     Function to select subsection containing synthesis methods based on keyword matching
     '''
     keywords = ['synthesis', 'synthes', 'hydrothermal', 'preparation', 'methods', 'experimental']
+    names = []
     for subsection in subsection_names:
         if any(keyword.lower() in subsection.lower() for keyword in keywords):
-            subsection_name = subsection
-            return subsection_name
-        
+            names.append(subsection)
+    if len(names) == 1:
+        subsection_name = names[0]
+        return subsection_name
+    elif len(names) > 1:
+        keywords_2 = ['synthesis', 'synthes', 'hydrothermal', 'preparation']
+        for name in names:
+            if any(keyword.lower() in name.lower() for keyword in keywords_2):
+                subsection_name = name
+                return subsection_name
 
 def get_section_content(data, section_name):
     '''
@@ -169,12 +177,12 @@ def write_paragraph_df_to_txt(df, path, filename):
         for row in df.itertuples(index=False):
             if row.paragraphs is not None:
                 if type(row.paragraphs[0]) == str and len(row.paragraphs) == 1:
-                    f.write(row.DOI +': '+ row.paragraphs[0] +'\n')
+                    f.write(row.DOI +': '+ row.paragraphs[0].replace('\n', ' ') +'\n')
                 elif type(row.paragraphs[0]) == str and len(row.paragraphs) != 1:
                     for paragraph in row.paragraphs:
-                        f.write(row.DOI +': '+ paragraph +'\n')
+                        f.write(row.DOI +': '+ paragraph.replace('\n', ' ')  +'\n')
                 elif type(row.paragraphs[0]) == dict:
                     paragraphs = dict_to_str(row.paragraphs)
                     for paragraph in paragraphs:
-                        f.write(row.DOI +': '+ paragraph +'\n')
+                        f.write(row.DOI +': '+ paragraph.replace('\n', ' ')  +'\n')
 
