@@ -173,16 +173,53 @@ def write_paragraph_df_to_txt(df, path, filename):
     '''
     Function to write paragraphs from dataframe to txt file
     '''
-    with open (path + '/' +filename, 'w', encoding='utf-8') as f:
+    with open (os.path.join(path, filename), 'w', encoding='utf-8') as f:
         for row in df.itertuples(index=False):
             if row.paragraphs is not None:
                 if type(row.paragraphs[0]) == str and len(row.paragraphs) == 1:
                     f.write(row.DOI +': '+ row.paragraphs[0].replace('\n', ' ') +'\n')
                 elif type(row.paragraphs[0]) == str and len(row.paragraphs) != 1:
+                    count = 0                                                   #adds counter for paragraphs with same DOI
                     for paragraph in row.paragraphs:
-                        f.write(row.DOI +': '+ paragraph.replace('\n', ' ')  +'\n')
+                        f.write(row.DOI+f'_no_{count}' +': '+ paragraph.replace('\n', ' ')  +'\n')
+                        count += 1
                 elif type(row.paragraphs[0]) == dict:
                     paragraphs = dict_to_str(row.paragraphs)
+                    count = 0
                     for paragraph in paragraphs:
-                        f.write(row.DOI +': '+ paragraph.replace('\n', ' ')  +'\n')
+                        f.write(row.DOI+f'_no_{count}' +': '+ paragraph.replace('\n', ' ')  +'\n')
+                        count += 1
 
+def paragraph_df_to_tuple(df):
+    '''
+    Function to convert dataframe to list of tuples in format (DOI, paragraph)
+    '''
+    tuples = []
+    for row in df.itertuples(index=False):
+        if row.paragraphs is not None:
+            if type(row.paragraphs[0]) == str and len(row.paragraphs) == 1:
+                tuples.append((row.DOI, row.paragraphs[0].replace('\n', ' ')))
+            elif type(row.paragraphs[0]) == str and len(row.paragraphs) != 1:
+                count = 0                                               #adds counter for paragraphs with same DOI
+                for paragraph in row.paragraphs:
+                    tuples.append((row.DOI+f'_no_{count}', paragraph.replace('\n', ' ')))
+                    count += 1
+            elif type(row.paragraphs[0]) == dict:
+                paragraphs = dict_to_str(row.paragraphs)
+                count = 0
+                for paragraph in paragraphs:
+                    tuples.append((row.DOI+f'_no_{count}', paragraph.replace('\n', ' ')))
+                    count += 1
+    return tuples
+
+def txt_to_tuple(path, filename):
+    '''
+    Function to convert txt file to list of tuples in format (DOI, paragraph)
+    '''
+    tuples = []
+    with open (os.path.join(path, filename), 'r', encoding='utf-8') as f:
+        for line in f:
+            doi = line.split(':',1)[0]
+            paragraph = line.split(':',1)[1]
+            tuples.append((doi, paragraph))
+    return tuples
