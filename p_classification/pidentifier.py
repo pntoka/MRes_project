@@ -152,7 +152,7 @@ def get_synthesis_methods(path):
     for file in os.listdir(path):
         if file.endswith('.json'):
             # print(file)        # uncomment to see which files are being processed
-            data = get_data(path + '/' + file)
+            data = get_data(os.path.join(path, file))
             paragraphs = synthesis_methods(data)
             doi = data['DOI']
             row = {'DOI': doi, 'paragraphs': paragraphs}
