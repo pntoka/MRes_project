@@ -171,7 +171,8 @@ def dict_to_str(data):
 
 def write_paragraph_df_to_txt(df, path, filename):
     '''
-    Function to write paragraphs from dataframe to txt file
+    Function to write paragraphs from dataframe to txt file with each line containing DOI and paragraph
+    Multiple paragraphs from each DOI are split into separate lines with DOI+'no_'+count as DOI
     '''
     with open (os.path.join(path, filename), 'w', encoding='utf-8') as f:
         for row in df.itertuples(index=False):
@@ -192,7 +193,8 @@ def write_paragraph_df_to_txt(df, path, filename):
 
 def paragraph_df_to_tuple(df):
     '''
-    Function to convert dataframe to list of tuples in format (DOI, paragraph)
+    Function to convert dataframe with extracted sections from each DOI to list of tuples in format (DOI, paragraph)
+    Multiple paragraphs from each DOI are split into separate tuples with DOI+'no_'+count as DOI
     '''
     tuples = []
     for row in df.itertuples(index=False):
@@ -226,8 +228,23 @@ def txt_to_tuple(path, filename):
 
 def make_batches(data,batch_size):
     '''
-    Function to make batches of data
+    Function to make batches of data for feeding into classification model
     '''
     batches = [data[i:min(i+batch_size,len(data))] 
                for i in range(0,len(data),batch_size)]
     return batches
+
+def txt_to_csv(path, filename, filename2='p_dataset.csv'):
+    '''
+    Function to convert txt file containing DOI: paragraph on each line to csv file
+    '''
+    df = pd.DataFrame(columns=['DOI','paragraph', 'class'])
+    with open(os.path.join(path, filename), 'r', encoding='utf-8') as f:
+        for line in f:
+            doi = line.split(':',1)[0]
+            paragraph = line.split(':',1)[1]
+            row = {'DOI': doi, 'paragraph': paragraph, 'class': None}
+            new_df = pd.DataFrame([row])
+            df = pd.concat([df, new_df], axis=0, ignore_index=True)
+    
+    df.to_csv(os.path.join(path, filename2), index=False, encoding='utf-8')
