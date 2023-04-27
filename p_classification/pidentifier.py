@@ -223,3 +223,11 @@ def txt_to_tuple(path, filename):
             paragraph = line.split(':',1)[1]
             tuples.append((doi, paragraph))
     return tuples
+
+def make_batches(data,batch_size):
+    '''
+    Function to make batches of data
+    '''
+    batches = [data[i:min(i+batch_size,len(data))] 
+               for i in range(0,len(data),batch_size)]
+    return batches
