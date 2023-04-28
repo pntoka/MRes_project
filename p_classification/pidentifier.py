@@ -169,7 +169,7 @@ def dict_to_str(data):
         paragraphs.extend(element['content'])
     return paragraphs
 
-def write_paragraph_df_to_txt(df, path, filename):
+def write_paragraphs_df_to_txt(df, path, filename):
     '''
     Function to write paragraphs from dataframe to txt file with each line containing DOI and paragraph
     Multiple paragraphs from each DOI are split into separate lines with DOI+'no_'+count as DOI
@@ -190,6 +190,14 @@ def write_paragraph_df_to_txt(df, path, filename):
                     for paragraph in paragraphs:
                         f.write(row.DOI+f'_no_{count}' +': '+ paragraph.replace('\n', ' ')  +'\n')
                         count += 1
+
+def simple_df_to_txt(df, path, filename):
+    '''
+    Function to take dataframe with single pargraph per DOI and write it to txt file with each line containing DOI and paragraph
+    '''
+    with open (os.path.join(path, filename), 'w', encoding='utf-8') as f:
+        for row in df.itertuples(index=False):
+            f.write(row.DOI +': '+ row.paragraph.replace('\n', ' ') +'\n')
 
 def paragraph_df_to_tuple(df):
     '''
