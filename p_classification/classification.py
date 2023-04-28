@@ -28,6 +28,7 @@ def classify_paragraphs(path, file, batch_size, save_file='results.txt'):
             result_dict['text'] = res['text'].split(':',1)[1][:75]
             result_dict['result'] = max(res['scores'].items(), key=lambda x: x[1])
             results_all.append(result_dict)
+        print(f'Batch {batches.index(batch)+1} out of {len(batches)} completed')
 
     with open(os.path.join(path, save_file), 'w') as f:
         for result in results_all:
