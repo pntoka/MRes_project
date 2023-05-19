@@ -38,16 +38,30 @@ for i in range(len(results)):
         sentences.append(sentence)
     paragraphs.append(sentences)
 
+materials_para = []
+for i, result in enumerate(results):
+    materials_sent = []
+    for element in results[i]:
+        materials = []
+        for material in element['all_materials']:
+            materials.append({'text':material['text'], 'tok_ids':material['token_ids']})
+        materials_sent.append(materials)
+    materials_para.append(materials_sent)
+
+# print(len(materials_para))
+# print(materials_para[0][0])
+        
+
 operations = []
 graphs = []
-for para in paragraphs:
+for i, para in enumerate(paragraphs):
     para_list = []
     para_graphs = []
-    for sentence in para:
+    for j, sentence in enumerate(para):
         sent_toks = [tok for sent in Paragraph(sentence).raw_tokens for tok in sent]
         labels = oe.get_operations_labels(sent_toks)
         para_list.append(dict(labels=labels, sentence=sentence))
-        graph = gb.build_graph(sent_toks,labels)
+        graph = gb.build_graph(sent_toks,labels,materials = materials_para[i][j])
         para_graphs.append(graph)
     operations.append(para_list)
     graphs.append(para_graphs)
