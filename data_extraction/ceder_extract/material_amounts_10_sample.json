@@ -1,0 +1,238 @@
+[
+    [
+        null,
+        {
+            "O. basilicum L.": [
+                "2.0",
+                "g"
+            ],
+            "water": [
+                "100",
+                "mL"
+            ]
+        },
+        {
+            "Teflon": [
+                "100",
+                "mL"
+            ]
+        },
+        null,
+        null
+    ],
+    [
+        null,
+        {
+            "PVP": [
+                "1",
+                "g"
+            ]
+        },
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    [
+        null,
+        null,
+        {
+            "water": [
+                "30",
+                "mL"
+            ]
+        },
+        {
+            "Teflon": [
+                "50",
+                "mL"
+            ]
+        },
+        null,
+        null,
+        null
+    ],
+    [
+        null,
+        {
+            "CA": [
+                "5",
+                "mmol"
+            ],
+            "H2O": [
+                "50",
+                "mL"
+            ],
+            "diethylenetriamine": [
+                "10",
+                "mmol"
+            ]
+        },
+        null,
+        null,
+        null,
+        {
+            "N-CQDs": [
+                "1",
+                "mL"
+            ]
+        }
+    ],
+    [
+        null,
+        {
+            "CA": [
+                "2",
+                "g"
+            ],
+            "EDA": [
+                "1",
+                "mL"
+            ],
+            "water": [
+                "15",
+                "mL"
+            ]
+        },
+        {
+            "polytetrafluoroethylene": [
+                "50",
+                "mL"
+            ]
+        },
+        null,
+        null,
+        null
+    ],
+    [
+        {
+            "H2O": [
+                "0.50",
+                "g",
+                "20",
+                "mL"
+            ]
+        },
+        null,
+        null,
+        {
+            "water": [
+                "20",
+                "mL"
+            ]
+        },
+        null,
+        null
+    ],
+    [
+        {
+            "water": [
+                "10",
+                "mL"
+            ]
+        },
+        null,
+        null
+    ],
+    [
+        {
+            "HNO3": [
+                "160",
+                "ml"
+            ],
+            "TCI": [
+                "98",
+                "%"
+            ],
+            "pyrene": [
+                "2",
+                "g"
+            ]
+        },
+        null,
+        {
+            "1,3,6-trinitropyrene": [
+                "3.0",
+                "g"
+            ]
+        },
+        null,
+        null,
+        null,
+        {
+            "ammonia": [
+                "0.4",
+                "M"
+            ]
+        }
+    ],
+    [
+        null,
+        {
+            "citric acid": [
+                "3",
+                "g"
+            ],
+            "hexadecyl trimethyl ammonium bromide": [
+                "0.1",
+                "g"
+            ],
+            "urea": [
+                "3",
+                "g"
+            ],
+            "water": [
+                "30",
+                "ml"
+            ]
+        },
+        {
+            "sodium hydroxide": [
+                "0.3",
+                "g"
+            ]
+        },
+        {
+            "Teflon": [
+                "100",
+                "mL"
+            ]
+        },
+        null,
+        null,
+        null
+    ],
+    [
+        {
+            "glucose": [
+                "120",
+                "g"
+            ],
+            "steel": [
+                "1",
+                "L"
+            ],
+            "water": [
+                "600",
+                "mL"
+            ]
+        },
+        null,
+        null,
+        null,
+        {
+            "H2O2": [
+                "400",
+                "mL",
+                "30",
+                "wt"
+            ],
+            "NaOH": [
+                "0.2",
+                "mol/L"
+            ]
+        },
+        null
+    ]
+]

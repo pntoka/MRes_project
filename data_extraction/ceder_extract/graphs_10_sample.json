@@ -1,0 +1,3263 @@
+[
+    [
+        [],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 17,
+                "op_token": "added",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "2.0 g of O. basilicum L. seed",
+                "subsent": [
+                    17,
+                    22
+                ],
+                "subsent_text": [
+                    "added",
+                    "to",
+                    "100",
+                    "mL",
+                    "of"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 25,
+                "op_token": "stirred",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "2.0 g of O. basilicum L. seed",
+                "subsent": [
+                    25,
+                    34
+                ],
+                "subsent_text": [
+                    "stirred",
+                    "at",
+                    "50",
+                    "°",
+                    "C",
+                    "for",
+                    "2",
+                    "h",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 50.0,
+                        "min": 50.0,
+                        "tok_ids": [
+                            27
+                        ],
+                        "units": "°C",
+                        "values": [
+                            50.0
+                        ]
+                    }
+                ],
+                "time_values": [
+                    {
+                        "max": 2.0,
+                        "min": 2.0,
+                        "tok_ids": [
+                            31
+                        ],
+                        "units": "h",
+                        "values": [
+                            2.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 6,
+                "op_token": "filtered",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the obtained extract",
+                "subsent": [
+                    6,
+                    8
+                ],
+                "subsent_text": [
+                    "filtered",
+                    "and"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 22,
+                "op_token": "heated",
+                "op_type": "HeatingOperation",
+                "ref_op": false,
+                "subject": "the obtained extract",
+                "subsent": [
+                    22,
+                    31
+                ],
+                "subsent_text": [
+                    "heated",
+                    "at",
+                    "180",
+                    "°",
+                    "C",
+                    "for",
+                    "4",
+                    "h",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 180.0,
+                        "min": 180.0,
+                        "tok_ids": [
+                            24
+                        ],
+                        "units": "°C",
+                        "values": [
+                            180.0
+                        ]
+                    }
+                ],
+                "time_values": [
+                    {
+                        "max": 4.0,
+                        "min": 4.0,
+                        "tok_ids": [
+                            28
+                        ],
+                        "units": "h",
+                        "values": [
+                            4.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 4,
+                "op_token": "cooled",
+                "op_type": "QuenchingOperation",
+                "ref_op": false,
+                "subject": "the autoclave",
+                "subsent": [
+                    4,
+                    13
+                ],
+                "subsent_text": [
+                    "cooled",
+                    "naturally",
+                    "at",
+                    "room",
+                    "temperature",
+                    "and",
+                    "the",
+                    "solution",
+                    "was"
+                ],
+                "temp_values": [
+                    {
+                        "max": 25.0,
+                        "min": 25.0,
+                        "tok_ids": [
+                            7
+                        ],
+                        "units": "°C",
+                        "values": [
+                            25.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 13,
+                "op_token": "centrifuged",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the solution",
+                "subsent": [
+                    13,
+                    23
+                ],
+                "subsent_text": [
+                    "centrifuged",
+                    "(",
+                    "12,000",
+                    "rpm",
+                    ")",
+                    "for",
+                    "15",
+                    "min",
+                    ",",
+                    "the"
+                ],
+                "temp_values": [],
+                "time_values": [
+                    {
+                        "max": 15.0,
+                        "min": 15.0,
+                        "tok_ids": [
+                            19
+                        ],
+                        "units": "min",
+                        "values": [
+                            15.0
+                        ]
+                    }
+                ]
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 27,
+                "op_token": "filtered",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the prepared brown solution",
+                "subsent": [
+                    27,
+                    37
+                ],
+                "subsent_text": [
+                    "filtered",
+                    "through",
+                    "a",
+                    "fine",
+                    "-",
+                    "grained",
+                    "0.45",
+                    "μm",
+                    "membrane",
+                    "to"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 7,
+                "op_token": "dried",
+                "op_type": "DryingOperation",
+                "ref_op": false,
+                "subject": "the solution",
+                "subsent": [
+                    7,
+                    9
+                ],
+                "subsent_text": [
+                    "dried",
+                    "to"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ]
+    ],
+    [
+        [],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 23,
+                "op_token": "added",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "1 g of PVP and glycine ( 0 , 0.0563 , 0.1126 , 0.2252 , and 0.5630 g )",
+                "subsent": [
+                    23,
+                    27
+                ],
+                "subsent_text": [
+                    "added",
+                    "to",
+                    "15",
+                    "mL"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 47,
+                "op_token": "heated",
+                "op_type": "HeatingOperation",
+                "ref_op": false,
+                "subject": "the autoclaves with the mixtures",
+                "subsent": [
+                    47,
+                    56
+                ],
+                "subsent_text": [
+                    "heated",
+                    "at",
+                    "300",
+                    "°",
+                    "C",
+                    "for",
+                    "2",
+                    "h",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 300.0,
+                        "min": 300.0,
+                        "tok_ids": [
+                            49
+                        ],
+                        "units": "°C",
+                        "values": [
+                            300.0
+                        ]
+                    }
+                ],
+                "time_values": [
+                    {
+                        "max": 2.0,
+                        "min": 2.0,
+                        "tok_ids": [
+                            53
+                        ],
+                        "units": "h",
+                        "values": [
+                            2.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 9,
+                "op_token": "cooled",
+                "op_type": "QuenchingOperation",
+                "ref_op": false,
+                "subject": "the autoclaves",
+                "subsent": [
+                    9,
+                    15
+                ],
+                "subsent_text": [
+                    "cooled",
+                    "down",
+                    "to",
+                    "room",
+                    "temperature",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 25.0,
+                        "min": 25.0,
+                        "tok_ids": [
+                            12
+                        ],
+                        "units": "°C",
+                        "values": [
+                            25.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 11,
+                "op_token": "centrifugation",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the large nitrogen - doped CNDs",
+                "subsent": [
+                    11,
+                    19
+                ],
+                "subsent_text": [
+                    "centrifugation",
+                    "at",
+                    "12,000",
+                    "rpm",
+                    "for",
+                    "10",
+                    "min",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": [
+                    {
+                        "max": 10.0,
+                        "min": 10.0,
+                        "tok_ids": [
+                            16
+                        ],
+                        "units": "min",
+                        "values": [
+                            10.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 1,
+                "op_token": "centrifugation",
+                "op_type": "MixingOperation",
+                "ref_op": true,
+                "subject": "",
+                "subsent": [
+                    1,
+                    7
+                ],
+                "subsent_text": [
+                    "centrifugation",
+                    ",",
+                    "the",
+                    "supernatant",
+                    "solution",
+                    "was"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 7,
+                "op_token": "filtrated",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the supernatant solution",
+                "subsent": [
+                    7,
+                    14
+                ],
+                "subsent_text": [
+                    "filtrated",
+                    "with",
+                    "a",
+                    "0.45-μm",
+                    "filter",
+                    "membrane",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 11,
+                "op_token": "dialysis",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the nitrogen - doped CNDs",
+                "subsent": [
+                    11,
+                    20
+                ],
+                "subsent_text": [
+                    "dialysis",
+                    "(",
+                    "molecular",
+                    "weight",
+                    "cutoff",
+                    ",",
+                    "3500",
+                    ")",
+                    "against"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 7,
+                "op_token": "stored",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The purified nitrogen - doped CNDs",
+                "subsent": [
+                    7,
+                    11
+                ],
+                "subsent_text": [
+                    "stored",
+                    "in",
+                    "phosphate",
+                    "-"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ]
+    ],
+    [
+        [
+            {
+                "env_ids": [
+                    [
+                        15
+                    ],
+                    []
+                ],
+                "env_toks": [
+                    "air",
+                    ""
+                ],
+                "op_id": 13,
+                "op_token": "dried",
+                "op_type": "DryingOperation",
+                "ref_op": false,
+                "subject": "the E.A",
+                "subsent": [
+                    13,
+                    18
+                ],
+                "subsent_text": [
+                    "dried",
+                    "in",
+                    "air",
+                    "while",
+                    "being"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 38,
+                "op_token": "pulverized",
+                "op_type": "ShapingOperation",
+                "ref_op": false,
+                "subject": "we",
+                "subsent": [
+                    38,
+                    40
+                ],
+                "subsent_text": [
+                    "pulverized",
+                    "the"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 21,
+                "op_token": "stirred",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "which",
+                "subsent": [
+                    21,
+                    26
+                ],
+                "subsent_text": [
+                    "stirred",
+                    "for",
+                    "1",
+                    "h",
+                    "to"
+                ],
+                "temp_values": [],
+                "time_values": [
+                    {
+                        "max": 1.0,
+                        "min": 1.0,
+                        "tok_ids": [
+                            23
+                        ],
+                        "units": "h",
+                        "values": [
+                            1.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 22,
+                "op_token": "heated",
+                "op_type": "HeatingOperation",
+                "ref_op": false,
+                "subject": "it",
+                "subsent": [
+                    22,
+                    37
+                ],
+                "subsent_text": [
+                    "heated",
+                    "at",
+                    "the",
+                    "temperature",
+                    "of",
+                    "180",
+                    "°",
+                    "C",
+                    "for",
+                    "the",
+                    "period",
+                    "of",
+                    "12",
+                    "h",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 180.0,
+                        "min": 180.0,
+                        "tok_ids": [
+                            27
+                        ],
+                        "units": "°C",
+                        "values": [
+                            180.0
+                        ]
+                    }
+                ],
+                "time_values": [
+                    {
+                        "max": 12.0,
+                        "min": 12.0,
+                        "tok_ids": [
+                            34
+                        ],
+                        "units": "h",
+                        "values": [
+                            12.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 13,
+                "op_token": "cooled",
+                "op_type": "QuenchingOperation",
+                "ref_op": false,
+                "subject": "the autoclave",
+                "subsent": [
+                    13,
+                    21
+                ],
+                "subsent_text": [
+                    "cooled",
+                    "off",
+                    "to",
+                    "room",
+                    "temperature",
+                    "and",
+                    "afterwards",
+                    ","
+                ],
+                "temp_values": [
+                    {
+                        "max": 25.0,
+                        "min": 25.0,
+                        "tok_ids": [
+                            16
+                        ],
+                        "units": "°C",
+                        "values": [
+                            25.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 30,
+                "op_token": "sonicated",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "that",
+                "subsent": [
+                    30,
+                    35
+                ],
+                "subsent_text": [
+                    "sonicated",
+                    "for",
+                    "20",
+                    "min",
+                    "to"
+                ],
+                "temp_values": [],
+                "time_values": [
+                    {
+                        "max": 20.0,
+                        "min": 20.0,
+                        "tok_ids": [
+                            32
+                        ],
+                        "units": "min",
+                        "values": [
+                            20.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 20,
+                "op_token": "dispersed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "we",
+                "subsent": [
+                    20,
+                    34
+                ],
+                "subsent_text": [
+                    "dispersed",
+                    "solution",
+                    "at",
+                    "10,000",
+                    "rpm",
+                    "for",
+                    "30",
+                    "min",
+                    ";",
+                    "the",
+                    "yellow",
+                    "resultant",
+                    "has",
+                    "been"
+                ],
+                "temp_values": [],
+                "time_values": [
+                    {
+                        "max": 30.0,
+                        "min": 30.0,
+                        "tok_ids": [
+                            26
+                        ],
+                        "units": "min",
+                        "values": [
+                            30.0
+                        ]
+                    }
+                ]
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 34,
+                "op_token": "filtered",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the yellow resultant",
+                "subsent": [
+                    34,
+                    46
+                ],
+                "subsent_text": [
+                    "filtered",
+                    "by",
+                    "the",
+                    "usage",
+                    "of",
+                    "a",
+                    "0.22",
+                    "μm",
+                    "MCE",
+                    "filter",
+                    "membrane",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 13,
+                "op_token": "dried",
+                "op_type": "DryingOperation",
+                "ref_op": false,
+                "subject": "the acquired two dispersions",
+                "subsent": [
+                    13,
+                    17
+                ],
+                "subsent_text": [
+                    "dried",
+                    ",",
+                    "which",
+                    "had"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 29,
+                "op_token": "stored",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "that",
+                "subsent": [
+                    29,
+                    40
+                ],
+                "subsent_text": [
+                    "stored",
+                    "in",
+                    "dark",
+                    "at",
+                    "4",
+                    "°",
+                    "C",
+                    "for",
+                    "future",
+                    "application",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 4.0,
+                        "min": 4.0,
+                        "tok_ids": [
+                            33
+                        ],
+                        "units": "°C",
+                        "values": [
+                            4.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            }
+        ]
+    ],
+    [
+        [],
+        [
+            {
+                "env_ids": [
+                    [
+                        16
+                    ],
+                    []
+                ],
+                "env_toks": [
+                    "H2O",
+                    ""
+                ],
+                "op_id": 10,
+                "op_token": "dissolved",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "5 mmol of CA",
+                "subsent": [
+                    10,
+                    15
+                ],
+                "subsent_text": [
+                    "dissolved",
+                    "in",
+                    "50",
+                    "mL",
+                    "of"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 25,
+                "op_token": "dropped",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "10 mmol of diethylenetriamine",
+                "subsent": [
+                    25,
+                    32
+                ],
+                "subsent_text": [
+                    "dropped",
+                    "into",
+                    "the",
+                    "above",
+                    "solution",
+                    "under",
+                    "magnetic"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 32,
+                "op_token": "stirring",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "10 mmol of diethylenetriamine",
+                "subsent": [
+                    32,
+                    34
+                ],
+                "subsent_text": [
+                    "stirring",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 8,
+                "op_token": "cooling",
+                "op_type": "QuenchingOperation",
+                "ref_op": false,
+                "subject": "the autoclave",
+                "subsent": [
+                    8,
+                    13
+                ],
+                "subsent_text": [
+                    "cooling",
+                    "to",
+                    "room",
+                    "temperature",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 25.0,
+                        "min": 25.0,
+                        "tok_ids": [
+                            10
+                        ],
+                        "units": "°C",
+                        "values": [
+                            25.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 16,
+                "op_token": "preserved",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The obtained N-CQDs solution",
+                "subsent": [
+                    16,
+                    24
+                ],
+                "subsent_text": [
+                    "preserved",
+                    "at",
+                    "4",
+                    "°",
+                    "C",
+                    "in",
+                    "refrigerator",
+                    "before"
+                ],
+                "temp_values": [
+                    {
+                        "max": 4.0,
+                        "min": 4.0,
+                        "tok_ids": [
+                            18
+                        ],
+                        "units": "°C",
+                        "values": [
+                            4.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            }
+        ],
+        []
+    ],
+    [
+        [],
+        [
+            {
+                "env_ids": [
+                    [],
+                    [
+                        19
+                    ]
+                ],
+                "env_toks": [
+                    "",
+                    "water"
+                ],
+                "op_id": 13,
+                "op_token": "dissolved",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "2 g of CA and 1 mL of EDA",
+                "subsent": [
+                    13,
+                    21
+                ],
+                "subsent_text": [
+                    "dissolved",
+                    "into",
+                    "15",
+                    "mL",
+                    "of",
+                    "DI",
+                    "water",
+                    "and"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 21,
+                "op_token": "stirred",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "2 g of CA and 1 mL of EDA",
+                "subsent": [
+                    21,
+                    23
+                ],
+                "subsent_text": [
+                    "stirred",
+                    "to"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 14,
+                "op_token": "heated",
+                "op_type": "HeatingOperation",
+                "ref_op": false,
+                "subject": "the solution",
+                "subsent": [
+                    14,
+                    37
+                ],
+                "subsent_text": [
+                    "heated",
+                    "at",
+                    "180",
+                    "°",
+                    "C",
+                    "for",
+                    "1",
+                    ",",
+                    "3",
+                    ",",
+                    "6",
+                    ",",
+                    "and",
+                    "9",
+                    "h",
+                    ",",
+                    "respectively",
+                    ",",
+                    "from",
+                    "which",
+                    "the",
+                    "samples",
+                    "were"
+                ],
+                "temp_values": [
+                    {
+                        "max": 180.0,
+                        "min": 180.0,
+                        "tok_ids": [
+                            16
+                        ],
+                        "units": "°C",
+                        "values": [
+                            180.0
+                        ]
+                    }
+                ],
+                "time_values": [
+                    {
+                        "max": 9.0,
+                        "min": 1.0,
+                        "tok_ids": [
+                            27,
+                            24,
+                            22,
+                            20
+                        ],
+                        "units": "h",
+                        "values": [
+                            9.0,
+                            6.0,
+                            3.0,
+                            1.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 2,
+                "op_token": "cooling",
+                "op_type": "QuenchingOperation",
+                "ref_op": true,
+                "subject": "",
+                "subsent": [
+                    2,
+                    18
+                ],
+                "subsent_text": [
+                    "cooling",
+                    "the",
+                    "(Teflon)-lined",
+                    "autoclave",
+                    "to",
+                    "room",
+                    "temperature",
+                    "naturally",
+                    ",",
+                    "the",
+                    "brown",
+                    "-",
+                    "black",
+                    "and",
+                    "well",
+                    "-"
+                ],
+                "temp_values": [
+                    {
+                        "max": 25.0,
+                        "min": 25.0,
+                        "tok_ids": [
+                            7
+                        ],
+                        "units": "°C",
+                        "values": [
+                            25.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 18,
+                "op_token": "dispersed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "",
+                "subsent": [
+                    18,
+                    23
+                ],
+                "subsent_text": [
+                    "dispersed",
+                    "N-CQDs",
+                    "aqueous",
+                    "solutions",
+                    "were"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 5,
+                "op_token": "filtered",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The obtained crude product",
+                "subsent": [
+                    5,
+                    14
+                ],
+                "subsent_text": [
+                    "filtered",
+                    "with",
+                    "0.22",
+                    "μm",
+                    "anopore",
+                    "inorganic",
+                    "filter",
+                    "membranes",
+                    "to"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 5,
+                "op_token": "lyophilized",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "Pure product",
+                "subsent": [
+                    5,
+                    7
+                ],
+                "subsent_text": [
+                    "lyophilized",
+                    "and"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 7,
+                "op_token": "stored",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "Pure product",
+                "subsent": [
+                    7,
+                    15
+                ],
+                "subsent_text": [
+                    "stored",
+                    "at",
+                    "room",
+                    "temperature",
+                    "for",
+                    "further",
+                    "use",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 25.0,
+                        "min": 25.0,
+                        "tok_ids": [
+                            9
+                        ],
+                        "units": "°C",
+                        "values": [
+                            25.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            }
+        ]
+    ],
+    [
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 26,
+                "op_token": "heat",
+                "op_type": "HeatingOperation",
+                "ref_op": false,
+                "subject": "The typical procedure for solvothermal CDs",
+                "subsent": [
+                    26,
+                    38
+                ],
+                "subsent_text": [
+                    "heat",
+                    "for",
+                    "20",
+                    "h",
+                    "at",
+                    "200",
+                    "°",
+                    "C",
+                    "in",
+                    "a",
+                    "Teflon",
+                    "-"
+                ],
+                "temp_values": [
+                    {
+                        "max": 200.0,
+                        "min": 200.0,
+                        "tok_ids": [
+                            31
+                        ],
+                        "units": "°C",
+                        "values": [
+                            200.0
+                        ]
+                    }
+                ],
+                "time_values": [
+                    {
+                        "max": 20.0,
+                        "min": 20.0,
+                        "tok_ids": [
+                            28
+                        ],
+                        "units": "h",
+                        "values": [
+                            20.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 4,
+                "op_token": "centrifuged",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The resulting solution",
+                "subsent": [
+                    4,
+                    17
+                ],
+                "subsent_text": [
+                    "centrifuged",
+                    "for",
+                    "20",
+                    "min",
+                    "at",
+                    "14,000",
+                    "rpm",
+                    ",",
+                    "then",
+                    "the",
+                    "clear",
+                    "solution",
+                    "was"
+                ],
+                "temp_values": [],
+                "time_values": [
+                    {
+                        "max": 20.0,
+                        "min": 20.0,
+                        "tok_ids": [
+                            6
+                        ],
+                        "units": "min",
+                        "values": [
+                            20.0
+                        ]
+                    }
+                ]
+            },
+            {
+                "env_ids": [
+                    [],
+                    [
+                        23
+                    ]
+                ],
+                "env_toks": [
+                    "",
+                    "CHCl3"
+                ],
+                "op_id": 17,
+                "op_token": "mixed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the clear solution",
+                "subsent": [
+                    17,
+                    29
+                ],
+                "subsent_text": [
+                    "mixed",
+                    "with",
+                    "the",
+                    "same",
+                    "volume",
+                    "of",
+                    "CHCl3",
+                    "in",
+                    "a",
+                    "separation",
+                    "funnel",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 4,
+                "op_token": "separated",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The organic layer",
+                "subsent": [
+                    4,
+                    6
+                ],
+                "subsent_text": [
+                    "separated",
+                    "and"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 6,
+                "op_token": "dried",
+                "op_type": "DryingOperation",
+                "ref_op": false,
+                "subject": "The organic layer",
+                "subsent": [
+                    6,
+                    13
+                ],
+                "subsent_text": [
+                    "dried",
+                    "very",
+                    "slowly",
+                    "over",
+                    "a",
+                    "hotplate",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 1,
+                "op_token": "adding",
+                "op_type": "MixingOperation",
+                "ref_op": true,
+                "subject": "",
+                "subsent": [
+                    1,
+                    11
+                ],
+                "subsent_text": [
+                    "adding",
+                    "20",
+                    "mL",
+                    "of",
+                    "water",
+                    ",",
+                    "the",
+                    "CD",
+                    "solution",
+                    "was"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 11,
+                "op_token": "dialyzed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the CD solution",
+                "subsent": [
+                    11,
+                    13
+                ],
+                "subsent_text": [
+                    "dialyzed",
+                    "against"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 5,
+                "op_token": "heated",
+                "op_type": "HeatingOperation",
+                "ref_op": false,
+                "subject": "The clear solution",
+                "subsent": [
+                    5,
+                    17
+                ],
+                "subsent_text": [
+                    "heated",
+                    "for",
+                    "1",
+                    "min",
+                    "under",
+                    "microwave",
+                    "irradiation",
+                    "(",
+                    "750",
+                    "W",
+                    ")",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": [
+                    {
+                        "max": 1.0,
+                        "min": 1.0,
+                        "tok_ids": [
+                            7
+                        ],
+                        "units": "min",
+                        "values": [
+                            1.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 4,
+                "op_token": "centrifuged",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The resulting solution",
+                "subsent": [
+                    4,
+                    6
+                ],
+                "subsent_text": [
+                    "centrifuged",
+                    "and"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 6,
+                "op_token": "dialyzed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The resulting solution",
+                "subsent": [
+                    6,
+                    11
+                ],
+                "subsent_text": [
+                    "dialyzed",
+                    "same",
+                    "as",
+                    "before",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ]
+    ],
+    [
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 17,
+                "op_token": "added",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the dried eggshell membrane ( 0.3 g ) and 10 mL of ultrapure water",
+                "subsent": [
+                    17,
+                    23
+                ],
+                "subsent_text": [
+                    "added",
+                    "into",
+                    "a",
+                    "centrifuge",
+                    "tube",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    [
+                        14
+                    ]
+                ],
+                "env_toks": [
+                    "",
+                    "Teflon"
+                ],
+                "op_id": 3,
+                "op_token": "treated",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The solution",
+                "subsent": [
+                    3,
+                    10
+                ],
+                "subsent_text": [
+                    "treated",
+                    "with",
+                    "ultrasound",
+                    "for",
+                    "20",
+                    "minutes",
+                    ","
+                ],
+                "temp_values": [],
+                "time_values": [
+                    {
+                        "max": 20.0,
+                        "min": 20.0,
+                        "tok_ids": [
+                            7
+                        ],
+                        "units": "minutes",
+                        "values": [
+                            20.0
+                        ]
+                    }
+                ]
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 20,
+                "op_token": "heated",
+                "op_type": "HeatingOperation",
+                "ref_op": false,
+                "subject": "The solution",
+                "subsent": [
+                    20,
+                    29
+                ],
+                "subsent_text": [
+                    "heated",
+                    "at",
+                    "180",
+                    "°",
+                    "C",
+                    "for",
+                    "8",
+                    "hours",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 180.0,
+                        "min": 180.0,
+                        "tok_ids": [
+                            22
+                        ],
+                        "units": "°C",
+                        "values": [
+                            180.0
+                        ]
+                    }
+                ],
+                "time_values": [
+                    {
+                        "max": 8.0,
+                        "min": 8.0,
+                        "tok_ids": [
+                            26
+                        ],
+                        "units": "hours",
+                        "values": [
+                            8.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 3,
+                "op_token": "cooled",
+                "op_type": "QuenchingOperation",
+                "ref_op": false,
+                "subject": "the autoclave",
+                "subsent": [
+                    3,
+                    9
+                ],
+                "subsent_text": [
+                    "cooled",
+                    "to",
+                    "room",
+                    "temperature",
+                    ",",
+                    "the"
+                ],
+                "temp_values": [
+                    {
+                        "max": 25.0,
+                        "min": 25.0,
+                        "tok_ids": [
+                            5
+                        ],
+                        "units": "°C",
+                        "values": [
+                            25.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            }
+        ]
+    ],
+    [
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 39,
+                "op_token": "refluxing",
+                "op_type": "HeatingOperation",
+                "ref_op": false,
+                "subject": "",
+                "subsent": [
+                    39,
+                    41
+                ],
+                "subsent_text": [
+                    "refluxing",
+                    "and"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 41,
+                "op_token": "stirring",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "pyrene ( 2 g , TCI , purity > 98 % )",
+                "subsent": [
+                    41,
+                    46
+                ],
+                "subsent_text": [
+                    "stirring",
+                    "for",
+                    "12",
+                    "h",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": [
+                    {
+                        "max": 12.0,
+                        "min": 12.0,
+                        "tok_ids": [
+                            43
+                        ],
+                        "units": "h",
+                        "values": [
+                            12.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 1,
+                "op_token": "cooled",
+                "op_type": "QuenchingOperation",
+                "ref_op": true,
+                "subject": "",
+                "subsent": [
+                    1,
+                    9
+                ],
+                "subsent_text": [
+                    "cooled",
+                    "to",
+                    "room",
+                    "temperature",
+                    ",",
+                    "the",
+                    "mixture",
+                    "was"
+                ],
+                "temp_values": [
+                    {
+                        "max": 25.0,
+                        "min": 25.0,
+                        "tok_ids": [
+                            3
+                        ],
+                        "units": "°C",
+                        "values": [
+                            25.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    [
+                        15
+                    ]
+                ],
+                "env_toks": [
+                    "",
+                    "water"
+                ],
+                "op_id": 9,
+                "op_token": "diluted",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the mixture",
+                "subsent": [
+                    9,
+                    11
+                ],
+                "subsent_text": [
+                    "diluted",
+                    "with"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 21,
+                "op_token": "filtered",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the mixture",
+                "subsent": [
+                    21,
+                    29
+                ],
+                "subsent_text": [
+                    "filtered",
+                    "through",
+                    "a",
+                    "0.22",
+                    "μm",
+                    "microporous",
+                    "membrane",
+                    "to"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [
+                        17
+                    ],
+                    []
+                ],
+                "env_toks": [
+                    "NaOH",
+                    ""
+                ],
+                "op_id": 14,
+                "op_token": "dispersed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The resultant yellow 1,3,6-trinitropyrene ( 3.0 g , yield of 90 % )",
+                "subsent": [
+                    14,
+                    30
+                ],
+                "subsent_text": [
+                    "dispersed",
+                    "in",
+                    "an",
+                    "NaOH",
+                    "solution",
+                    "of",
+                    "DI",
+                    "water",
+                    "(",
+                    "0.6",
+                    "l",
+                    ",",
+                    "0.2",
+                    "M",
+                    ")",
+                    "by"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 30,
+                "op_token": "ultrasonication",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The resultant yellow 1,3,6-trinitropyrene ( 3.0 g , yield of 90 % )",
+                "subsent": [
+                    30,
+                    42
+                ],
+                "subsent_text": [
+                    "ultrasonication",
+                    "(",
+                    "500",
+                    "W",
+                    ",",
+                    "40",
+                    "kHz",
+                    ")",
+                    "for",
+                    "2",
+                    "h",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": [
+                    {
+                        "max": 2.0,
+                        "min": 2.0,
+                        "tok_ids": [
+                            39
+                        ],
+                        "units": "h",
+                        "values": [
+                            2.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 14,
+                "op_token": "heated",
+                "op_type": "HeatingOperation",
+                "ref_op": false,
+                "subject": "The suspension",
+                "subsent": [
+                    14,
+                    23
+                ],
+                "subsent_text": [
+                    "heated",
+                    "at",
+                    "200",
+                    "°",
+                    "C",
+                    "for",
+                    "10",
+                    "h",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 200.0,
+                        "min": 200.0,
+                        "tok_ids": [
+                            16
+                        ],
+                        "units": "°C",
+                        "values": [
+                            200.0
+                        ]
+                    }
+                ],
+                "time_values": [
+                    {
+                        "max": 10.0,
+                        "min": 10.0,
+                        "tok_ids": [
+                            20
+                        ],
+                        "units": "h",
+                        "values": [
+                            10.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 1,
+                "op_token": "cooled",
+                "op_type": "QuenchingOperation",
+                "ref_op": true,
+                "subject": "",
+                "subsent": [
+                    1,
+                    8
+                ],
+                "subsent_text": [
+                    "cooled",
+                    "to",
+                    "room",
+                    "temperature",
+                    ",",
+                    "the",
+                    "product"
+                ],
+                "temp_values": [
+                    {
+                        "max": 25.0,
+                        "min": 25.0,
+                        "tok_ids": [
+                            3
+                        ],
+                        "units": "°C",
+                        "values": [
+                            25.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 14,
+                "op_token": "filtered",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the product containing water - soluble GQDs",
+                "subsent": [
+                    14,
+                    22
+                ],
+                "subsent_text": [
+                    "filtered",
+                    "through",
+                    "a",
+                    "0.22",
+                    "μm",
+                    "microporous",
+                    "membrane",
+                    "to"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [
+                        47
+                    ],
+                    []
+                ],
+                "env_toks": [
+                    "sodium",
+                    ""
+                ],
+                "op_id": 29,
+                "op_token": "dialysed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the product containing water - soluble GQDs",
+                "subsent": [
+                    29,
+                    35
+                ],
+                "subsent_text": [
+                    "dialysed",
+                    "in",
+                    "a",
+                    "dialysis",
+                    "bag",
+                    "("
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 7,
+                "op_token": "dried",
+                "op_type": "DryingOperation",
+                "ref_op": false,
+                "subject": "The purified black OH - GQDs",
+                "subsent": [
+                    7,
+                    19
+                ],
+                "subsent_text": [
+                    "dried",
+                    "at",
+                    "80",
+                    "°",
+                    "C",
+                    "for",
+                    "structural",
+                    "characterization",
+                    "and",
+                    "property",
+                    "measurement",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 80.0,
+                        "min": 80.0,
+                        "tok_ids": [
+                            9
+                        ],
+                        "units": "°C",
+                        "values": [
+                            80.0
+                        ]
+                    }
+                ],
+                "time_values": []
+            }
+        ],
+        []
+    ],
+    [
+        [],
+        [
+            {
+                "env_ids": [
+                    [
+                        18
+                    ],
+                    []
+                ],
+                "env_toks": [
+                    "water",
+                    ""
+                ],
+                "op_id": 13,
+                "op_token": "dissolved",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "3 g of urea and 3 g of citric acid",
+                "subsent": [
+                    13,
+                    17
+                ],
+                "subsent_text": [
+                    "dissolved",
+                    "in",
+                    "30",
+                    "ml"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 33,
+                "op_token": "added",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "0.1 g hexadecyl trimethyl ammonium bromide and 40 μl tributyl phosphate",
+                "subsent": [
+                    33,
+                    38
+                ],
+                "subsent_text": [
+                    "added",
+                    "as",
+                    "active",
+                    "agent",
+                    "to"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 13,
+                "op_token": "immersed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "0.3 g of cotton fibers pretreated by sodium hydroxide solution",
+                "subsent": [
+                    13,
+                    19
+                ],
+                "subsent_text": [
+                    "immersed",
+                    "in",
+                    "the",
+                    "above",
+                    "solution",
+                    ","
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 22,
+                "op_token": "treating",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "0.3 g of cotton fibers pretreated by sodium hydroxide solution",
+                "subsent": [
+                    22,
+                    33
+                ],
+                "subsent_text": [
+                    "treating",
+                    "for",
+                    "30",
+                    "min",
+                    "until",
+                    "the",
+                    "fibers",
+                    "were",
+                    "transparent",
+                    "and",
+                    "well"
+                ],
+                "temp_values": [],
+                "time_values": [
+                    {
+                        "max": 30.0,
+                        "min": 30.0,
+                        "tok_ids": [
+                            24
+                        ],
+                        "units": "min",
+                        "values": [
+                            30.0
+                        ]
+                    }
+                ]
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 33,
+                "op_token": "dispersed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the fibers",
+                "subsent": [
+                    33,
+                    35
+                ],
+                "subsent_text": [
+                    "dispersed",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 19,
+                "op_token": "proceeded",
+                "op_type": "HeatingOperation",
+                "ref_op": false,
+                "subject": "the hydrothermal synthesis reaction",
+                "subsent": [
+                    19,
+                    28
+                ],
+                "subsent_text": [
+                    "proceeded",
+                    "at",
+                    "150",
+                    "°",
+                    "C",
+                    "for",
+                    "3",
+                    "h",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 150.0,
+                        "min": 150.0,
+                        "tok_ids": [
+                            21
+                        ],
+                        "units": "°C",
+                        "values": [
+                            150.0
+                        ]
+                    }
+                ],
+                "time_values": [
+                    {
+                        "max": 3.0,
+                        "min": 3.0,
+                        "tok_ids": [
+                            25
+                        ],
+                        "units": "h",
+                        "values": [
+                            3.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 5,
+                "op_token": "washed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The obtained cotton fibers",
+                "subsent": [
+                    5,
+                    7
+                ],
+                "subsent_text": [
+                    "washed",
+                    "by"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    [
+                        28
+                    ]
+                ],
+                "env_toks": [
+                    "",
+                    "alcohol"
+                ],
+                "op_id": 26,
+                "op_token": "rinsed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The obtained cotton fibers",
+                "subsent": [
+                    26,
+                    33
+                ],
+                "subsent_text": [
+                    "rinsed",
+                    "with",
+                    "alcohol",
+                    "for",
+                    "three",
+                    "times",
+                    "."
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [
+                        8
+                    ],
+                    []
+                ],
+                "env_toks": [
+                    "air",
+                    ""
+                ],
+                "op_id": 5,
+                "op_token": "dried",
+                "op_type": "DryingOperation",
+                "ref_op": false,
+                "subject": "the fibers",
+                "subsent": [
+                    5,
+                    9
+                ],
+                "subsent_text": [
+                    "dried",
+                    "in",
+                    "the",
+                    "air"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        []
+    ],
+    [
+        [
+            {
+                "env_ids": [
+                    [
+                        20
+                    ],
+                    []
+                ],
+                "env_toks": [
+                    "water",
+                    ""
+                ],
+                "op_id": 14,
+                "op_token": "dissolved",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "120 g of glucose",
+                "subsent": [
+                    14,
+                    19
+                ],
+                "subsent_text": [
+                    "dissolved",
+                    "in",
+                    "600",
+                    "mL",
+                    "of"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [],
+        [
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 4,
+                "op_token": "filtrated",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The suspension",
+                "subsent": [
+                    4,
+                    6
+                ],
+                "subsent_text": [
+                    "filtrated",
+                    "and"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 6,
+                "op_token": "dialyzed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The suspension",
+                "subsent": [
+                    6,
+                    8
+                ],
+                "subsent_text": [
+                    "dialyzed",
+                    "to"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    [
+                        6
+                    ]
+                ],
+                "env_toks": [
+                    "",
+                    "water"
+                ],
+                "op_id": 3,
+                "op_token": "washed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "The hydrochar",
+                "subsent": [
+                    3,
+                    5
+                ],
+                "subsent_text": [
+                    "washed",
+                    "with"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 11,
+                "op_token": "dried",
+                "op_type": "DryingOperation",
+                "ref_op": false,
+                "subject": "The hydrochar",
+                "subsent": [
+                    11,
+                    23
+                ],
+                "subsent_text": [
+                    "dried",
+                    "at",
+                    "80",
+                    "°",
+                    "C",
+                    "for",
+                    "48",
+                    "h",
+                    "in",
+                    "an",
+                    "oven",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 80.0,
+                        "min": 80.0,
+                        "tok_ids": [
+                            13
+                        ],
+                        "units": "°C",
+                        "values": [
+                            80.0
+                        ]
+                    }
+                ],
+                "time_values": [
+                    {
+                        "max": 48.0,
+                        "min": 48.0,
+                        "tok_ids": [
+                            17
+                        ],
+                        "units": "h",
+                        "values": [
+                            48.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    [
+                        12
+                    ]
+                ],
+                "env_toks": [
+                    "",
+                    "NaOH"
+                ],
+                "op_id": 5,
+                "op_token": "added",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "hydrochar",
+                "subsent": [
+                    5,
+                    33
+                ],
+                "subsent_text": [
+                    "added",
+                    "into",
+                    "diluted",
+                    "0.2",
+                    "mol",
+                    "/",
+                    "L",
+                    "NaOH",
+                    "solution",
+                    "(",
+                    "the",
+                    "ratio",
+                    "of",
+                    "hydrochar",
+                    "to",
+                    "solution",
+                    "was",
+                    "10",
+                    ":",
+                    "1",
+                    ",",
+                    "g",
+                    "/",
+                    "L",
+                    ")",
+                    ",",
+                    "which",
+                    "was"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 35,
+                "op_token": "adding",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the ratio of hydrochar which was followed by to solution which",
+                "subsent": [
+                    35,
+                    49
+                ],
+                "subsent_text": [
+                    "adding",
+                    "400",
+                    "mL",
+                    "of",
+                    "H2O2",
+                    "(",
+                    "30",
+                    "wt",
+                    "%",
+                    ")",
+                    "to",
+                    "the",
+                    "mixture",
+                    "and"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 49,
+                "op_token": "stirring",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "the ratio of hydrochar which was followed by adding 400 mL of H2O2 ( 30 wt % ) to the mixture and to solution which",
+                "subsent": [
+                    49,
+                    57
+                ],
+                "subsent_text": [
+                    "stirring",
+                    "for",
+                    "8",
+                    "h",
+                    "at",
+                    "room",
+                    "temperature",
+                    "."
+                ],
+                "temp_values": [
+                    {
+                        "max": 25.0,
+                        "min": 25.0,
+                        "tok_ids": [
+                            54
+                        ],
+                        "units": "°C",
+                        "values": [
+                            25.0
+                        ]
+                    }
+                ],
+                "time_values": [
+                    {
+                        "max": 8.0,
+                        "min": 8.0,
+                        "tok_ids": [
+                            51
+                        ],
+                        "units": "h",
+                        "values": [
+                            8.0
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "env_ids": [
+                    [],
+                    [
+                        3
+                    ]
+                ],
+                "env_toks": [
+                    "",
+                    "HCl"
+                ],
+                "op_id": 1,
+                "op_token": "neutralization",
+                "op_type": "MixingOperation",
+                "ref_op": true,
+                "subject": "",
+                "subsent": [
+                    1,
+                    9
+                ],
+                "subsent_text": [
+                    "neutralization",
+                    "with",
+                    "HCl",
+                    "solution",
+                    ",",
+                    "this",
+                    "liquor",
+                    "was"
+                ],
+                "temp_values": [],
+                "time_values": []
+            },
+            {
+                "env_ids": [
+                    [],
+                    []
+                ],
+                "env_toks": [
+                    "",
+                    ""
+                ],
+                "op_id": 9,
+                "op_token": "dialyzed",
+                "op_type": "MixingOperation",
+                "ref_op": false,
+                "subject": "this liquor",
+                "subsent": [
+                    9,
+                    11
+                ],
+                "subsent_text": [
+                    "dialyzed",
+                    "to"
+                ],
+                "temp_values": [],
+                "time_values": []
+            }
+        ]
+    ]
+]

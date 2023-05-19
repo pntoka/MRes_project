@@ -1,0 +1,982 @@
+[
+    [
+        {
+            "all_materials": [],
+            "other_materials": [],
+            "precursors": [],
+            "sentence": "Synthesis of CDs was prepared using a hydrothermal method by referencing to previous work with some changes.",
+            "targets": [],
+            "tokens": [
+                {
+                    "end": 9,
+                    "start": 0,
+                    "text": "Synthesis"
+                },
+                {
+                    "end": 12,
+                    "start": 10,
+                    "text": "of"
+                },
+                {
+                    "end": 16,
+                    "start": 13,
+                    "text": "CDs"
+                },
+                {
+                    "end": 20,
+                    "start": 17,
+                    "text": "was"
+                },
+                {
+                    "end": 29,
+                    "start": 21,
+                    "text": "prepared"
+                },
+                {
+                    "end": 35,
+                    "start": 30,
+                    "text": "using"
+                },
+                {
+                    "end": 37,
+                    "start": 36,
+                    "text": "a"
+                },
+                {
+                    "end": 50,
+                    "start": 38,
+                    "text": "hydrothermal"
+                },
+                {
+                    "end": 57,
+                    "start": 51,
+                    "text": "method"
+                },
+                {
+                    "end": 60,
+                    "start": 58,
+                    "text": "by"
+                },
+                {
+                    "end": 72,
+                    "start": 61,
+                    "text": "referencing"
+                },
+                {
+                    "end": 75,
+                    "start": 73,
+                    "text": "to"
+                },
+                {
+                    "end": 84,
+                    "start": 76,
+                    "text": "previous"
+                },
+                {
+                    "end": 89,
+                    "start": 85,
+                    "text": "work"
+                },
+                {
+                    "end": 94,
+                    "start": 90,
+                    "text": "with"
+                },
+                {
+                    "end": 99,
+                    "start": 95,
+                    "text": "some"
+                },
+                {
+                    "end": 107,
+                    "start": 100,
+                    "text": "changes"
+                },
+                {
+                    "end": 108,
+                    "start": 107,
+                    "text": "."
+                }
+            ]
+        },
+        {
+            "all_materials": [
+                {
+                    "end": 143,
+                    "start": 109,
+                    "text": "3-amino-4-chlorophenylboronic acid",
+                    "token_ids": [
+                        0,
+                        1
+                    ]
+                },
+                {
+                    "end": 185,
+                    "start": 159,
+                    "text": "3-aminobenzeneboronic acid",
+                    "token_ids": [
+                        7,
+                        8
+                    ]
+                },
+                {
+                    "end": 235,
+                    "start": 230,
+                    "text": "water",
+                    "token_ids": [
+                        19
+                    ]
+                }
+            ],
+            "other_materials": [
+                {
+                    "end": 235,
+                    "start": 230,
+                    "text": "water",
+                    "token_ids": [
+                        19
+                    ]
+                }
+            ],
+            "precursors": [
+                {
+                    "end": 143,
+                    "start": 109,
+                    "text": "3-amino-4-chlorophenylboronic acid",
+                    "token_ids": [
+                        0,
+                        1
+                    ]
+                },
+                {
+                    "end": 185,
+                    "start": 159,
+                    "text": "3-aminobenzeneboronic acid",
+                    "token_ids": [
+                        7,
+                        8
+                    ]
+                }
+            ],
+            "sentence": "3-amino-4-chlorophenylboronic acid (0.3428 g) and 3-aminobenzeneboronic acid (0.2739 g) was dissolved in 20 mL distilled water and sonicated for 2 min, respectively.",
+            "targets": [],
+            "tokens": [
+                {
+                    "end": 138,
+                    "start": 109,
+                    "text": "3-amino-4-chlorophenylboronic"
+                },
+                {
+                    "end": 143,
+                    "start": 139,
+                    "text": "acid"
+                },
+                {
+                    "end": 145,
+                    "start": 144,
+                    "text": "("
+                },
+                {
+                    "end": 151,
+                    "start": 145,
+                    "text": "0.3428"
+                },
+                {
+                    "end": 153,
+                    "start": 152,
+                    "text": "g"
+                },
+                {
+                    "end": 154,
+                    "start": 153,
+                    "text": ")"
+                },
+                {
+                    "end": 158,
+                    "start": 155,
+                    "text": "and"
+                },
+                {
+                    "end": 180,
+                    "start": 159,
+                    "text": "3-aminobenzeneboronic"
+                },
+                {
+                    "end": 185,
+                    "start": 181,
+                    "text": "acid"
+                },
+                {
+                    "end": 187,
+                    "start": 186,
+                    "text": "("
+                },
+                {
+                    "end": 193,
+                    "start": 187,
+                    "text": "0.2739"
+                },
+                {
+                    "end": 195,
+                    "start": 194,
+                    "text": "g"
+                },
+                {
+                    "end": 196,
+                    "start": 195,
+                    "text": ")"
+                },
+                {
+                    "end": 200,
+                    "start": 197,
+                    "text": "was"
+                },
+                {
+                    "end": 210,
+                    "start": 201,
+                    "text": "dissolved"
+                },
+                {
+                    "end": 213,
+                    "start": 211,
+                    "text": "in"
+                },
+                {
+                    "end": 216,
+                    "start": 214,
+                    "text": "20"
+                },
+                {
+                    "end": 219,
+                    "start": 217,
+                    "text": "mL"
+                },
+                {
+                    "end": 229,
+                    "start": 220,
+                    "text": "distilled"
+                },
+                {
+                    "end": 235,
+                    "start": 230,
+                    "text": "water"
+                },
+                {
+                    "end": 239,
+                    "start": 236,
+                    "text": "and"
+                },
+                {
+                    "end": 249,
+                    "start": 240,
+                    "text": "sonicated"
+                },
+                {
+                    "end": 253,
+                    "start": 250,
+                    "text": "for"
+                },
+                {
+                    "end": 255,
+                    "start": 254,
+                    "text": "2"
+                },
+                {
+                    "end": 259,
+                    "start": 256,
+                    "text": "min"
+                },
+                {
+                    "end": 260,
+                    "start": 259,
+                    "text": ","
+                },
+                {
+                    "end": 273,
+                    "start": 261,
+                    "text": "respectively"
+                },
+                {
+                    "end": 274,
+                    "start": 273,
+                    "text": "."
+                }
+            ]
+        },
+        {
+            "all_materials": [
+                {
+                    "end": 361,
+                    "start": 354,
+                    "text": "ClBNCDs",
+                    "token_ids": [
+                        16
+                    ]
+                },
+                {
+                    "end": 371,
+                    "start": 366,
+                    "text": "BNCDs",
+                    "token_ids": [
+                        18
+                    ]
+                }
+            ],
+            "other_materials": [],
+            "precursors": [],
+            "sentence": "Then transferred to autoclave reactor and heated at 200 °C for 10 h to prepare ClBNCDs and BNCDs.",
+            "targets": [
+                {
+                    "end": 361,
+                    "start": 354,
+                    "text": "ClBNCDs",
+                    "token_ids": [
+                        16
+                    ]
+                },
+                {
+                    "end": 371,
+                    "start": 366,
+                    "text": "BNCDs",
+                    "token_ids": [
+                        18
+                    ]
+                }
+            ],
+            "tokens": [
+                {
+                    "end": 279,
+                    "start": 275,
+                    "text": "Then"
+                },
+                {
+                    "end": 291,
+                    "start": 280,
+                    "text": "transferred"
+                },
+                {
+                    "end": 294,
+                    "start": 292,
+                    "text": "to"
+                },
+                {
+                    "end": 304,
+                    "start": 295,
+                    "text": "autoclave"
+                },
+                {
+                    "end": 312,
+                    "start": 305,
+                    "text": "reactor"
+                },
+                {
+                    "end": 316,
+                    "start": 313,
+                    "text": "and"
+                },
+                {
+                    "end": 323,
+                    "start": 317,
+                    "text": "heated"
+                },
+                {
+                    "end": 326,
+                    "start": 324,
+                    "text": "at"
+                },
+                {
+                    "end": 330,
+                    "start": 327,
+                    "text": "200"
+                },
+                {
+                    "end": 332,
+                    "start": 331,
+                    "text": "°"
+                },
+                {
+                    "end": 333,
+                    "start": 332,
+                    "text": "C"
+                },
+                {
+                    "end": 337,
+                    "start": 334,
+                    "text": "for"
+                },
+                {
+                    "end": 340,
+                    "start": 338,
+                    "text": "10"
+                },
+                {
+                    "end": 342,
+                    "start": 341,
+                    "text": "h"
+                },
+                {
+                    "end": 345,
+                    "start": 343,
+                    "text": "to"
+                },
+                {
+                    "end": 353,
+                    "start": 346,
+                    "text": "prepare"
+                },
+                {
+                    "end": 361,
+                    "start": 354,
+                    "text": "ClBNCDs"
+                },
+                {
+                    "end": 365,
+                    "start": 362,
+                    "text": "and"
+                },
+                {
+                    "end": 371,
+                    "start": 366,
+                    "text": "BNCDs"
+                },
+                {
+                    "end": 372,
+                    "start": 371,
+                    "text": "."
+                }
+            ]
+        },
+        {
+            "all_materials": [
+                {
+                    "end": 390,
+                    "start": 383,
+                    "text": "benzene",
+                    "token_ids": [
+                        3
+                    ]
+                },
+                {
+                    "end": 412,
+                    "start": 405,
+                    "text": "aniline",
+                    "token_ids": [
+                        8
+                    ]
+                },
+                {
+                    "end": 452,
+                    "start": 447,
+                    "text": "water",
+                    "token_ids": [
+                        15
+                    ]
+                }
+            ],
+            "other_materials": [
+                {
+                    "end": 452,
+                    "start": 447,
+                    "text": "water",
+                    "token_ids": [
+                        15
+                    ]
+                }
+            ],
+            "precursors": [
+                {
+                    "end": 390,
+                    "start": 383,
+                    "text": "benzene",
+                    "token_ids": [
+                        3
+                    ]
+                },
+                {
+                    "end": 412,
+                    "start": 405,
+                    "text": "aniline",
+                    "token_ids": [
+                        8
+                    ]
+                }
+            ],
+            "sentence": "178 μL of benzene and 183 μL of aniline were dissolved in 20 mL distilled water in an autoclave reactor, respectively.",
+            "targets": [],
+            "tokens": [
+                {
+                    "end": 376,
+                    "start": 373,
+                    "text": "178"
+                },
+                {
+                    "end": 379,
+                    "start": 377,
+                    "text": "μL"
+                },
+                {
+                    "end": 382,
+                    "start": 380,
+                    "text": "of"
+                },
+                {
+                    "end": 390,
+                    "start": 383,
+                    "text": "benzene"
+                },
+                {
+                    "end": 394,
+                    "start": 391,
+                    "text": "and"
+                },
+                {
+                    "end": 398,
+                    "start": 395,
+                    "text": "183"
+                },
+                {
+                    "end": 401,
+                    "start": 399,
+                    "text": "μL"
+                },
+                {
+                    "end": 404,
+                    "start": 402,
+                    "text": "of"
+                },
+                {
+                    "end": 412,
+                    "start": 405,
+                    "text": "aniline"
+                },
+                {
+                    "end": 417,
+                    "start": 413,
+                    "text": "were"
+                },
+                {
+                    "end": 427,
+                    "start": 418,
+                    "text": "dissolved"
+                },
+                {
+                    "end": 430,
+                    "start": 428,
+                    "text": "in"
+                },
+                {
+                    "end": 433,
+                    "start": 431,
+                    "text": "20"
+                },
+                {
+                    "end": 436,
+                    "start": 434,
+                    "text": "mL"
+                },
+                {
+                    "end": 446,
+                    "start": 437,
+                    "text": "distilled"
+                },
+                {
+                    "end": 452,
+                    "start": 447,
+                    "text": "water"
+                },
+                {
+                    "end": 455,
+                    "start": 453,
+                    "text": "in"
+                },
+                {
+                    "end": 458,
+                    "start": 456,
+                    "text": "an"
+                },
+                {
+                    "end": 468,
+                    "start": 459,
+                    "text": "autoclave"
+                },
+                {
+                    "end": 476,
+                    "start": 469,
+                    "text": "reactor"
+                },
+                {
+                    "end": 477,
+                    "start": 476,
+                    "text": ","
+                },
+                {
+                    "end": 490,
+                    "start": 478,
+                    "text": "respectively"
+                },
+                {
+                    "end": 491,
+                    "start": 490,
+                    "text": "."
+                }
+            ]
+        },
+        {
+            "all_materials": [],
+            "other_materials": [],
+            "precursors": [],
+            "sentence": "Then, heated at 200 °C for 10 h to prepare free-doping and N-doping CDs, respectively.",
+            "targets": [],
+            "tokens": [
+                {
+                    "end": 496,
+                    "start": 492,
+                    "text": "Then"
+                },
+                {
+                    "end": 497,
+                    "start": 496,
+                    "text": ","
+                },
+                {
+                    "end": 504,
+                    "start": 498,
+                    "text": "heated"
+                },
+                {
+                    "end": 507,
+                    "start": 505,
+                    "text": "at"
+                },
+                {
+                    "end": 511,
+                    "start": 508,
+                    "text": "200"
+                },
+                {
+                    "end": 513,
+                    "start": 512,
+                    "text": "°"
+                },
+                {
+                    "end": 514,
+                    "start": 513,
+                    "text": "C"
+                },
+                {
+                    "end": 518,
+                    "start": 515,
+                    "text": "for"
+                },
+                {
+                    "end": 521,
+                    "start": 519,
+                    "text": "10"
+                },
+                {
+                    "end": 523,
+                    "start": 522,
+                    "text": "h"
+                },
+                {
+                    "end": 526,
+                    "start": 524,
+                    "text": "to"
+                },
+                {
+                    "end": 534,
+                    "start": 527,
+                    "text": "prepare"
+                },
+                {
+                    "end": 539,
+                    "start": 535,
+                    "text": "free"
+                },
+                {
+                    "end": 540,
+                    "start": 539,
+                    "text": "-"
+                },
+                {
+                    "end": 546,
+                    "start": 540,
+                    "text": "doping"
+                },
+                {
+                    "end": 550,
+                    "start": 547,
+                    "text": "and"
+                },
+                {
+                    "end": 552,
+                    "start": 551,
+                    "text": "N"
+                },
+                {
+                    "end": 553,
+                    "start": 552,
+                    "text": "-"
+                },
+                {
+                    "end": 559,
+                    "start": 553,
+                    "text": "doping"
+                },
+                {
+                    "end": 563,
+                    "start": 560,
+                    "text": "CDs"
+                },
+                {
+                    "end": 564,
+                    "start": 563,
+                    "text": ","
+                },
+                {
+                    "end": 577,
+                    "start": 565,
+                    "text": "respectively"
+                },
+                {
+                    "end": 578,
+                    "start": 577,
+                    "text": "."
+                }
+            ]
+        },
+        {
+            "all_materials": [],
+            "other_materials": [],
+            "precursors": [],
+            "sentence": "Then, the supernatant was pretreated for 24 h using the dialysis bag with a molecular weight cut-off (MWCO) of 3500 Da.",
+            "targets": [],
+            "tokens": [
+                {
+                    "end": 583,
+                    "start": 579,
+                    "text": "Then"
+                },
+                {
+                    "end": 584,
+                    "start": 583,
+                    "text": ","
+                },
+                {
+                    "end": 588,
+                    "start": 585,
+                    "text": "the"
+                },
+                {
+                    "end": 600,
+                    "start": 589,
+                    "text": "supernatant"
+                },
+                {
+                    "end": 604,
+                    "start": 601,
+                    "text": "was"
+                },
+                {
+                    "end": 615,
+                    "start": 605,
+                    "text": "pretreated"
+                },
+                {
+                    "end": 619,
+                    "start": 616,
+                    "text": "for"
+                },
+                {
+                    "end": 622,
+                    "start": 620,
+                    "text": "24"
+                },
+                {
+                    "end": 624,
+                    "start": 623,
+                    "text": "h"
+                },
+                {
+                    "end": 630,
+                    "start": 625,
+                    "text": "using"
+                },
+                {
+                    "end": 634,
+                    "start": 631,
+                    "text": "the"
+                },
+                {
+                    "end": 643,
+                    "start": 635,
+                    "text": "dialysis"
+                },
+                {
+                    "end": 647,
+                    "start": 644,
+                    "text": "bag"
+                },
+                {
+                    "end": 652,
+                    "start": 648,
+                    "text": "with"
+                },
+                {
+                    "end": 654,
+                    "start": 653,
+                    "text": "a"
+                },
+                {
+                    "end": 664,
+                    "start": 655,
+                    "text": "molecular"
+                },
+                {
+                    "end": 671,
+                    "start": 665,
+                    "text": "weight"
+                },
+                {
+                    "end": 675,
+                    "start": 672,
+                    "text": "cut"
+                },
+                {
+                    "end": 676,
+                    "start": 675,
+                    "text": "-"
+                },
+                {
+                    "end": 679,
+                    "start": 676,
+                    "text": "off"
+                },
+                {
+                    "end": 681,
+                    "start": 680,
+                    "text": "("
+                },
+                {
+                    "end": 685,
+                    "start": 681,
+                    "text": "MWCO"
+                },
+                {
+                    "end": 686,
+                    "start": 685,
+                    "text": ")"
+                },
+                {
+                    "end": 689,
+                    "start": 687,
+                    "text": "of"
+                },
+                {
+                    "end": 694,
+                    "start": 690,
+                    "text": "3500"
+                },
+                {
+                    "end": 697,
+                    "start": 695,
+                    "text": "Da"
+                },
+                {
+                    "end": 698,
+                    "start": 697,
+                    "text": "."
+                }
+            ]
+        },
+        {
+            "all_materials": [],
+            "other_materials": [],
+            "precursors": [],
+            "sentence": "Finally, CDs products were obtained and stored at 4 °C for subsequent processes.",
+            "targets": [],
+            "tokens": [
+                {
+                    "end": 706,
+                    "start": 699,
+                    "text": "Finally"
+                },
+                {
+                    "end": 707,
+                    "start": 706,
+                    "text": ","
+                },
+                {
+                    "end": 711,
+                    "start": 708,
+                    "text": "CDs"
+                },
+                {
+                    "end": 720,
+                    "start": 712,
+                    "text": "products"
+                },
+                {
+                    "end": 725,
+                    "start": 721,
+                    "text": "were"
+                },
+                {
+                    "end": 734,
+                    "start": 726,
+                    "text": "obtained"
+                },
+                {
+                    "end": 738,
+                    "start": 735,
+                    "text": "and"
+                },
+                {
+                    "end": 745,
+                    "start": 739,
+                    "text": "stored"
+                },
+                {
+                    "end": 748,
+                    "start": 746,
+                    "text": "at"
+                },
+                {
+                    "end": 750,
+                    "start": 749,
+                    "text": "4"
+                },
+                {
+                    "end": 752,
+                    "start": 751,
+                    "text": "°"
+                },
+                {
+                    "end": 753,
+                    "start": 752,
+                    "text": "C"
+                },
+                {
+                    "end": 757,
+                    "start": 754,
+                    "text": "for"
+                },
+                {
+                    "end": 768,
+                    "start": 758,
+                    "text": "subsequent"
+                },
+                {
+                    "end": 778,
+                    "start": 769,
+                    "text": "processes"
+                },
+                {
+                    "end": 779,
+                    "start": 778,
+                    "text": "."
+                }
+            ]
+        }
+    ]
+]
