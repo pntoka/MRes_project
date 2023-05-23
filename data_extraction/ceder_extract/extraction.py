@@ -5,8 +5,8 @@ from operations_extractor.build_graph import GraphBuilder
 import os
 import json
 
-oe = OperationsExtractor()
-gb = GraphBuilder()
+# oe = OperationsExtractor()
+# gb = GraphBuilder()
 
 def extract_materials(paras):
     '''
@@ -40,6 +40,8 @@ def extract_operations(mat_results):
     Extracts operations and builds graphs from a list of paragraphs.
     :param mat_results: results of extract_materials
     '''
+    oe = OperationsExtractor()
+    gb = GraphBuilder()
     operations = []
     graphs = []
     for result in mat_results:
@@ -59,10 +61,11 @@ def paragraph_reader(filename, path):
     '''
     Reads paragraphs from a file.
     :param filename: name of file
+    :param path: path to file
     '''
     paras = []
     dois = []
-    for line in open(os.path.join(filename, path), 'r'):
+    for line in open(os.path.join(path, filename), 'r'):
         paras.append(line.split(':',1)[1].strip())
         dois.append(line.split(':',1)[0])
     return paras, dois
@@ -163,3 +166,18 @@ def data_compilation(dois, paras, amount_dict, precursors_dict, heating_operatio
         para_dict['heating_operations'] = heating_operations[i]
         data.append(para_dict)
     return data
+
+def data_extractor(dois, paras, mat_results, amounts, operations):
+    '''
+    Writes data to a file.
+    :param mat_results: results of extract_materials
+    :param amounts: results of extract_materials_amounts
+    :param operations: results of extract_operations
+    :param filename: name of file
+    '''
+    precursors, all_materials = materials_extraction(mat_results)
+    amount_dict, precursors_dict = amount_compiler(amounts, all_materials, precursors)
+    heating_operations = heating_operation_extraction(operations)
+    data = data_compilation(dois, paras, amount_dict, precursors_dict, heating_operations)
+    return data
+
