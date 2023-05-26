@@ -6,6 +6,7 @@ from pprint import pprint
 import extraction as ext
 
 if __name__ == '__main__':
+
     # with open('para_10_sample.txt', 'r') as f:
     #     paras = json.load(f)
     # paras = []
@@ -16,26 +17,23 @@ if __name__ == '__main__':
     
     # result = ext.extract_materials(paras)
 
-    current_path = os.getcwd()
-    paras, dois = ext.paragraph_reader('para_10_sample.txt', current_path)
-    with open('results_10_sample.json', 'r') as f:
+    # current_path = os.getcwd()
+    current_path_2 = '/home/ptoka/MRes_project/data_extraction/ceder_extract'
+    paras, dois = ext.paragraph_reader('para_hits.txt', current_path_2)
+
+    with open('mat_results_hits.json', 'r') as f:
         result = json.load(f)
-
-    with open('material_amounts_10_sample.json', 'r') as f:
-        amounts = json.load(f)
     
-    # precursors, all_materials = ext.materials_extraction(result)
-    # amount_dict, precursors_dict = ext.amount_compiler(amounts, all_materials, precursors)
-    # print(precursors_dict)
+    with open('amounts_hits.json', 'r') as f:
+        amounts = json.load(f)
 
-    # print(len(amount_dict))
-    # print(amount_dict)
-    with open('graphs_10_sample.json', 'r') as f:
+    with open('graphs_hits.json', 'r') as f:
         graphs = json.load(f)
-        
-    data  = ext.data_extractor(dois, paras, result, amounts, graphs)
 
-    with open('data_10_sample.json', 'w') as f:
+        
+    data = ext.data_extractor(dois, paras, result, amounts, graphs)
+
+    with open('data_hits.json', 'w') as f:
         json.dump(data, f, indent=4,sort_keys=True,ensure_ascii=False)
     
     

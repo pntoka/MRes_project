@@ -167,17 +167,17 @@ def data_compilation(dois, paras, amount_dict, precursors_dict, heating_operatio
         data.append(para_dict)
     return data
 
-def data_extractor(dois, paras, mat_results, amounts, operations):
+def data_extractor(dois, paras, mat_results, amounts, graphs):
     '''
     Writes data to a file.
     :param mat_results: results of extract_materials
     :param amounts: results of extract_materials_amounts
-    :param operations: results of extract_operations
+    :param graphs: results of extract_operations
     :param filename: name of file
     '''
     precursors, all_materials = materials_extraction(mat_results)
     amount_dict, precursors_dict = amount_compiler(amounts, all_materials, precursors)
-    heating_operations = heating_operation_extraction(operations)
+    heating_operations = heating_operation_extraction(graphs)
     data = data_compilation(dois, paras, amount_dict, precursors_dict, heating_operations)
     return data
 
