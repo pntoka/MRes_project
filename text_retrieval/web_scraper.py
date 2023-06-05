@@ -8,8 +8,22 @@ import re
 import urllib.request
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+import logging
 
 PUB_PREFIX = {"RSC": "10.1039", "ACS": "10.1021", "Nature":"10.1038", "Science":"10.1126", "Frontiers":"10.3389", "MDPI":"10.3390", "Wiley": "10.1002", "Springer":"10.1007", "TandF":"10.1080", "Elsevier":"10.1016", 'IOP': '10.1088'}
+
+def setup_logger(name, log_file, level=logging.INFO):
+    '''
+    Function to set up logger
+    '''
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    handler = logging.FileHandler(log_file)
+    handler.setLevel(level)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    return logger
 
 class FullTextDownloader:
     def __init__(self, pub_prefix,api_key):
@@ -136,10 +150,11 @@ class FullTextDownloader:
         '''
         Function to scrape full text html from link using selenium webdriver
         '''
-        # options = Options()
+        opts = Options()
+        opts.add_argument("--headless")
         # options.binary_location = r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe"      #stuff for webdriver to work on windows laptop
         # driver = webdriver.Firefox(executable_path=r"C:\Users\Piotr\geckodriver.exe", options=options)
-        driver = webdriver.Firefox()
+        driver = webdriver.Firefox(options=opts)
         driver.get(link)
         driver.implicitly_wait(5)
         page = driver.page_source.encode('utf-8')
@@ -173,10 +188,11 @@ class FullTextDownloader:
         except:
             return False
 
-def text_downloader(file_path, save_dir, my_api_key):
+def text_downloader(file_path, save_dir, log_save_path, my_api_key):
     '''
     Function that reads in file with DOIs and downloads full text articles
     '''
+    log = setup_logger('log', log_save_path)
     downloader = FullTextDownloader(PUB_PREFIX,my_api_key)
     with open(file_path,'r') as file:
         for line in file:
@@ -186,8 +202,14 @@ def text_downloader(file_path, save_dir, my_api_key):
             if doi[:7] == PUB_PREFIX["Elsevier"]:
                 downloader.downloadElsevier(doi, save_dir)
             elif doi[:7] == PUB_PREFIX["Springer"]:
-                downloader.springer_scrape(doi, save_dir)
+                result = downloader.springer_scrape(doi, save_dir)
+                if result == False:
+                    log.info(f'Error for {doi}')
             else:
                 links = downloader.crossref_link(doi)
                 link = downloader.link_selector(doi, links)
-                downloader.web_scrape(doi,link,save_dir)
+                if link is not None:
+                    downloader.web_scrape(doi,link,save_dir)
+                if link is None:
+                    print(f'No link found for {doi}')
+                    log.info(f'No link found for {doi}')
