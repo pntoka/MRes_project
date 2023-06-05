@@ -76,27 +76,35 @@ def materials_extraction(mat_results):
     :param mat_results: results of extract_materials
     '''
     precursors_para = []
+    targets_para = []
     all_materials_para = []
     for result in mat_results:
         precursors = []
+        targets = []
         all_materials = []
         for sentence in result:
             for material in sentence['all_materials']:
                 all_materials.append(material['text'])
             for material in sentence['precursors']:
                 precursors.append(material['text'])
+            for material in sentence['targets']:
+                targets.append(material['text'])
         precursors_para.append(list(set(precursors)))
         all_materials_para.append(list(set(all_materials)))
-    return precursors_para, all_materials_para
+        targets_para.append(list(set(targets)))
+    return precursors_para, targets_para, all_materials_para
 
-def amount_compiler(amounts, all_materials_para, precursors_para):
+def amount_compiler(amounts, all_materials_para, precursors_para, targets_para):
     '''
     Compiles the results of extract_materials_amounts into a single dictionary.
     :param amounts: results of extract_materials_amounts
     :param all_materials_para: all_materialst list from results of materials_extraction
+    :param precursors_para: precursors list from results of materials_extraction
+    :param targets_para: targets list from results of materials_extraction
     '''
     amount_dict = []
     precursors_dict = []
+    targets_dict = []
     for i, para in enumerate(amounts):
         para_dict = {}
         for sentence in para:
@@ -114,8 +122,14 @@ def amount_compiler(amounts, all_materials_para, precursors_para):
             if precursor in para:
                 precursors[precursor] = para[precursor]
         precursors_dict.append(precursors)
+    for i, para in enumerate(amount_dict):
+        targets = {}
+        for target in targets_para[i]:
+            if target in para:
+                targets[target] = para[target]
+        targets_dict.append(targets)
 
-    return amount_dict, precursors_dict
+    return amount_dict, precursors_dict, targets_dict
 
 def heating_operation_extraction(graphs):
     '''
@@ -147,7 +161,7 @@ def heating_operation_extraction(graphs):
     return heating_operations
 
 
-def data_compilation(dois, paras, amount_dict, precursors_dict, heating_operations):
+def data_compilation(dois, paras, amount_dict, precursors_dict, targets_dict, heating_operations):
     '''
     Compiles the results of materials_extraction, amount_compiler, and heating_operation_extraction into a single dictionary.
     :param dois: list of dois
@@ -163,6 +177,7 @@ def data_compilation(dois, paras, amount_dict, precursors_dict, heating_operatio
         para_dict['paragraph'] = para[:50], '...', para[-50:]
         para_dict['all_materials'] = amount_dict[i]
         para_dict['precursors'] = precursors_dict[i]
+        para_dict['targets'] = targets_dict[i]
         para_dict['heating_operations'] = heating_operations[i]
         data.append(para_dict)
     return data
@@ -175,9 +190,9 @@ def data_extractor(dois, paras, mat_results, amounts, graphs):
     :param graphs: results of extract_operations
     :param filename: name of file
     '''
-    precursors, all_materials = materials_extraction(mat_results)
-    amount_dict, precursors_dict = amount_compiler(amounts, all_materials, precursors)
+    precursors, targets, all_materials = materials_extraction(mat_results)
+    amount_dict, precursors_dict, targets_dict = amount_compiler(amounts, all_materials, precursors, targets)
     heating_operations = heating_operation_extraction(graphs)
-    data = data_compilation(dois, paras, amount_dict, precursors_dict, heating_operations)
+    data = data_compilation(dois, paras, amount_dict, precursors_dict, targets_dict, heating_operations)
     return data
 

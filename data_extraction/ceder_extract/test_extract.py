@@ -17,7 +17,7 @@ if __name__ == '__main__':
     
     # result = ext.extract_materials(paras)
 
-    # current_path = os.getcwd()
+    current_path = os.getcwd()
     current_path_2 = '/home/ptoka/MRes_project/data_extraction/ceder_extract'
     paras, dois = ext.paragraph_reader('para_hits.txt', current_path_2)
 
@@ -35,8 +35,32 @@ if __name__ == '__main__':
 
     with open('data_hits.json', 'w') as f:
         json.dump(data, f, indent=4,sort_keys=True,ensure_ascii=False)
+
+    # current_path_2 = '/home/ptoka/MRes_project/data_extraction/ceder_extract'
+    # paras, dois = ext.paragraph_reader('para_10_sample.txt', current_path_2)
+
+    # with open('results_10_sample.json', 'r') as f:
+    #     result = json.load(f)
+    
+    # with open('material_amounts_10_sample.json', 'r') as f:
+    #     amounts = json.load(f)
+
+    # with open('graphs_10_sample.json', 'r') as f:
+    #     graphs = json.load(f)
+
+        
+    # data = ext.data_extractor(dois, paras, result, amounts, graphs)
+
+    # with open('data_10_sample.json', 'w') as f:
+    #     json.dump(data, f, indent=4,sort_keys=True,ensure_ascii=False)
     
     
+    # operations, graphs = ext.extract_operations(result)
+    # with open('operations_hits.json', 'w') as f:
+    #     json.dump(operations, f, indent=4,sort_keys=True,ensure_ascii=False)
+    
+    # with open('graphs_hits.json', 'w') as f:
+    #     json.dump(graphs, f, indent=4,sort_keys=True,ensure_ascii=False)
     # heating_operations = ext.heating_operation_extraction(graphs)
     # print(len(heating_operations))
     # print(heating_operations)
