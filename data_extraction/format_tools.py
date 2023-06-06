@@ -99,40 +99,45 @@ class AnnotateConverter:
                 materials.append(para_data['text'][label['start_offset']:label['end_offset']])
             if label['label'] == 'target':
                 targets.append(para_data['text'][label['start_offset']:label['end_offset']])
-        materials.append(precursors)
-        materials.append(targets)
+        materials.extend(precursors)
+        materials.extend(targets)
         return list(set(precursors)), list(set(targets)), list(set(materials))
     
     def extract_time_temp(self, para_data):
         time = []
         temp = []
         for label in para_data['entities']:
-            if label['label'] == 'time':
+            if label['label'] == 'rxn time':
                 time.append(para_data['text'][label['start_offset']:label['end_offset']])
-            if label['label'] == 'temp':
+            if label['label'] == 'rxn temp':
                 temp.append(para_data['text'][label['start_offset']:label['end_offset']])
         return list(set(time)), list(set(temp))
     
     def temp_converter(self, temp):
-        all_temp = []
+        all_temp = {}
         for t in temp:
             temp_dict = {}
-            temp_dict['values'] = [t.split(' ')[0]]
-            temp_dict['units'] = [t.split(' ')[1]]
-            all_temp.append(temp_dict)
+            temp_dict['values'] = t.split(' ')[0]
+            temp_dict['units'] = t.split(' ')[1]
+            all_temp.update(temp_dict)
         return all_temp
     
     def time_converter(self, time):
-        all_time = []
+        all_time = {}
         for t in time:
             time_dict = {}
             try:
-                time_dict['values'] = [t.split(' ')[0]]
-                time_dict['units'] = [t.split(' ')[1]]
-            except ValueError:
+                time_dict['values'] = t.split(' ')[0]
+                time_dict['units'] = t.split(' ')[1]
+            except (ValueError, IndexError):
                 time_dict['values'] = [t]
-                time_dict['units'] = ['']
-            all_time.append(time_dict)
+                time_dict['units'] = ''
+            all_time.update(time_dict)
+        if len(all_time) > 2:
+            time_values = []
+            for time in all_time:
+                time_values.append(time['values'])
+            all_time = {'values':time_values, 'units':time_dict['units']}
         return all_time
     
     def extract_amounts(self, para_data):
@@ -144,7 +149,7 @@ class AnnotateConverter:
                 if label['id'] == relation['from_id']:
                     amount = para_data['text'][label['start_offset']:label['end_offset']]
             mat_amount.append([mat, amount])
-        return mat_amount
+        return (mat_amount)
     
     def mat_amount_compile(self, mat_amount, materials):
         all_materials = []
