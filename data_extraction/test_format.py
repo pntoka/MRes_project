@@ -1,5 +1,6 @@
 import format_tools as ft
 import os
+import json
 
 if __name__ == '__main__':
     # file_path = '/home/ptoka/MRes_project/data_extraction/ceder_extract/para_10_sample.txt'
@@ -14,24 +15,9 @@ if __name__ == '__main__':
     path = '/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/annotations'
     file = 'ceder_10_sample.jsonl'
     convert = ft.AnnotateConverter(path)
-    data = convert.read_jsonl(file)
-    # print(data[3])
-    pre, tar, mat = convert.extract_pre_tar_mat(data[1])
-    print(pre)
-    print(tar)
-    print(mat)
-    time, temp  = convert.extract_time_temp(data[3])
-    time = convert.time_converter(time)
-    temp = convert.temp_converter(temp)
-    mat_amount = convert.extract_amounts(data[1])
-    all_materials = convert.mat_amount_compile(mat_amount, mat)
-    pre_dict, tar_dict = convert.pre_tar_compile(pre, tar, all_materials)
-    # print(mat_amount)
-    # print(all_materials)
-    # print(pre_dict)
-    # print(tar_dict)
-    print(convert.compile(temp, time, pre_dict, tar_dict, all_materials, data[0]))
-    # print(convert.data_compiler(file))
+    data = convert.data_compiler(file)
+    with open(os.path.join(path, 'ceder_10_sample.json'), 'w') as f:
+        json.dump(data, f, indent=4, sort_keys=True, ensure_ascii=False)
 
     
 
