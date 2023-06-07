@@ -26,7 +26,7 @@ def txt_to_jsonl(file_path, save_dir):
     txt file format: doi:paragraph on each line
     output jsonl file format: {doi:doi, text:paragraph, label:''}
     '''
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         paras = []
         dois = []
         for line in f:
