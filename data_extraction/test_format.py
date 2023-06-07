@@ -12,11 +12,13 @@ if __name__ == '__main__':
     # jsonl = os.path.join(path, 'para_10_sample.jsonl')
     # ft.toks_pred_jsonl(toks, preds, jsonl, save_dir)
 
-    path = '/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/annotations'
+    # path = '/Users/pnt17/Library/CloudStorage/OneDrive-ImperialCollegeLondon/MRes_project_data/annotations'
+    path = r'C:\Users\Piotr\OneDrive - Imperial College London\MRes_project_data\annotations'
     file = 'ceder_10_sample.jsonl'
     convert = ft.AnnotateConverter(path)
+
     data = convert.data_compiler(file)
-    with open(os.path.join(path, 'ceder_10_sample.json'), 'w') as f:
+    with open(os.path.join(path, 'ceder_10_sample.json'), 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=4, sort_keys=True, ensure_ascii=False)
 
     

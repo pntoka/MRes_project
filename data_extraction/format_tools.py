@@ -117,27 +117,41 @@ class AnnotateConverter:
         all_temp = {}
         for t in temp:
             temp_dict = {}
-            temp_dict['values'] = t.split(' ')[0]
+            temp_dict['values'] = [t.split(' ')[0]]
             temp_dict['units'] = t.split(' ')[1]
             all_temp.update(temp_dict)
         return all_temp
     
     def time_converter(self, time):
         all_time = {}
+        if len(time) > 1:
+            all_time = []
+            for t in time:
+                time_dict = {}
+                try:
+                    time_dict['values'] = t.split(' ')[0]
+                    time_dict['units'] = t.split(' ')[1]
+                except (ValueError, IndexError):
+                    time_dict['values'] = t
+                    time_dict['units'] = ''
+                all_time.append(time_dict)
+            all_time_dict = {'values':[t['values'] for t in all_time], 'units':all_time[0]['units']}
+            return all_time_dict
         for t in time:
             time_dict = {}
             try:
-                time_dict['values'] = t.split(' ')[0]
+                time_dict['values'] = [t.split(' ')[0]]
                 time_dict['units'] = t.split(' ')[1]
             except (ValueError, IndexError):
                 time_dict['values'] = [t]
                 time_dict['units'] = ''
             all_time.update(time_dict)
-        if len(all_time) > 2:
-            time_values = []
-            for time in all_time:
-                time_values.append(time['values'])
-            all_time = {'values':time_values, 'units':time_dict['units']}
+        # print(all_time)
+        # if len(all_time) > 2:
+        #     time_values = []
+        #     for time in all_time:
+        #         time_values.append(time['values'])
+        #     all_time = {'values':time_values, 'units':time_dict['units']}
         return all_time
     
     def extract_amounts(self, para_data):
