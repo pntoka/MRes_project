@@ -95,9 +95,9 @@ class AnnotateConverter:
         for label in para_data['entities']:
             if label['label'] == 'precursor':
                 precursors.append(para_data['text'][label['start_offset']:label['end_offset']])
-            if label['label'] == 'material':
+            elif label['label'] == 'material':
                 materials.append(para_data['text'][label['start_offset']:label['end_offset']])
-            if label['label'] == 'target':
+            elif label['label'] == 'target':
                 targets.append(para_data['text'][label['start_offset']:label['end_offset']])
         materials.extend(precursors)
         materials.extend(targets)
@@ -109,7 +109,7 @@ class AnnotateConverter:
         for label in para_data['entities']:
             if label['label'] == 'rxn time':
                 time.append(para_data['text'][label['start_offset']:label['end_offset']])
-            if label['label'] == 'rxn temp':
+            elif label['label'] == 'rxn temp':
                 temp.append(para_data['text'][label['start_offset']:label['end_offset']])
         return list(set(time)), list(set(temp))
     
@@ -146,17 +146,17 @@ class AnnotateConverter:
             for label in para_data['entities']:
                 if label['id'] == relation['to_id']:
                     mat = para_data['text'][label['start_offset']:label['end_offset']]
-                if label['id'] == relation['from_id']:
+                elif label['id'] == relation['from_id']:
                     amount = para_data['text'][label['start_offset']:label['end_offset']]
             mat_amount.append([mat, amount])
         return (mat_amount)
     
     def mat_amount_compile(self, mat_amount, materials):
-        all_materials = []
+        all_materials = []    #change this to dict
         for material in materials:
             for mat in mat_amount:
                 if material == mat[0]:
-                    all_materials.append({mat[0]:mat[1].split(' ')})
+                    all_materials.append({mat[0]:mat[1].split(' ')}) 
         for material in materials:
             if material not in [mat[0] for mat in mat_amount]:
                 all_materials.append({material:''})
