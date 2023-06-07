@@ -132,7 +132,7 @@ class AnnotateConverter:
                     time_dict['values'] = round(int(t.split(' ')[0]),1)
                     time_dict['units'] = t.split(' ')[1]
                 except (ValueError, IndexError):
-                    time_dict['values'] = t
+                    time_dict['values'] = round(int(t),1)
                     time_dict['units'] = ''
                 all_time.append(time_dict)
             all_time_dict = {'values':[t['values'] for t in all_time], 'units':all_time[0]['units']}
