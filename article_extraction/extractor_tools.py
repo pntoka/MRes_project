@@ -3,6 +3,7 @@ Package containing helper functions for article extraction such as removing tags
 '''
 
 import json
+import os
 
 def remove_tags_soup_list(soup_list, rules):
     '''
@@ -53,5 +54,5 @@ def create_json_data(doi, sections, title, save_dir, keywords = None):
     data['Title'] = title
     data['Sections']= sections
     doi = doi.replace('.txt','.json')
-    with open(save_dir+doi, 'w', encoding='utf-8') as f:
+    with open(os.path.join(save_dir,doi), 'w', encoding='utf-8') as f:
         json.dump(data, f, sort_keys = True, indent=4, ensure_ascii=False)

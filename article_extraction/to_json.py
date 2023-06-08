@@ -9,6 +9,7 @@ import section_extractor
 from LimeSoup import (ElsevierSoup, RSCSoup)
 import json
 from bs4 import BeautifulSoup
+import os
 
 def ACS_to_json(soup, doi, save_dir):
     '''
@@ -92,22 +93,22 @@ def RSC_to_json(path, doi, save_dir):
     '''
     Function to extract paragraphs from RSC html journals using LimeSoup parser and save as json file
     '''
-    with open(path+doi, 'r', encoding='utf-8') as f:
+    with open(os.path.join(path,doi), 'r', encoding='utf-8') as f:
         html_str = f.read()
     data = RSCSoup.parse(html_str)
-    with open(save_dir+doi.replace('.txt', '.json'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(save_dir,doi.replace('.txt', '.json')), 'w', encoding='utf-8') as f:
         json.dump(data, f, sort_keys=True, indent=4, ensure_ascii=False)
 
 def Elsevier_to_json(path, doi, save_dir):
     '''
     Function to extract paragraphs from Elsevier xml journals using LimeSoup parser and save as json file
     '''
-    with open(path+doi, 'r', encoding='utf-8') as f:
+    with open(os.path.join(path,doi), 'r', encoding='utf-8') as f:
         xml_str = f.read()
     doc = BeautifulSoup(xml_str, 'xml')
     if len(doc.find_all('rawtext')) == 0:
         data = ElsevierSoup.parse(xml_str)
-        with open(save_dir+doi.replace('.txt', '.json'), 'w', encoding='utf-8') as f:
+        with open(os.path.join(save_dir,doi.replace('.txt', '.json')), 'w', encoding='utf-8') as f:
             json.dump(data, f, sort_keys=True, indent=4, ensure_ascii=False)
 
 def article_extractor(doi, path, save_dir):
@@ -117,7 +118,7 @@ def article_extractor(doi, path, save_dir):
     pub_prefix = {"RSC": "10.1039", "ACS": "10.1021", "Nature":"10.1038", "Science":"10.1126", "Frontiers":"10.3389", "MDPI":"10.3390", "Wiley": "10.1002", "Springer":"10.1007", "TandF":"10.1080", "Elsevier":"10.1016"}
     prefix = doi[:7]
 
-    with open(path+doi, 'r', encoding='utf-8') as f:
+    with open(os.path.join(path,doi), 'r', encoding='utf-8') as f:
         html_xml_str = f.read()
     soup = BeautifulSoup(html_xml_str, 'html.parser')
     
