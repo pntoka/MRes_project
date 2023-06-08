@@ -115,10 +115,41 @@ class AnnotateConverter:
     
     def temp_converter(self, temp):
         all_temp = {}
+        if len(temp) > 1:
+            all_temp = []
+            for t in temp:
+                temp_dict = {}
+                try:
+                    temp_dict['values'] = round(int(t.split(' ')[0]),1)
+                    temp_dict['units'] = t.split(' ')[1]
+                except (ValueError, IndexError):
+                    temp_dict['units'] = ''
+                try:
+                    temp_dict['values'] = round(int(t.split('°C')[0]),1)
+                    temp_dict['units'] = '°C'
+                except (ValueError, IndexError):
+                    temp_dict['values'] = round(int(t),1)
+                    temp_dict['units'] = ''
+                all_temp.append(temp_dict)
+            unit = ''
+            for item in all_temp:
+                if item['units'] != '':
+                    unit = item['units']
+            all_temp_dict = {'values':[t['values'] for t in all_temp], 'units':unit}
+            return all_temp_dict
         for t in temp:
             temp_dict = {}
-            temp_dict['values'] = [round(int(t.split(' ')[0]),1)]
-            temp_dict['units'] = t.split(' ')[1]
+            try:
+                temp_dict['values'] = [round(int(t.split(' ')[0]),1)]
+                temp_dict['units'] = t.split(' ')[1]
+            except (ValueError, IndexError):
+                temp_dict['units'] = ''
+            try:
+                temp_dict['values'] = [round(int(t.split('°C')[0]),1)]
+                temp_dict['units'] = '°C'
+            except (ValueError, IndexError):
+                temp_dict['values'] = [round(int(t),1)]
+                temp_dict['units'] = ''
             all_temp.update(temp_dict)
         return all_temp
     
@@ -135,7 +166,11 @@ class AnnotateConverter:
                     time_dict['values'] = round(int(t),1)
                     time_dict['units'] = ''
                 all_time.append(time_dict)
-            all_time_dict = {'values':[t['values'] for t in all_time], 'units':all_time[0]['units']}
+            unit = ''
+            for item in all_time:
+                if item['units'] != '':
+                    unit = item['units']
+            all_time_dict = {'values':[t['values'] for t in all_time], 'units':unit}
             return all_time_dict
         for t in time:
             time_dict = {}
