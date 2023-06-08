@@ -10,6 +10,7 @@ from LimeSoup import (ElsevierSoup, RSCSoup)
 import json
 from bs4 import BeautifulSoup
 import os
+import logging
 
 def ACS_to_json(soup, doi, save_dir):
     '''
@@ -111,38 +112,92 @@ def Elsevier_to_json(path, doi, save_dir):
         with open(os.path.join(save_dir,doi.replace('.txt', '.json')), 'w', encoding='utf-8') as f:
             json.dump(data, f, sort_keys=True, indent=4, ensure_ascii=False)
 
-def article_extractor(doi, path, save_dir):
+def setup_logger(name, log_file, level=logging.INFO):
+    '''
+    Function to set up logger
+    '''
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    handler = logging.FileHandler(log_file)
+    handler.setLevel(level)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    return logger
+
+def article_extractor(doi, path, save_dir, log_save_dir):
     '''
     Function to extract paragraphs from given html/xml file and save as json file based on publisher
     '''
     pub_prefix = {"RSC": "10.1039", "ACS": "10.1021", "Nature":"10.1038", "Science":"10.1126", "Frontiers":"10.3389", "MDPI":"10.3390", "Wiley": "10.1002", "Springer":"10.1007", "TandF":"10.1080", "Elsevier":"10.1016"}
     prefix = doi[:7]
+    log = setup_logger('log', log_save_dir)
 
     with open(os.path.join(path,doi), 'r', encoding='utf-8') as f:
         html_xml_str = f.read()
     soup = BeautifulSoup(html_xml_str, 'html.parser')
     
     if prefix == pub_prefix['ACS']:
-        ACS_to_json(soup, doi, save_dir)
+        try:
+            ACS_to_json(soup, doi, save_dir)
+        except(AttributeError):
+            print('Error with file: ', doi)
+            log.info('Error with file: %s', doi)
     elif prefix == pub_prefix['Wiley']:
         if html_xml_str.startswith('<html class'):
-            Wiley_html_to_json(soup, doi, save_dir)
+            try:
+                Wiley_html_to_json(soup, doi, save_dir)
+            except(AttributeError):
+                print('Error with file: ', doi)
+                log.info('Error with file: %s', doi) 
         if html_xml_str.startswith('<component xmlns'):
-            soup = BeautifulSoup(html_xml_str, 'xml')
-            Wiley_to_json(soup, doi, save_dir)
+            try:
+                soup = BeautifulSoup(html_xml_str, 'xml')
+                Wiley_to_json(soup, doi, save_dir)
+            except(AttributeError):
+                print('Error with file: ', doi)
+                log.info('Error with file: %s', doi)
     elif prefix == pub_prefix['Springer']:
-        Springer_Nature_to_json(soup, doi, save_dir)
+        try:
+            Springer_Nature_to_json(soup, doi, save_dir)
+        except(AttributeError):
+            print('Error with file: ', doi)
+            log.info('Error with file: %s', doi)
     elif prefix == pub_prefix['Nature']:
-        Springer_Nature_to_json(soup, doi, save_dir)
+        try:
+            Springer_Nature_to_json(soup, doi, save_dir)
+        except(AttributeError):
+            print('Error with file: ', doi)
+            log.info('Error with file: %s', doi)
     elif prefix == pub_prefix['Frontiers']:
-        Frontiers_to_json(soup, doi, save_dir)
+        try:
+            Frontiers_to_json(soup, doi, save_dir)
+        except(AttributeError):
+            print('Error with file: ', doi)
+            log.info('Error with file: %s', doi)
     elif prefix == pub_prefix['TandF']:
-        TandF_to_json(soup, doi, save_dir)
+        try:    
+            TandF_to_json(soup, doi, save_dir)
+        except(AttributeError):
+            print('Error with file: ', doi)
+            log.info('Error with file: %s', doi)
     elif prefix == pub_prefix['MDPI']:
-        MDPI_to_json(soup, doi, save_dir)
+        try:
+            MDPI_to_json(soup, doi, save_dir)
+        except(AttributeError):
+            print('Error with file: ', doi)
+            log.info('Error with file: %s', doi)    
     elif prefix == pub_prefix['RSC']:
-        RSC_to_json(path, doi, save_dir)
+        try:
+            RSC_to_json(path, doi, save_dir)
+        except(AttributeError, StopIteration):
+            print('Error with file: ', doi)
+            log.info('Error with file: %s', doi)
     elif prefix == pub_prefix['Elsevier']:
-        Elsevier_to_json(path, doi, save_dir)
+        try:
+            Elsevier_to_json(path, doi, save_dir)
+        except(AttributeError):
+            print('Error with file: ', doi)
+            log.info('Error with file: %s', doi)
     else:
         print('Journal not recognised')
