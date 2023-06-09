@@ -127,51 +127,51 @@ def article_extractor(doi, path, save_dir):
     if prefix == pub_prefix['ACS']:
         try:
             ACS_to_json(soup, doi, save_dir)
-        except(AttributeError):
+        except(AttributeError, IndexError):
             print('Error with file: ', doi)
             
     elif prefix == pub_prefix['Wiley']:
         if html_xml_str.startswith('<html class'):
             try:
                 Wiley_html_to_json(soup, doi, save_dir)
-            except(AttributeError):
+            except(AttributeError, IndexError):
                 print('Error with file: ', doi)
                  
         if html_xml_str.startswith('<component xmlns'):
             try:
                 soup = BeautifulSoup(html_xml_str, 'xml')
                 Wiley_to_json(soup, doi, save_dir)
-            except(AttributeError):
+            except(AttributeError, IndexError):
                 print('Error with file: ', doi)
                 
     elif prefix == pub_prefix['Springer']:
         try:
             Springer_Nature_to_json(soup, doi, save_dir)
-        except(AttributeError):
+        except(AttributeError, IndexError):
             print('Error with file: ', doi)
             
     elif prefix == pub_prefix['Nature']:
         try:
             Springer_Nature_to_json(soup, doi, save_dir)
-        except(AttributeError):
+        except(AttributeError, IndexError):
             print('Error with file: ', doi)
             
     elif prefix == pub_prefix['Frontiers']:
         try:
             Frontiers_to_json(soup, doi, save_dir)
-        except(AttributeError):
+        except(AttributeError, IndexError):
             print('Error with file: ', doi)
             
     elif prefix == pub_prefix['TandF']:
         try:    
             TandF_to_json(soup, doi, save_dir)
-        except(AttributeError):
+        except(AttributeError, IndexError):
             print('Error with file: ', doi)
             
     elif prefix == pub_prefix['MDPI']:
         try:
             MDPI_to_json(soup, doi, save_dir)
-        except(AttributeError):
+        except(AttributeError, IndexError):
             print('Error with file: ', doi)
                 
     elif prefix == pub_prefix['RSC']:
