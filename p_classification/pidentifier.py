@@ -153,7 +153,11 @@ def get_synthesis_methods(path):
         if file.endswith('.json'):
             # print(file)        # uncomment to see which files are being processed
             data = get_data(os.path.join(path, file))
-            paragraphs = synthesis_methods(data)
+            try:
+                paragraphs = synthesis_methods(data)
+            except(IndexError, TypeError):
+                continue
+            # paragraphs = synthesis_methods(data)
             doi = data['DOI']
             row = {'DOI': doi, 'paragraphs': paragraphs}
             new_df = pd.DataFrame([row])
