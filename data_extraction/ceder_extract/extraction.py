@@ -17,6 +17,22 @@ def extract_materials(paras):
     result = model_new.mat_recognize(paras)
     return result
 
+def mat_model():
+    '''
+    Loads the materials entity recognition model.
+    '''
+    model_new = MatRecognition()
+    return model_new
+
+def model_mat_recognize(paras, model):
+    '''
+    Extracts materials from a list of paragraphs using a preloaded model.
+    :param paras: list of paragraphs
+    :param model: materials entity recognition model
+    '''
+    result = model.mat_recognize(paras)
+    return result
+
 def extract_materials_amounts(mat_results):
     '''
     Extracts materials and amounts from a list of paragraphs.
@@ -34,6 +50,50 @@ def extract_materials_amounts(mat_results):
             material_amounts.append(m_m.final_result())
         paragraphs_amounts.append(material_amounts)
     return paragraphs_amounts
+
+def extract_materials_amounts_batch(mat_result):
+    '''
+    Extracts materials and amounts from a paragraph. To be used with multiprocessing!
+    '''
+    material_amounts = []
+    for element in mat_result:
+        sentence = element['sentence']
+        materials = []
+        for material in element['all_materials']:
+            materials.append(material['text'])
+        m_m = get_materials_amounts.GetMaterialsAmounts(sentence, materials)
+        material_amounts.append(m_m.final_result())
+    return material_amounts
+
+def oe_gb():
+    '''
+    Loads the operations extractor and graph builder.
+    '''
+    oe = OperationsExtractor()
+    gb = GraphBuilder()
+    return oe, gb
+
+def extract_operations_batch(mat_results, oe, gb):
+    '''
+    Extracts operations and builds graphs from a list of paragraphs using preloaded operations extractor and graph builder.
+    :param paras: list of paragraphs
+    :param oe: operations extractor
+    :param gb: graph builder
+    '''
+    operations = []
+    graphs = []
+    for result in mat_results:
+        para_operations = []
+        para_graphs = []
+        for sentence in result:
+            sent_toks = [tok['text'] for tok in sentence['tokens']]
+            labels = oe.get_operations_labels(sent_toks)
+            para_operations.append(dict(labels=labels, sentence=sentence['sentence']))
+            graph = gb.build_graph(sent_toks,labels)
+            para_graphs.append(graph)
+        operations.append(para_operations)
+        graphs.append(para_graphs)
+    return operations, graphs
 
 def extract_operations(mat_results):
     '''
