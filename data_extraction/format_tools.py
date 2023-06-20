@@ -1,6 +1,7 @@
 import json
 import os
 import jsonlines
+import chemdataextractor as CDE
 
 def txt_to_json(file_path, save_dir):
     '''
@@ -71,6 +72,9 @@ def toks_pred_jsonl(toks, preds, jsonl,  save_dir):
             f.write(json.dumps(item)+'\n')
 
 class AnnotateConverter:
+    '''
+    Class to convert annotations to format similar to ceder extract
+    '''
     def __init__(self, path):
         self.path = path
 
@@ -238,3 +242,82 @@ class AnnotateConverter:
             precursors_dict, targets_dict = self.pre_tar_compile(precursors, targets, all_materials)
             data.append(self.compile(self.temp_converter(temp), self.time_converter(time), precursors_dict, targets_dict, all_materials, para_data))
         return data
+    
+def tokenize(input_paras):
+    all_paras = []
+    for para in input_paras:
+        CDE_para = CDE.doc.Paragraph(para)
+        if len(CDE_para) > 0:
+            para_sent = []
+            for sent in CDE_para:
+                input_sent = {
+                    'tokens': [
+                        {
+                            'text': token.text,
+                            'start': token.start,
+                            'end': token.end,
+                        } for token in sent.tokens
+                    ]
+                }
+                para_sent.append(input_sent)
+            all_paras.append(para_sent)
+    return all_paras
+
+def merge_labels(labels):
+    merged_labels = []
+    current_label = None
+
+    for label in labels:
+        if current_label is None or label[2] != current_label[2] or label[0] > current_label[1] + 1:
+            current_label = label
+            merged_labels.append(label)
+        else:
+            current_label[1] = label[1]
+    
+    return merged_labels
+
+def pred_jsonl_labeled(preds_jsonl, save_name, save_dir):
+    paras = []
+    with jsonlines.open(os.path.join(save_dir,preds_jsonl), 'r') as f:
+        for line in f:
+            paras.append(line)
+    for para in paras:
+        para['label'] = merge_labels(para['label'])
+    with open(os.path.join(save_dir,save_name), 'w') as f:
+        for item in paras:
+            f.write(json.dumps(item)+'\n')
+
+
+def toks_pred_jsonl_2(toks, preds, jsonl, save_dir):
+    '''
+    Function to convert predictions to jsonl file with labels merged
+    Toks: list of tokenized paragraphs from mat entity recognition
+    Preds: list of predictions from olivetti token classifier
+    output jsonl file format: {doi:doi, text:paragraph, label:label}
+    '''
+    with open(toks, 'r') as f:
+        toks = json.load(f)
+    with open(preds, 'r') as f:
+        preds = json.load(f)
+    
+    all_para = []
+    for i, para in enumerate(toks):
+        para_labels = []
+        for j, sent in enumerate(para):
+            for k, label in enumerate(preds[i][j]):
+                if label != 'null':
+                    para_labels.append([sent['tokens'][k]['start'], sent['tokens'][k]['end'], label])
+        all_para.append(para_labels)
+
+    paras = []
+    with jsonlines.open(jsonl, 'r') as f:
+        for i, line in enumerate(f):
+            line['label'] = all_para[i]
+            paras.append(line)
+    
+    for para in paras:
+        para['label'] = merge_labels(para['label'])
+
+    with open(save_dir, 'w') as f:
+        for item in paras:
+            f.write(json.dumps(item)+'\n')
