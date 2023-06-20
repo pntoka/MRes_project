@@ -263,6 +263,25 @@ def tokenize(input_paras):
             all_paras.append(para_sent)
     return all_paras
 
+def tokenize_txt(file_path, save_dir, tokens = False):
+    paras = []
+    with open(file_path, 'r') as f:
+        for line in f:
+            paras.append(line.split(':',1)[1].strip())
+    all_tokens = tokenize(paras)
+    if tokens:
+        return all_tokens
+    all_paras = []
+    for para in all_tokens:
+        para_toks = []
+        for sentence in para:
+            sent_toks = [token['text'] for token in sentence['tokens']]
+            para_toks.append(sent_toks)
+        all_paras.append(para_toks)
+    with open(save_dir, 'w') as f:
+        json.dump(all_paras, f, indent=4,sort_keys=True,ensure_ascii=False)
+
+
 def merge_labels(labels):
     merged_labels = []
     current_label = None
@@ -288,9 +307,9 @@ def pred_jsonl_labeled(preds_jsonl, save_name, save_dir):
             f.write(json.dumps(item)+'\n')
 
 
-def toks_pred_jsonl_2(toks, preds, jsonl, save_dir):
+def toks_pred_jsonl_2(toks, preds, jsonl, save_dir, text = False):
     '''
-    Function to convert predictions to jsonl file with labels merged
+    Function to convert predictions to jsonl file with labels merged, if text = True, text is added to labels
     Toks: list of tokenized paragraphs from mat entity recognition
     Preds: list of predictions from olivetti token classifier
     output jsonl file format: {doi:doi, text:paragraph, label:label}
@@ -317,6 +336,11 @@ def toks_pred_jsonl_2(toks, preds, jsonl, save_dir):
     
     for para in paras:
         para['label'] = merge_labels(para['label'])
+    
+    if text:
+        for para in paras:
+            for label in para['label']:
+                label.append(para['text'][label[0]:label[1]])
 
     with open(save_dir, 'w') as f:
         for item in paras:
