@@ -168,6 +168,30 @@ def extract_content(data):
 
     return text_content
 
+def get_results(data):
+    '''
+    Function to extract results from 
+    '''
+    section_names = get_section_names(data)
+    section_name = section_selector_2(section_names)    # select section containing results
+    if section_name is None:
+        return None
+    if content_checker(data, section_name) == True:   # check if section contains subsections
+        subsection_names = get_subsection_names(data, section_name)
+        subsection_name = subsection_selector_2(subsection_names)   # select subsection containing synthesis methods
+        if subsection_name is None:
+            for element in data['Sections']:
+                if element['name'] == section_name:
+                    results = extract_content(element)
+                    return results
+        elif subsection_name is not None:
+            for element in data['Sections']:
+                if element['name'] == section_name:
+                    for subelement in element['content']:
+                        if subelement['name'] == subsection_name:
+                            results = extract_content(subelement)
+                            return results
+
 def synthesis_methods(data):
     '''
     Function to extract synthesis methods from json files

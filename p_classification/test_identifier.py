@@ -10,9 +10,9 @@ if __name__ == '__main__':
     name = pid.section_selector_2(section_names)
     # print(name)
     sub_names = pid.get_subsection_names(data, name)
-    # print(sub_names)
+    print(sub_names)
     sub_name = pid.subsection_selector_2(sub_names)
-    # print(sub_name)
+    print(sub_name)
     for element in data['Sections']:
         if element['name'] == name:
             test = element
@@ -20,8 +20,8 @@ if __name__ == '__main__':
     # print(content)
     # print(test.values()[0])
     # print(len(test.values()))
-    text_content = []
-    content = pid.extract_content(test)
-    print(len(content))
-    for element in content:
-        print(element[:100])
+    # text_content = []
+    # content = pid.extract_content(test)
+    # print(len(content))
+    # for element in content:
+    #     print(element[:100])
