@@ -65,6 +65,15 @@ def section_selector(section_names):
             section_name = section
             return section_name
 
+def section_selector_2(section_names):
+    '''
+    Function to select section containing results and discussion based on keyword matching
+    '''
+    keywords = ['results', 'discussion', 'results and discussion', 'results & discussion', 'results and discussions', 'results & discussions']
+    for section in section_names:
+        if any(keyword.lower() in section.lower() for keyword in keywords):
+            section_name = section
+            return section_name
 
 def subsection_selector(subsection_names):
     '''
@@ -84,6 +93,19 @@ def subsection_selector(subsection_names):
             if any(keyword.lower() in name.lower() for keyword in keywords_2):
                 subsection_name = name
                 return subsection_name
+            
+def subsection_selector_2(subsection_names):
+    '''
+    Function to select subsection of results containing QY info based on keyword matching
+    '''
+    keywords = ['QY', 'quantum yield', 'quantum yields', 'quantum efficiency']
+    names = []
+    for subsection in subsection_names:
+        if any(keyword.lower() in subsection.lower() for keyword in keywords):
+            names.append(subsection)
+    if len(names) == 1:
+        subsection_name = names[0]
+        return subsection_name
 
 def get_section_content(data, section_name):
     '''
@@ -121,6 +143,30 @@ def content_checker(data, section_name):
             elif type(element['content'][0]) == str:
                 return False   # section does not contain subsections
 
+
+def extract_content(data):
+    '''
+    Function that returns all paragraphs from a section containing subsections as a list
+    '''
+    text_content = []
+    
+    if isinstance(data,dict):
+        if 'content' in data:
+            content = data['content']
+            if isinstance(content, list) and all(isinstance(item, str) for item in content):
+                text_content.extend(content)
+        if 'content' in data:
+            for value in data['content']:
+                result = extract_content(value)
+                if result:
+                    text_content.extend(result)
+    elif isinstance(data, list):
+        for item in data:
+            result = extract_content(item)
+            if result:
+                text_content.extend(result)
+
+    return text_content
 
 def synthesis_methods(data):
     '''
