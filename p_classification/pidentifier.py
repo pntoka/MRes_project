@@ -4,6 +4,7 @@ import json
 import pandas as pd
 import numpy as np
 import unicodedata
+import shutil
 
 
 def get_data(path):
@@ -168,7 +169,7 @@ def extract_content(data):
 
     return text_content
 
-def get_results(data):
+def results(data):
     '''
     Function to extract results from 
     '''
@@ -191,6 +192,22 @@ def get_results(data):
                         if subelement['name'] == subsection_name:
                             results = extract_content(subelement)
                             return results
+
+def get_results(path, dois):
+    '''
+    Function to extract results from json files given a path and doi list
+    '''
+    p_results = pd.DataFrame(columns=['DOI','results'])
+    for doi in dois:
+        doi = doi.replace(doi[7],'-',1)
+        data = get_data(os.path.join(path, doi+'.json'))
+        results = results(data)
+        doi_save = data['DOI']
+        row = {'DOI': doi_save, 'paragraphs': results}
+        new_df = pd.DataFrame([row])
+        p_results = pd.concat([p_results, new_df], axis=0, ignore_index=True)
+    return p_results
+        
 
 def synthesis_methods(data):
     '''
@@ -330,3 +347,10 @@ def txt_to_csv(path, filename, filename2='p_dataset.csv'):
             df = pd.concat([df, new_df], axis=0, ignore_index=True)
     
     df.to_csv(os.path.join(path, filename2), index=False, encoding='utf-8')
+
+def copy_files(source_dir, destination_dir):
+        for root, dirs, files in os.walk(source_dir):
+            for file in files:
+                source_path = os.path.join(root, file)
+                destination_path = os.path.join(destination_dir, file)
+                shutil.copy2(source_path, destination_path)
