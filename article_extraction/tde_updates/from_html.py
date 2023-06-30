@@ -31,6 +31,8 @@ def makearray(html_table):
     """
     n_cols = 0
     n_rows = 0
+    if html_table.find('tfoot'):
+        html_table.find('tfoot').extract()
 
     for row in html_table.findAll("tr"):
         col_tags = row.find_all(["td", "th"])
@@ -92,7 +94,7 @@ def makearray(html_table):
                     col_counter += 1
 
                 # get cell contents
-                cell_data = col.get_text()
+                cell_data = col.get_text(strip=True)
 
                 # insert data into cell
                 array[row_counter, col_counter] = cell_data
@@ -176,7 +178,7 @@ def makearray_xml(xml_table):
                 while skip_index[col_counter] > 0:
                     col_counter += 1
 
-                cell_data = col.get_text()
+                cell_data = col.get_text(strip=True)
 
                 array[row_counter, col_counter] = cell_data
 
@@ -210,10 +212,18 @@ def read_file(file_path, table_number=1):
         array = makearray_xml(xml_table)
         return array
     else:
-        html_soup = BeautifulSoup(file, features='lxml')
+        html_soup = BeautifulSoup(doc, features='lxml')
         file.close()
         html_table = html_soup.find_all("table")[table_number-1]
         array = makearray(html_table)
+        return array
+    
+def read_soup_obj(soup_obj):
+    if soup_obj.find('tgroup'):
+        array = makearray_xml(soup_obj)
+        return array
+    else:
+        array = makearray(soup_obj)
         return array
 
 

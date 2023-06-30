@@ -10,6 +10,7 @@ from tabledataextractor.input import from_html
 from tabledataextractor.input import from_csv
 from tabledataextractor.input import from_list
 import logging
+import bs4
 
 log = logging.getLogger(__name__)
 
@@ -52,7 +53,7 @@ def html_txt(name):
         return True
     else:
         return False
-
+    
 
 def csv(name):
     """
@@ -88,6 +89,10 @@ def create_table(name_key, table_number=1):
                   'Supported are: path to .html or .cvs file, URL or multidimensional python list object'
             log.critical(msg)
             raise TypeError(msg, str(name_key))
+    
+    elif isinstance(name_key, bs4.element.Tag):
+        log.info("Input is bs4.element.Tag type.")
+        return from_html.read_soup_obj(name_key)
 
     elif url(name_key):
         log.info("Url: {}".format(name_key))
