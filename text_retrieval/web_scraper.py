@@ -90,6 +90,9 @@ class FullTextDownloader:
             if link is not None:
                 link = re.sub('pdf/', '', link)
                 return link  #html link
+            else:
+                link = 'https://pubs.acs.org/doi/10.1021/'+doi[9:] #html link
+                return
             
         elif prefix == self.pub_prefix['Wiley']:
             part  = 'onlinelibrary.wiley.com/doi/full-xml'
