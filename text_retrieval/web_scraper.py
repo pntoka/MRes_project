@@ -38,6 +38,32 @@ class FullTextDownloader:
         links = re.findall(r"(?<=\<).+?(?=\>)",r.info()['Link']) #finds links that are between < and >
         return links
     
+    def abstract_downloader(self, doi, save_dir):
+        '''
+        Function to download abstracts from Scopus using API
+        '''
+        if not os.path.exists(save_dir):
+            print(
+                f"{save_dir} directory does not exists.\nCreating directory {save_dir}"
+            )
+            os.makedirs(save_dir)
+        abstract_url = 'https://api.elsevier.com/content/abstract/doi/'+ doi
+        try:
+            headers = {
+                'Accept': 'text/xml',
+                'X-ELS-APIKey': self.api_key
+            }
+            r = requests.get(abstract_url, stream= True, headers=headers, timeout=30)
+            if r.status_code == 200:
+                with open(os.path.join(save_dir, doi.replace('/', '-') + '.txt'), 'wb') as f:
+                    f.write(r.content)
+                return True
+            else:
+                print('Error: ', r.status_code, f'for {doi}')
+                return False
+        except:
+            return False
+    
 
     def downloadElsevier(self, doi, save_dir):
         if not os.path.exists(save_dir):
