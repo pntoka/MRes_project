@@ -16,10 +16,11 @@ if __name__ == '__main__':
         'graphene quantum dot', 'Graphene quantum dot', 'GQDs', 'GQD', 'Carbon nanodots', 'carbon nanodots', 'carbon nanodot',
         'CPDs', 'CPD', 'carbon polymer dots', 'Carbon polymer dots', 'carbon polymer dot', 'Carbon polymer dot', 'carbon quantum dots',
         'carbon quantum dot', 'Carbon quantum dots', 'Carbon quantum dot', 'CQDs', 'CQD', 'carbon nanoparticles', 'Carbon nanoparticles',
+        'carbon-dots', 'Carbon-dots', 'CNDs', 'CND'
 
     ]
     mat_keywords = [
-        'CDs', 'CD', 'carbon dots', 'GQD', 'GQDs'
+        'CDs', 'CD', 'carbon dots', 'GQD', 'GQDs', 'CNDs', 'CND'
     ]
     # doi = '10.1002/cssc.201700474'
     # for entry in data:
