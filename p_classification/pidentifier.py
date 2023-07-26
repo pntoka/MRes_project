@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import unicodedata
 import shutil
+from tqdm import tqdm
 
 
 def get_data(path):
@@ -70,7 +71,7 @@ def section_selector_2(section_names):
     '''
     Function to select section containing results and discussion based on keyword matching
     '''
-    keywords = ['results', 'discussion', 'results and discussion', 'results & discussion', 'results and discussions', 'results & discussions']
+    keywords = ['results', 'results and discussion', 'results & discussion', 'results and discussions', 'results & discussions', 'result']
     for section in section_names:
         if any(keyword.lower() in section.lower() for keyword in keywords):
             section_name = section
@@ -107,6 +108,8 @@ def subsection_selector_2(subsection_names):
     if len(names) == 1:
         subsection_name = names[0]
         return subsection_name
+    else:
+        return None
 
 def get_section_content(data, section_name):
     '''
@@ -169,9 +172,9 @@ def extract_content(data):
 
     return text_content
 
-def results(data):
+def extract_results(data):
     '''
-    Function to extract results from 
+    Function to extract results from json file
     '''
     section_names = get_section_names(data)
     section_name = section_selector_2(section_names)    # select section containing results
@@ -179,7 +182,7 @@ def results(data):
         return None
     if content_checker(data, section_name) == True:   # check if section contains subsections
         subsection_names = get_subsection_names(data, section_name)
-        subsection_name = subsection_selector_2(subsection_names)   # select subsection containing synthesis methods
+        subsection_name = subsection_selector_2(subsection_names)   # select subsection containing QY information
         if subsection_name is None:
             for element in data['Sections']:
                 if element['name'] == section_name:
@@ -192,22 +195,56 @@ def results(data):
                         if subelement['name'] == subsection_name:
                             results = extract_content(subelement)
                             return results
+    elif content_checker(data, section_name) == False:
+        for element in data['Sections']:
+            if element['name'] == section_name:
+                results = extract_content(element)
+                if type(element['content'][0]) == str:
+                    extra_content = []
+                    for para in element['content']:
+                        if type(para) == str:
+                            extra_content.append(para)
+                        if type(para) == dict:
+                            break
+                    extra_content.extend(results)
+                    return extra_content
+                return results
+    
 
 def get_results(path, dois):
     '''
     Function to extract results from json files given a path and doi list
     '''
-    p_results = pd.DataFrame(columns=['DOI','results'])
+    p_results = pd.DataFrame(columns=['DOI','paragraphs'])
     for doi in dois:
         doi = doi.replace(doi[7],'-',1)
         data = get_data(os.path.join(path, doi+'.json'))
-        results = results(data)
+        results = extract_results(data)
         doi_save = data['DOI']
         row = {'DOI': doi_save, 'paragraphs': results}
         new_df = pd.DataFrame([row])
         p_results = pd.concat([p_results, new_df], axis=0, ignore_index=True)
     return p_results
         
+def select_QY_paragraphs(paragraphs_list):
+    '''
+    Function to select paragraphs containing QY information
+    '''
+    if paragraphs_list is None:
+        return None
+    QY_paragraphs = []
+    for paragraph in paragraphs_list:
+        if 'QY' in paragraph or 'quantum yield' in paragraph or 'quantum efficiency' in paragraph:
+            QY_paragraphs.append(paragraph)
+    return QY_paragraphs
+
+def QY_paragraphs_df(p_results):
+    '''
+    Function to select paragraphs containing QY information from dataframe
+    '''
+    tqdm.pandas()
+    p_results['QY_paragraphs'] = p_results['paragraphs'].apply(select_QY_paragraphs)
+    return p_results
 
 def synthesis_methods(data):
     '''
@@ -279,6 +316,24 @@ def write_paragraphs_df_to_txt(df, path, filename):
                     paragraphs = dict_to_str(row.paragraphs)
                     count = 0
                     for paragraph in paragraphs:
+                        f.write(row.DOI+f'_no_{count}' +': '+ paragraph.replace('\n', ' ')  +'\n')
+                        count += 1
+
+def QY_df_to_txt(df, path, filename):
+    ''''
+    Function to write QY paragraphs from dataframe to txt file with each line containing DOI and paragraph
+    Multiple paragraphs from each DOI are split into separate lines with DOI+'no_'+count as DOI
+    '''
+    with open (os.path.join(path, filename), 'w', encoding='utf-8') as f:
+        for row in df.itertuples(index=False):
+            if not row.QY_paragraphs:
+                continue
+            elif row.QY_paragraphs is not None:
+                if type(row.QY_paragraphs[0]) == str and len(row.QY_paragraphs) == 1:
+                    f.write(row.DOI +': '+ row.QY_paragraphs[0].replace('\n', ' ') +'\n')
+                elif type(row.QY_paragraphs[0]) == str and len(row.QY_paragraphs) != 1:
+                    count = 0                                                   #adds counter for paragraphs with same DOI
+                    for paragraph in row.QY_paragraphs:
                         f.write(row.DOI+f'_no_{count}' +': '+ paragraph.replace('\n', ' ')  +'\n')
                         count += 1
 
