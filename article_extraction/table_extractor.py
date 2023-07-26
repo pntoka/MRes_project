@@ -70,7 +70,7 @@ def table_filter(tables):
     for element in tables:
         try:
             table = Table(element)
-        except(TypeError):
+        except:
             continue
 
         for keyword in qy_keywords:
@@ -81,7 +81,7 @@ def table_filter(tables):
     
 
 def find_ref_col(df):
-    ref_keywords = ['Reference','reference','ref', 'Ref', 'REF']
+    ref_keywords = ['Reference','reference','ref', 'Ref', 'Ref.','REF']
     for col in df.columns:
         if any(keyword in col for keyword in ref_keywords):
             return col
