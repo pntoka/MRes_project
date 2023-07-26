@@ -172,6 +172,12 @@ def extract_content(data):
 
     return text_content
 
+def check_if_dict(element_list):
+    for element in element_list:
+        if type(element) == dict:
+            return True
+    return False
+
 def extract_results(data):
     '''
     Function to extract results from json file
@@ -199,7 +205,7 @@ def extract_results(data):
         for element in data['Sections']:
             if element['name'] == section_name:
                 results = extract_content(element)
-                if type(element['content'][0]) == str:
+                if type(element['content'][0]) == str and check_if_dict(element['content']) == True:
                     extra_content = []
                     for para in element['content']:
                         if type(para) == str:
@@ -242,7 +248,6 @@ def QY_paragraphs_df(p_results):
     '''
     Function to select paragraphs containing QY information from dataframe
     '''
-    tqdm.pandas()
     p_results['QY_paragraphs'] = p_results['paragraphs'].apply(select_QY_paragraphs)
     return p_results
 
