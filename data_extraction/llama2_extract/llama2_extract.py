@@ -9,7 +9,8 @@ callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 llm = LlamaCpp(
     model_path="/home/ptoka/llama-2-13b-chat.ggmlv3.q2_K.bin",
     input={"temperature": 0.4, "max_length": 2000, "top_p": 1},
-    n_ctx = 1024
+    n_ctx = 1024,
+    n_threads = 10
     # callback_manager=callback_manager
     # verbose=True,
 )
@@ -59,10 +60,10 @@ def llama_temp_extract(para):
     Function to extract temperature from a paragraph using Llama-2
     '''
     system_prompt = """You are an expert in materials chemistry called Extractor and are extracting data from fragments of scientific texts. You are interested in extracting the temperatures at which the autoclave was heated in the process described in the text.
-    A user will pass in a fragment of text and you will have to return the temperature values and units of the process in the autoclave as a comma separated list. Do not include temperature values of processes not carried out in an autoclave.
+    A User will pass in a fragment of text and you will have to return the temperature values and units of the process in the autoclave as a comma separated list. Do not include temperature values of processes not carried out in an autoclave.
     ONLY return the temperature and units in a comma separated list and nothing more. If there is only one relevant temperature value than return just that one. Do not add any explanation of the units. Do not reply with additional conversational text such as "Sure! I can do that".
     
-    Here are some examples of previous interactions between you and the user:
+    Here are some examples of previous interactions between you and the User:
 
     User: Extract the autoclave temperatures as a comma separated list from the following text: The hydrothermal reactor was kept at 200 °C for 8 h and then cooled to room temperature at atmospheric pressure.
     Extractor: 200 °C
@@ -87,10 +88,10 @@ def llama_time_extract(para):
     Function to extract time from a paragraph using Llama-2
     '''
     system_prompt= """You are an expert in materials chemistry called Extractor and are extracting data from fragments of scientific texts. You are interested in extracting the time for which the autoclave was kept at a high temperature in the process described in the text.
-    A user will pass in a fragment of text and you will have to return the time values and units of the process in the autoclave as a comma separated list. Do not include time values of any processes that are not carried out in an autoclave or ramp times. Do not include any information about temperature.
+    A User will pass in a fragment of text and you will have to return the time values and units of the process in the autoclave as a comma separated list. Do not include time values of any processes that are not carried out in an autoclave or ramp times. Do not include any information about temperature.
     ONLY return the time and units in a comma separated list and nothing more. If there is only one relevant time value than return just that one. Do not add any explanation of the units. Do not reply with additional conversational text such as "Sure! I can do that".
     
-    Here are some examples of previous interactions between you and the user:
+    Here are some examples of previous interactions between you and the User:
     
     User: Extract the time of the process in the autoclave as a comma separated list from the following text: The hydrothermal reactor was kept at 200 °C for 8 h and then cooled to room temperature at atmospheric pressure.
     Extractor: 8 h

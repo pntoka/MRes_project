@@ -111,7 +111,7 @@ def gpt_extract_precursors(para):
         {"input": "Fluorescent SNCDs were prepared by the solvothermal treatment of p-phenylenediamine and cysteamine hydrochloride", "output": "p-phenylenediamine; cysteamine hydrochloride"},
         {"input": "The N,S-CDs were synthesized by adding 0.0639 g of thiourea, 0.1513 g of urea, and 0.1646 g of sodium citrate into 30 mL of distilled water.", "output":"thiourea; urea; sodium citrate"}
     ]
-    template = """You are a materials chemist expert and are extracting information from fragments of scientific texts which are paragraphs describing a synthetic process of a material or compound. You are interested in extracting the chemical names of the precursors or substrates used in the synthesis process.
+    template = """You are an expert materials chemisty and are extracting information from fragments of scientific texts which are paragraphs describing a synthetic process of a material or compound. You are interested in extracting the chemical names of the precursors or substrates used in the synthesis process.
     A user will pass in a fragment of text and you will have to return the chemical names of the precursors or substrates as a semicolon separated list. Do not include the names of the solvents used or the form of the compound such as powder or solution. Do not include the names of the target products.
     ONLY return the precursor chemical names in a semicolon separated list and nothing more.
     """
@@ -137,7 +137,7 @@ def gpt_extract_targets(para):
         {"input":"The N,S-CDs were synthesized by adding 0.0639 g of thiourea, 0.1513 g of urea, and 0.1646 g of sodium citrate into 30 mL of distilled water.", "output": "N,S-CDs"},
         {"input":"CDs were synthesized using a one-step hydrothermal method.", "output": "CDs"}
     ]
-    template = """You are a an expert in materials chemistry and are extracting information from fragments of scientific texts which are paragraphs describing a synthetic process pf a target material or product. You are interested in extracting the chemical names of the target products of the synthesis process being described in the text.
+    template = """You are an expert in materials chemistry and are extracting information from fragments of scientific texts which are paragraphs describing a synthetic process pf a target material or product. You are interested in extracting the chemical names of the target products of the synthesis process being described in the text.
     A user will pass in a fragment of text and you will have to return the chemical names of the targets or products as a semicolon separated list. Do not include the name of precursors used or the form of the compound such as powder or solution. Do not include the names of the solvents used.
     ONLY return the target product chemical names in a semicolon separated list and nothing more.
     """
