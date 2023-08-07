@@ -137,7 +137,7 @@ def gpt_extract_targets(para):
         {"input":"The N,S-CDs were synthesized by adding 0.0639 g of thiourea, 0.1513 g of urea, and 0.1646 g of sodium citrate into 30 mL of distilled water.", "output": "N,S-CDs"},
         {"input":"CDs were synthesized using a one-step hydrothermal method.", "output": "CDs"}
     ]
-    template = """You are an expert in materials chemistry and are extracting information from fragments of scientific texts which are paragraphs describing a synthetic process pf a target material or product. You are interested in extracting the chemical names of the target products of the synthesis process being described in the text.
+    template = """You are an expert in materials chemistry and are extracting information from fragments of scientific texts which are paragraphs describing a synthetic process of a target material or product. You are interested in extracting the chemical names of the target products of the synthesis process being described in the text.
     A user will pass in a fragment of text and you will have to return the chemical names of the targets or products as a semicolon separated list. Do not include the name of precursors used or the form of the compound such as powder or solution. Do not include the names of the solvents used.
     ONLY return the target product chemical names in a semicolon separated list and nothing more.
     """
@@ -190,6 +190,52 @@ def gpt_extract_synth(file_dir, save_dir):
     with open(os.path.join(save_dir), 'w') as f:
         json.dump(synth_dict_all, f, indent=4, sort_keys=True, ensure_ascii=False)
     return synth_dict_all
+
+def QY_output_parser(output):
+    if output == ['No value']:
+        QY_dict = {'QY':{'values':[], 'units':[]}}
+        return QY_dict
+    values = []
+    units = []
+    for val in output:
+        try:
+            values.append(float(val.split('%')[0]))
+            units.append('%')
+        except:
+            continue
+    units = list(set(units))
+    QY_dict = {'QY':{'values':values, 'units':units}}
+    return QY_dict
+
+def gpt_extract_QY(para):
+    ''''
+    Function to extract QY values from a paragraph using ChatGPT API
+    '''
+    examples_QY = [
+        {"input": "could be passivated to achieve high quantum yield (44%)", "output": "44%"},
+        {"input": "the PLQY value decreases from 97.4% to 80.6%", "output": "97.4%, 80.6%"},
+        {"input": "The fluorescent quantum yields were thus calculated to be 19.3% and 24.1% using quinine sulfate as a reference.", "output": "19.3%, 24.1%"},
+        {"input": "The QY of the as-prepared CDs was 0.34", "output": "0.34"},
+        {"input": "The value of the QY increased significantly.", "output": "No value"}
+    ]
+    template = """You are an expert in chemistry and are extracting information from fragments of scientific text which are paragraphs discussing results. You are interested in extracting the values of the quantum yield (QY), also known as PLQY, reported in the text.
+    A user will pass in a fragment of text and you will have to return the values of the quantum yield reported in the text as a comma separated list. Do not include the quantum yield value of the reference or standard material.
+    ONLY return the quantum yield values in a comma separated list and nothing more. If there is no value of the quantum yield in the fragment of text respond by saying 'No value'.
+    """
+    system_prompt = SystemMessagePromptTemplate.from_template(template)
+    human_prompt = "{input}"
+    example_prompt = HumanMessagePromptTemplate.from_template("{input}") + AIMessagePromptTemplate.from_template("{output}")
+    few_shot_prompt = FewShotChatMessagePromptTemplate(example_prompt=example_prompt, examples = examples_QY)
+    final_prompt = (system_prompt + few_shot_prompt + human_prompt)
+    chain = LLMChain(
+    llm = ChatOpenAI(),
+    prompt = final_prompt,
+    output_parser = CommaSeparatedListOutputParser()
+    )
+    result = chain.run({'input':para})
+    QY_dict = QY_output_parser(result)
+    return QY_dict
+
 
 
 
