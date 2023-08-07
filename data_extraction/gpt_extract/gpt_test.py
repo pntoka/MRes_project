@@ -8,6 +8,6 @@ if __name__ == '__main__':
 
     # result = ge.gpt_extract_targets(text_2)
     # print(result)
-    file_dir = '/home/ptoka/para_10_sample.txt'
-    save_dir = '/home/ptoka/gpt_synth_10_sample.json'
+    file_dir = '/home/ptoka/para_30_sample.txt'
+    save_dir = '/home/ptoka/gpt_synth_30_sample.json'
     result = ge.gpt_extract_synth(file_dir, save_dir)

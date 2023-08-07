@@ -3,13 +3,15 @@ from langchain import PromptTemplate, LLMChain
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.schema import BaseOutputParser
+import json
+import os
 
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
 llm = LlamaCpp(
     model_path="/home/ptoka/llama-2-13b-chat.ggmlv3.q2_K.bin",
     input={"temperature": 0.4, "max_length": 2000, "top_p": 1},
-    n_ctx = 1024,
+    n_ctx = 2048,
     n_threads = 10
     # callback_manager=callback_manager
     # verbose=True,
@@ -34,7 +36,10 @@ def temp_time_output_parser(output):
     '''
     Function to parse temp extraction output from Llama-2
     '''
-    temps_str = output.split(':')[1]
+    try:
+        temps_str = output.split(':')[1]
+    except:
+        return None
     temp_values = list(map(str.strip, temps_str.split(',')))
     return temp_values
 
@@ -80,8 +85,11 @@ def llama_temp_extract(para):
     llm_chain = LLMChain(prompt=prompt, llm=llm)
     result = llm_chain.run(input=para)
     temp_list = temp_time_output_parser(result)
+    if temp_list == None:
+        temp_dict = {'temp_values': {'values': [], 'units': []}}
+        return temp_dict, result
     temp_dict = temp_time_parser(temp_list, 'temp')
-    return temp_dict
+    return temp_dict, result
 
 def llama_time_extract(para):
     '''
@@ -108,7 +116,44 @@ def llama_time_extract(para):
     llm_chain = LLMChain(prompt=prompt, llm=llm)
     result = llm_chain.run(input=para)
     time_list = temp_time_output_parser(result)
+    if time_list == None:
+        time_dict = {'time_values': {'values': [], 'units': []}}
+        return time_dict, result
     time_dict = temp_time_parser(time_list, 'time')
-    return time_dict
+    return time_dict, result
+
+def file_reader(file_dir):
+    '''
+    Function to read a a file containg paragraphs and return doi and paragraph text
+    '''
+    with open(file_dir, 'r') as f:
+        paras = []
+        dois = []
+        for line in f:
+            paras.append(line.split(':',1)[1].strip())
+            dois.append(line.split(':',1)[0])
+    return dois, paras
+
+
+def llama_temp_time_extract(file_dir, save_dir):
+    '''
+    Function to extract temperature and time from a file using Llama-2
+    '''
+    dois, paras = file_reader(file_dir)
+    synth_dict_all = []
+    for i in range(len(paras)):
+        synth_dict = {}
+        temp_dict, temp_result = llama_temp_extract(paras[i])
+        time_dict, time_result = llama_time_extract(paras[i])
+        synth_dict['DOI'] = dois[i]
+        synth_dict.update(temp_dict)
+        synth_dict.update(time_dict)
+        synth_dict['temp_result'] = temp_result
+        synth_dict['time_result'] = time_result
+        synth_dict_all.append(synth_dict)
+    with open(os.path.join(save_dir), 'w') as f:
+        json.dump(synth_dict_all, f, indent=4, sort_keys=True, ensure_ascii=False)
+    return synth_dict_all
+    
 
 

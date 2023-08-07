@@ -2,6 +2,8 @@ import os
 from tabledataextractor import Table
 from bs4 import BeautifulSoup
 import pandas as pd
+import json
+import re
 
 def get_file(doi, path):
     '''
@@ -31,6 +33,8 @@ def get_tables_RSC(soup):
     for tag in soup.find_all('div', class_ = 'image_table'):
         tag.extract()
     tables = soup.find_all('table')
+    if tables == None:
+        return None
     return tables
 
 def get_tables_generic(soup):
@@ -38,10 +42,14 @@ def get_tables_generic(soup):
     Function to get list of tables from file of ACS, Elsevier, Wiley
     '''
     tables = soup.find_all('table')
+    if tables == None:
+        return None
     return tables
 
-def get_tables_springer_nature(soup, doi):
+def get_table_links_springer_nature(soup, doi):
     tables = soup.find_all('div', class_ = 'c-article-table')
+    if tables == None:
+        return None
     table_nums = [i for i in range(1, len(tables)+1)]
     table_links = []
     rest_of_doi = doi.split('/',1)[1]
@@ -63,6 +71,17 @@ def table_filter_springer_nature(tables_link):
                 table_list.append(table)
                 break
     return table_list
+
+def get_tables_springer_nature(table_links):
+    tables = []
+    for link in table_links:
+        try:
+            table = Table(link)
+            tables.append(table)
+        except:
+            continue
+        
+    return tables
 
 def table_filter(tables):
     qy_keywords = ['QY', 'Quantum Yield', 'qauntum yield', 'QY(%)', 'QY (%)']
@@ -111,5 +130,56 @@ def data_extract(tables):
             if this_work != None:
                 QY_values.extend(df.loc[df[ref_col] == this_work, QY_col].values)
         elif ref_col == None:
-            QY_values.extend(df[QY_col].values)
+            try:
+                QY_values.extend(df[QY_col].values)
+            except:
+                continue
     return QY_values
+
+def get_tables(doi,path):
+    soup = get_soup(doi, path)
+    if doi.startswith('10.1039'):
+        tables = get_tables_RSC(soup)
+        if tables == None:
+            return None
+    elif doi.startswith('10.1007') or doi.startswith('10.1038'):
+        tables_link = get_table_links_springer_nature(soup, doi)
+        if tables_link != None:
+            tables = get_tables_springer_nature(tables_link)
+        else:
+            return None
+    else:
+        tables = get_tables_generic(soup)
+        if tables == None:
+            return None
+    return tables
+
+def extract_QY(dois, path, save_dir):
+    doi_QY_dict = []
+    pattern =  r"_no_\d+$"
+    for i, doi in enumerate(dois):
+        print(f'{i+1}/{len(dois)}')
+        doi_2 = doi
+        if re.search(pattern, doi):
+            doi = doi.replace(re.search(pattern, doi).group(), '')
+        doi_dict = {}
+        tables = get_tables(doi,path)
+        if tables == None:
+            doi_dict['DOI'] = doi_2
+            doi_dict['QY'] = []
+            doi_QY_dict.append(doi_dict)
+            continue
+        tables_filtered = table_filter(tables)
+        if not tables_filtered:
+            doi_dict['DOI'] = doi_2
+            doi_dict['QY'] = []
+            doi_QY_dict.append(doi_dict)
+            continue
+        QY_values = data_extract(tables_filtered)
+        doi_dict['DOI'] = doi_2
+        doi_dict['QY'] = QY_values
+        doi_QY_dict.append(doi_dict)
+    with open(save_dir, 'w') as f:
+        json.dump(doi_QY_dict, f, indent=4, sort_keys=True, ensure_ascii=False)
+
+        
