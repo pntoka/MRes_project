@@ -1,7 +1,7 @@
 import json
 import os
 import jsonlines
-import chemdataextractor as CDE
+# import chemdataextractor as CDE
 
 def txt_to_json(file_path, save_dir):
     '''
@@ -345,3 +345,56 @@ def toks_pred_jsonl_2(toks, preds, jsonl, save_dir, text = False):
     with open(save_dir, 'w') as f:
         for item in paras:
             f.write(json.dumps(item)+'\n')
+
+class QY_annotate_converter:
+    '''
+    Class to convert QY annotations to regular format
+    '''
+    def __init__(self, path):
+        self.path = path
+
+    def read_jsonl(self, file):  
+        '''
+        Function to read in jsonl file
+        '''
+        data = []
+        with jsonlines.open(os.path.join(self.path,file), 'r') as f:
+            for line in f:
+                data.append(line)
+        return data
+    
+    def doi_fixer(self, doi):
+        return doi.replace(r'\\', '',1)
+    
+    def extract_QY_value(self, para_data):
+        QY = []
+        for label in para_data['entities']:
+            if label['label'] == 'QY':
+                QY.append(para_data['text'][label['start_offset']:label['end_offset']])
+        return list(set(QY))
+    
+    def QY_converter(self, QY_values):
+        all_QY ={ 'values':[], 'units':''}
+        if not QY_values:
+            return all_QY
+        for QY in QY_values:
+            try:
+                all_QY['values'].append(float(QY.split('%')[0]))
+                all_QY['units'] = '%'
+            except:
+                all_QY['values'].append(float(QY))
+                all_QY['units'] = ''
+        return all_QY
+    
+    def compile(self, QY, para_data):
+        data = {}
+        data['QY'] = QY
+        data['doi'] = self.doi_fixer(para_data['doi'])
+        return data
+    
+    def data_compiler(self,file):
+        data = []
+        for para_data in self.read_jsonl(file):
+            QY = self.extract_QY_value(para_data)
+            data.append(self.compile(self.QY_converter(QY), para_data))
+        return data
