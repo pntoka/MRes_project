@@ -236,6 +236,23 @@ def gpt_extract_QY(para):
     QY_dict = QY_output_parser(result)
     return QY_dict
 
+def gpt_extract_all_QY(file_dir, save_dir):
+    '''
+    Function to extract QY values from a file containing paragraphs using ChatGPT API
+    '''
+    dois, paras = file_reader(file_dir)
+    QY_dict_all = []
+    for i in tqdm.tqdm(range(len(paras)), desc = 'Extracting QY information'):
+        QY_dict = {}
+        para = paras[i]
+        doi = dois[i]
+        QY_dict = gpt_extract_QY(para)
+        QY_dict['DOI'] = doi
+        QY_dict_all.append(QY_dict)
+    with open(os.path.join(save_dir), 'w') as f:
+        json.dump(QY_dict_all, f, indent=4, sort_keys=True, ensure_ascii=False)
+    return QY_dict_all
+
 
 
 
