@@ -14,4 +14,4 @@ if __name__ == '__main__':
     # print(len(result))
     file_dir = '/home/ptoka/QY_test2.txt'
     save_dir = '/home/ptoka/QY_test2_extraction.json'
-    result = ge.gpt_extract_synth(file_dir, save_dir)
+    result = ge.gpt_extract_all_QY(file_dir, save_dir)
