@@ -11,6 +11,10 @@ This folder contains the code for article search to collect relevant DOIs
 
 This folder contains code to convert html/xml articles to json format as well as code to find and extract specific article sections
 
+### data_analysis
+
+This folder contains all notebooks with data analysis and extraction performance evaluation
+
 ### data_extraction
 
 This folder contains code for the scripts to extract data from text using a variety of text mining algorithms
