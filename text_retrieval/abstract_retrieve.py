@@ -6,7 +6,7 @@ import time
 
 if __name__ == '__main__':
     save_dir = '/home/ptoka/abstracts/'
-    my_api_key = "4c35b0bb7a3b3dd148b4561345bdf7d9"
+    my_api_key = ""
     downloader = web_scraper.FullTextDownloader(web_scraper.PUB_PREFIX, my_api_key)
     with open('/home/ptoka/extracted_dois.txt', 'r', encoding='utf-8') as file:
         dois = file.read().splitlines()
